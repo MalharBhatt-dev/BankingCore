@@ -13,20 +13,21 @@ class AccountRepository:
         DB_PATH = os.path.join(BASE_DIR, "database", "accounts.db")
 
         self.conn = sqlite3.connect(DB_PATH,check_same_thread=False)
+        self.conn.execute("PRAGMA foreign_key = ON")
         self.c = self.conn.cursor()
 
     def get_account(self,account_number):
-        self.c.execute("""select account_number,account_holder_name,balance,created_at
+        self.c.execute("""select account_number,account_holder_name,pin_hash,balance,created_at,failed_attempts,is_locked
                     from accounts 
                     where account_number = ?""",(account_number,))
         acc = self.c.fetchone()
         if acc is None:
             return None
-        return Account(acc[0],acc[1],acc[2],acc[3])
+        return Account(acc[0],acc[1],acc[2],acc[3],acc[4],acc[5],acc[6])
     
-    def insert_account(self,account_number,name,balance):
+    def insert_account(self,account_number,name, pin_hash ,balance):
         created_at = datetime.now().isoformat()
-        self.c.execute("""insert into accounts (account_number, account_holder_name, balance,created_at) values(? , ? , ? , ?)""",(account_number , name , balance , created_at))
+        self.c.execute("""insert into accounts (account_number, account_holder_name, pin_hash ,balance,created_at,failed_attempts,is_locked) values(? , ? , ? , ?, ?, 0, 0)""",(account_number , name , pin_hash , balance , created_at))
        
 
     def update_balance(self,account_number,new_balance):

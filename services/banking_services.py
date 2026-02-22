@@ -2,6 +2,7 @@ from exceptions.account_not_found_exception import AccountNotFoundException
 from exceptions.insufficient_balance_exception import InsufficientBalanceException
 from exceptions.invalid_account_name_exception import InvalidAccountNameException
 from exceptions.invalid_amount_exception import InvalidAmountException
+from exceptions.invalid_pin_creation import InvalidPinCreationException
 import re
 
 class BankingServices:
@@ -11,13 +12,15 @@ class BankingServices:
         self.repo=repository
 
 
-    def create_account(self,name,initial_deposit):
+    def create_account(self,name,pin,initial_deposit):
         #name validation
         if not name or not name.strip():
             raise InvalidAccountNameException('Name cannot be empty.')
         if not re.fullmatch(r"[A-Za-z ]+", name):
             raise InvalidAccountNameException('Name must only contain letters and spaces.')
         #deposit validation
+        if len(pin) != 4 or not pin.isdigit():
+            raise InvalidPinCreationException('Pin must be of 4 digits.')
         if initial_deposit<=0:
             raise InvalidAmountException('Initial Deposit should be greater than 0.')
         #generate account_number    
@@ -28,7 +31,7 @@ class BankingServices:
             new_account_number = last_account_number + 1 
         #inserting account
         try:
-            self.repo.insert_account(new_account_number,name,initial_deposit)
+            self.repo.insert_account(new_account_number,name,pin,initial_deposit)
             self.repo.insert_transaction(new_account_number,"INITIAL DEPOSIT",initial_deposit,initial_deposit)
             self.repo.commit()
         except Exception as e:
@@ -36,14 +39,13 @@ class BankingServices:
             raise e
         return new_account_number
     
-    def deposit(self,account_number,amount):
+    def deposit(self,account_number,pin,amount):
         account = self.repo.get_account(account_number)
     
         if not account:
             raise AccountNotFoundException('Account Not Found.')
         if amount <= 0:
             raise InvalidAmountException('Amount should be greater than 0.')
-        
         balance = account.balance
         new_balance = balance + amount
         
