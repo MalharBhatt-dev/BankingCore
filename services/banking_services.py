@@ -1,9 +1,12 @@
 from exceptions.account_not_found_exception import AccountNotFoundException
 from exceptions.account_is_locked_exception import AccountIsLockedException
+from exceptions.account_not_locked_exception import AccountNotLockedException
 from exceptions.insufficient_balance_exception import InsufficientBalanceException
 from exceptions.invalid_account_name_exception import InvalidAccountNameException
 from exceptions.invalid_amount_exception import InvalidAmountException
+from exceptions.invalid_admin_key_eception import InvalidAdminKeyException
 from exceptions.invalid_pin_exception import InvalidPINException
+import os
 import re
 import hashlib
 
@@ -12,6 +15,7 @@ class BankingServices:
     #! LOOSE COUPLING CONCEPT APPLIED IN __INIT__()↓
     def __init__(self,repository):
         self.repo=repository
+        self.admin_key = os.getenv("ADMIN_KEY")
 
 
     def create_account(self,name,pin,initial_deposit):
@@ -139,3 +143,14 @@ class BankingServices:
                 self.repo.update_security_state(account_number,failed_attempts=0,is_locked=0)
                 self.repo.commit()
             return account
+        
+    def unlock_account(self,account_number,provided_key):
+        if provided_key != self.admin_key:
+            raise InvalidAdminKeyException('Invalid Admin Key.')
+        account = self.repo.get_account(account_number)
+
+        if not account.is_locked:
+            raise AccountNotLockedException('Account is not locked.')
+        
+        self.repo.unlock_account(account_number)
+        return "Account unlocked successfully."

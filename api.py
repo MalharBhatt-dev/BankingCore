@@ -1,12 +1,17 @@
 from flask import Flask,request
+from dotenv import load_dotenv
 from repository.account_repository import AccountRepository
 from services.banking_services import BankingServices
 from exceptions.base_exception import BankingException
-
+import os
 app = Flask(__name__)
 
 repo = AccountRepository()
 service = BankingServices(repo)
+
+load_dotenv()
+
+ADMIN_KEY = os.getenv("ADMIN_KEY")
 
 @app.route("/")
 def home():
@@ -69,6 +74,12 @@ def get_transactions(account_number):
     return {"account_number":account_number,
             "transactions":result},200
 
+@app.route("/accounts/<int:account_number>/unlock",methods=["POST"])
+def unlock_account(account_number):
+    data = request.get_json()
+    provided_key = str(data.get("admin_key"))
+    account_status = service.unlock_account(account_number,provided_key)
+    return {"account_number":account_number,"message":account_status}
 
 @app.errorhandler(BankingException)
 def handle_banking_exceptions(error):

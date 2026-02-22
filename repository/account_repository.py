@@ -66,6 +66,12 @@ class AccountRepository:
         self.c.execute("""update accounts
                        set failed_attempts = ? , is_locked =?
                        where account_number = ?""",(failed_attempts,is_locked,account_number))
+        
+    def unlock_account(self,account_number):
+        self.c.execute("""update accounts
+                       set failed_attempts = 0 , is_locked = 0
+                       where account_number = ?""",(account_number,))
+
     def commit(self):
         self.conn.commit()
     
