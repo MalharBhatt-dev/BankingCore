@@ -22,8 +22,9 @@ if __name__ == "__main__":
         if choice == '1' :
             try :
                 name = input('Enter the name of the account holder :')
+                pin = input('Enter the pin number of the account :')
                 deposit = float(input('Enter the initial deposit :'))
-                account_number = service.create_account(name,deposit)
+                account_number = service.create_account(name,pin,deposit)
                 print('Your account is created successfully.!')
                 print('Account Number :',account_number)
             
@@ -35,8 +36,9 @@ if __name__ == "__main__":
         elif choice == '2':
             try :
                 account_number=int(input('Enter the account number :'))
+                pin = input('Enter the pin number of the account :')
                 deposit = float(input('Enter the deposit amount :'))
-                new_balance = service.deposit(account_number,deposit)
+                new_balance = service.deposit(account_number,pin,deposit)
                 print('Amount is deposited successfully.!')
                 print('Balance :',new_balance)
             
@@ -48,8 +50,9 @@ if __name__ == "__main__":
         elif choice == '3':
             try :
                 account_number=int(input('Enter the account number :'))
+                pin = input('Enter the pin number of the account :')
                 withdrawn = float(input('Enter the withdraw amount :'))
-                new_balance = service.withdraw(account_number,withdrawn)
+                new_balance = service.withdraw(account_number,pin,withdrawn)
                 print('Amount is withdrawn successfully.!')
                 print('Balance :',new_balance)
             
@@ -62,7 +65,8 @@ if __name__ == "__main__":
         elif choice == '4':
             try :
                 account_number=int(input('Enter the account number :'))
-                current_balance = service.view_balance(account_number)
+                pin = input('Enter the pin number of the account :')
+                current_balance = service.view_balance(account_number,pin)
                 print('Current Balance :',current_balance)
             
             except BankingException as e:
@@ -73,7 +77,8 @@ if __name__ == "__main__":
         elif choice == '5':
             try:
                 account_number=int(input('Enter the account number :'))
-                transactions = service.view_transactions(account_number)
+                pin = input('Enter the pin number of the account :')
+                transactions = service.view_transactions(account_number,pin)
                 if not transactions:
                     print('No transactions found.')
                     continue

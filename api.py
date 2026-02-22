@@ -17,40 +17,47 @@ def create_account():
     data = request.get_json()
     print("Incoming data..",data)
     name = data.get("name")
+    pin = data.get("pin")
     initial_deposit = data.get("initial_deposit")
-    account_number = service.create_account(name,initial_deposit)
+    account_number = service.create_account(name,pin,initial_deposit)
     return {"message":"Account created successfully!",
             "account_number" : account_number},201
 
-@app.route("/accounts/<int:account_number>",methods=["GET"])
+@app.route("/accounts/<int:account_number>",methods=["POST"])
 def get_balance(account_number):
-    balance = service.view_balance(account_number)
+    data = request.get_json()
+    pin = str(data.get("pin"))
+    balance = service.view_balance(account_number,pin)
     return{"account_number":account_number,
-           "Balance":balance},200
+           "balance":balance},200
 
 @app.route("/accounts/<int:account_number>/deposit",methods=["POST"])
 def deposit(account_number):
     data = request.get_json()
+    pin = str(data.get("pin"))
     amount = float(data.get("amount"))
-    new_balance = service.deposit(account_number,amount)
+    new_balance = service.deposit(account_number,pin,amount)
     return {"account_number":account_number,
-            "Balance":new_balance,
+            "new_balance":new_balance,
             "message":"Deposit successful"},200
 
 
 @app.route("/accounts/<int:account_number>/withdraw",methods=["POST"])
 def withdraw(account_number):
     data = request.get_json()
+    pin = str(data.get("pin"))
     amount = float(data.get("amount"))
-    new_balance = service.withdraw(account_number,amount)
+    new_balance = service.withdraw(account_number,pin,amount)
     return {"account_number":account_number,
-            "balance":new_balance,
+            "new_balance":new_balance,
             "message":"Withdraw successful"},200
 
 
-@app.route("/accounts/<int:account_number>/transactions",methods=["GET"])
+@app.route("/accounts/<int:account_number>/transactions",methods=["POST"])
 def get_transactions(account_number):
-    transactions = service.view_transactions(account_number)
+    data = request.get_json()
+    pin = str(data.get("pin"))
+    transactions = service.view_transactions(account_number,pin)
     result = []
     for txn in transactions:
         result.append({

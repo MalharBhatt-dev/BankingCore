@@ -12,9 +12,9 @@ c.execute("""CREATE TABLE IF NOT EXISTS accounts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     account_number INTEGER NOT NULL UNIQUE,
     account_holder_name TEXT NOT NULL,
+    pin_hash TEXT NOT NULL,
     balance REAL NOT NULL,
     created_at TEXT NOT NULL,
-    pin_hash TEXT NOT NULL,
     failed_attempts INTEGER DEFAULT 0,
     is_locked INTEGER DEFAULT 0
 );
@@ -26,6 +26,7 @@ c.execute("""
     account_number INTEGER NOT NULL,
     transaction_type TEXT NOT NULL,   
     amount REAL NOT NULL,
+    balance_after REAL not null,
     timestamp TEXT NOT NULL,
     FOREIGN KEY (account_number) REFERENCES accounts(account_number)
 );

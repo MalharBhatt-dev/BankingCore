@@ -26,8 +26,10 @@ class AccountRepository:
         return Account(acc[0],acc[1],acc[2],acc[3],acc[4],acc[5],acc[6])
     
     def insert_account(self,account_number,name, pin_hash ,balance):
-        created_at = datetime.now().isoformat()
-        self.c.execute("""insert into accounts (account_number, account_holder_name, pin_hash ,balance,created_at,failed_attempts,is_locked) values(? , ? , ? , ?, ?, 0, 0)""",(account_number , name , pin_hash , balance , created_at))
+        created_at = datetime.now().strftime("%D-%M-%Y %H:%M:%S")
+        failed_attempts = 0
+        is_locked = 0
+        self.c.execute("""insert into accounts (account_number, account_holder_name ,pin_hash,balance,created_at, failed_attempts,is_locked) values(? , ? , ? , ?, ?, ?, ?)""",(account_number , name , pin_hash , balance , created_at,failed_attempts,is_locked))
        
 
     def update_balance(self,account_number,new_balance):
@@ -41,7 +43,7 @@ class AccountRepository:
 #!                            → Foundation for atomic transactions ↓
     def insert_transaction(self,account_number,type,amount,balance_after):
         timestamp = datetime.now().isoformat()
-        self.c.execute("""insert into transactions (account_number,type,amount,balance_after,timestamp) values (?,?,?,?,?)""",(account_number,type,amount,balance_after,timestamp))
+        self.c.execute("""insert into transactions (account_number,transaction_type,amount,balance_after,timestamp) values (?,?,?,?,?)""",(account_number,type,amount,balance_after,timestamp))
     
     def get_last_account_number(self):
         self.c.execute("select max(account_number) from accounts")
@@ -60,6 +62,10 @@ class AccountRepository:
             transactions.append(txn)
         return transactions
     
+    def update_security_state(self,account_number,failed_attempts,is_locked):
+        self.c.execute("""update accounts
+                       set failed_attempts = ? , is_locked =?
+                       where account_number = ?""",(failed_attempts,is_locked,account_number))
     def commit(self):
         self.conn.commit()
     
@@ -68,6 +74,9 @@ class AccountRepository:
     
     def close(self):
         self.conn.close()
+
+# ac = AccountRepository()
+# ac.get_account(1001)
 
 #NOTE :
 #?What is Repository Responsible For?
