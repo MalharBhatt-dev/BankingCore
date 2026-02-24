@@ -1,5 +1,5 @@
 from flask import request,jsonify,g
-from app.auth import generate_token,login_required
+from app.auth import generate_access_token,generate_refresh_token,login_required,verify_token
 def register_routes(app):
     service = app.config["service"]
 
@@ -86,7 +86,32 @@ def register_routes(app):
         pin = data.get("pin")
         try :
             service.authenticate(account_number,pin)
-            token = generate_token(account_number)
-            return {"message":"login successful","token":token},200
+            access_token = generate_access_token(account_number)
+            refresh_token = generate_refresh_token(account_number)
+            return {"message":"login successful","access_token":access_token,"refresh_token":refresh_token},200
+        except Exception as e:
+            return {"error":str(e)},401
+        
+    @app.route("/auth/refresh",methods=["POST"])
+    def refresh():
+        auth_header = request.headers.get("Authorization")
+
+        if not auth_header :
+            return {"error":"Authorization header is missing."},401
+        
+        parts = auth_header.split(" ")
+
+        if len(parts)!=2 or parts[0] != "Bearer":
+            return {"error":"Invalid Authorization header format"},401
+        
+        token =  parts[1]
+        try :
+            payload = verify_token(token)
+
+            if payload.get("type") != "refresh":
+                return {"error":"Invalid refresh token"},401
+            
+            new_access_token = generate_access_token(payload["sub"])
+            return {"access_token":new_access_token},200
         except Exception as e:
             return {"error":str(e)},401
