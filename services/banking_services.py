@@ -13,9 +13,10 @@ import hashlib
 class BankingServices:
 
     #! LOOSE COUPLING CONCEPT APPLIED IN __INIT__()↓
-    def __init__(self,repository,admin_key):
+    def __init__(self,repository,admin_key,logger):
         self.repo=repository
         self.admin_key = admin_key
+        self.logger = logger
 
 
     def create_account(self,name,pin,initial_deposit):
@@ -72,6 +73,7 @@ class BankingServices:
                 self.repo.update_balance(account.account_number,new_balance)
                 self.repo.insert_transaction(account.account_number,"DEPOSIT",amount,new_balance)
                 self.repo.commit()
+                self.logger.info(f"Deposit of {amount} to account {account_number}.New balance: {new_balance}")
             except Exception as e:
                 self.repo.rollback()
                 raise e
@@ -94,6 +96,7 @@ class BankingServices:
                 self.repo.update_balance(account.account_number,new_balance)
                 self.repo.insert_transaction(account.account_number,"WITHDRAW",amount,new_balance)
                 self.repo.commit()
+                self.logger.info(f"Withdraw of {amount} to account {account_number}.New balance: {new_balance}")
             except Exception as e:
                 self.repo.rollback()
                 raise e
@@ -120,6 +123,7 @@ class BankingServices:
             raise AccountNotFoundException('Account Not Found.')
         #checking if account is_locked:
         if account.is_locked == 1:
+            self.logger.error(f"Account {account_number} is locked due to multiple failed attempts.")
             raise AccountIsLockedException('The account is locked.')
         
         pin_hash = hashlib.sha256(pin.encode()).hexdigest()
@@ -130,6 +134,7 @@ class BankingServices:
                 is_locked = 1
             self.repo.update_security_state(account_number,new_attempts,is_locked)
             self.repo.commit()
+            self.logger.warning(f"Failed PIN attempt for account {account_number}")
             #pin validation
             if not pin:
                 raise InvalidPINException(f"PIN is required. Attempts left :{3-new_attempts}")
@@ -146,6 +151,7 @@ class BankingServices:
         
     def unlock_account(self,account_number,provided_key):
         if provided_key != self.admin_key:
+            self.logger.warning(f"Failed Admin Key attempt for account {account_number}")
             raise InvalidAdminKeyException('Invalid Admin Key.')
         account = self.repo.get_account(account_number)
 
@@ -153,4 +159,5 @@ class BankingServices:
             raise AccountNotLockedException('Account is not locked.')
         
         self.repo.unlock_account(account_number)
+        self.logger.info(f"Account {account_number} is unlocked successful.")
         return "Account unlocked successfully."
