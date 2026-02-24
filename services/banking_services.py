@@ -132,12 +132,12 @@ class BankingServices:
             self.repo.commit()
             #pin validation
             if not pin:
-                raise InvalidPINException('PIN is required. Attempts left :',3-new_attempts)
+                raise InvalidPINException(f"PIN is required. Attempts left :{3-new_attempts}")
             if not pin.isdigit():
-                raise InvalidPINException('PIN must be in digits. Attempts left :',3-new_attempts)
+                raise InvalidPINException(f"PIN must be in digits. Attempts left :{3-new_attempts}")
             if len(pin) != 4:
-                raise InvalidPINException('Pin must be of 4 digits. Attempts left :',3-new_attempts)
-            raise InvalidPINException('Wrong Credentials. Attempts left :',3-new_attempts)
+                raise InvalidPINException(f"Pin must be of 4 digits. Attempts left :{3-new_attempts}")
+            raise InvalidPINException(f"Wrong Credentials. Attempts left :{3-new_attempts}")
         else :
             if account.failed_attempts > 0:
                 self.repo.update_security_state(account_number,failed_attempts=0,is_locked=0)

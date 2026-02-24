@@ -1,11 +1,13 @@
 from repository.account_repository import AccountRepository
 from services.banking_services import BankingServices
 from exceptions.base_exception import BankingException
+import os
 
 #! DEPENDENCY INJECTION IS ACHIEVED HERE↓
 if __name__ == "__main__":
+    admin_key  = os.getenv("ADMIN_KEY")
     repo = AccountRepository()
-    service = BankingServices(repo)
+    service = BankingServices(repo,admin_key)
 
     while True:
         print("\n===== BANKING SYSTEM =====")
@@ -14,7 +16,8 @@ if __name__ == "__main__":
         print("3. Withdraw")
         print("4. View Balance")
         print("5. View Transactions")
-        print("6. Exit")
+        print("6. Unlock Account")
+        print("7. Exit")
         print("=============================")
 
         choice = input("Enter your choice: ")
@@ -92,8 +95,17 @@ if __name__ == "__main__":
                 print("Error:", e)
             except Exception as e:
                 print('Unexpected system error :',e)
-        
         elif choice == '6':
+            try :
+                account_number=int(input('Enter the account number :'))
+                admin_pin = input('Enter theadmin  pin number of the account :')
+                account_number = service.unlock_account(account_number,admin_key)
+                print("Account unlocked successfully.")
+            except BankingException as e:
+                print("Error",e)
+            except Exception as e:
+                print("Error:",e)
+        elif choice == '7':
             print("Exiting system. Goodbye!")
             break
         
