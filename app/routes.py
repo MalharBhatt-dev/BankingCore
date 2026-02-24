@@ -9,7 +9,7 @@ def register_routes(app):
     
     @app.route("/accounts", methods=["POST"])
     def create_account():
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
         print("Incoming data..",data)
         name = data.get("name")
         pin = data.get("pin")
@@ -30,10 +30,12 @@ def register_routes(app):
     @app.route("/accounts/<int:account_number>/deposit",methods=["POST"])
     @login_required
     def deposit(account_number):
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
         amount = float(data.get("amount"))
         if g.account_number != account_number:
             return {"error":"Unauthorize access"},401
+        if amount is None:
+            return {"error":"Amount is required"},400
         new_balance = service.deposit(account_number,amount)
         return {"account_number":account_number,
                 "new_balance":new_balance,
@@ -42,10 +44,12 @@ def register_routes(app):
     @app.route("/accounts/<int:account_number>/withdraw",methods=["POST"])
     @login_required
     def withdraw(account_number):
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
         amount = float(data.get("amount"))
         if g.account_number != account_number:
             return {"error":"Unauthorize access"},401
+        if amount is None:
+            return {"error":"Amount is required"},400
         new_balance = service.withdraw(account_number,amount)
         return {"account_number":account_number,
                 "new_balance":new_balance,
@@ -70,14 +74,14 @@ def register_routes(app):
     
     @app.route("/accounts/<int:account_number>/unlock",methods=["POST"])
     def unlock_account(account_number):
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
         provided_key = str(data.get("admin_key"))
         account_status = service.unlock_account(account_number,provided_key)
         return {"account_number":account_number,"message":account_status}
     
     @app.route("/auth/login/",methods=["POST"])
     def login():
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
         account_number = data.get("account_number")
         pin = data.get("pin")
         try :

@@ -1,15 +1,22 @@
 import jwt
-from datetime import datetime,timezone,timedelta
 from app.config import Config
 from functools import wraps
 from flask import request,g
+from datetime import datetime,timezone,timedelta
+from exceptions.token_expired_exception import TokenExpiredException
+from exceptions.invalid_token_exception import InvalidTokenException
+from exceptions.unauthorized_exception import Unauthorized
 
 #! application context coupling:↓
 # from flask import current_app
 
 #generate_token
 def generate_token(account_number):
-    payload={"account_number":account_number,"exp":datetime.now(timezone.utc)+timedelta(minutes=30)}
+    payload={"sub":account_number,#subject
+             "role":"user",#role_ready
+             "iat":datetime.now(timezone.utc),#issued_at
+             "exp":datetime.now(timezone.utc)+timedelta(minutes=30)#expires_at
+             }
     token = jwt.encode(payload,Config.SECRET_KEY,algorithm="HS256")
     return token
 
@@ -19,9 +26,9 @@ def verify_token(token):
         payload = jwt.decode(token,Config.SECRET_KEY,algorithms=["HS256"])
         return payload
     except jwt.ExpiredSignatureError:
-        raise Exception("token expired")
+        raise TokenExpiredException("Token has expired.")
     except jwt.InvalidTokenError:
-        raise Exception("invalid token")
+        raise InvalidTokenException("Invalid authentication token.")
 
 #decorator
 def login_required(f):
@@ -31,17 +38,17 @@ def login_required(f):
        
         
         if not auth_header:
-            return {"error":"Authorization header is missing."},401
+            raise Unauthorized("Authorization header is missing.")
         
         try:
             parts = auth_header.split(" ")
             #!because i am using postman for api testing : header is "Bearer Token" or else in "Bearer" it will return error
             if len(parts)!=2 or parts[0] == "Bearer Token":
-                return{"error":"Invalid Authorization header format"},401
+                raise Unauthorized("Invalid Authorization header format.")
             
             token =  parts[1]
             payload = verify_token(token)
-            g.account_number = payload["account_number"]
+            g.account_number = payload["sub"]
         except Exception as e:
             return {"error":str(e)},401
         return f(*args,**kwargs)
