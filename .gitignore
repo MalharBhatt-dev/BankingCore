@@ -1,2 +1,16 @@
+#environments
 .env
 .env.*
+
+#pycache
+__pycache__/
+*.pyc
+
+#logs
+*.log
+
+#db
+*.db
+
+#virtual evn
+venv/

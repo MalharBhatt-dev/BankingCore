@@ -13,9 +13,9 @@ import hashlib
 class BankingServices:
 
     #! LOOSE COUPLING CONCEPT APPLIED IN __INIT__()↓
-    def __init__(self,repository):
+    def __init__(self,repository,admin_key):
         self.repo=repository
-        self.admin_key = os.getenv("ADMIN_KEY")
+        self.admin_key = admin_key
 
 
     def create_account(self,name,pin,initial_deposit):
