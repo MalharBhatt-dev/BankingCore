@@ -60,28 +60,33 @@ class BankingServices:
         return new_account_number
     
     
-    def deposit(self,account_number,pin,amount):
-        account = self._verify_pin(account_number,pin)
+    def deposit(self,account_number,amount):
+
+        account = self.repo.get_account(account_number)
+        #authentication
+        if not account:
+            raise AccountNotFoundException('Account Not Found.')
         #validatin amount
         if amount <= 0:
             raise InvalidAmountException('Amount should be greater than 0.')
         
-        #authentication
-        if account:
-            new_balance = account.balance + amount
-            try:
-                self.repo.update_balance(account.account_number,new_balance)
-                self.repo.insert_transaction(account.account_number,"DEPOSIT",amount,new_balance)
-                self.repo.commit()
-                self.logger.info(f"Deposit of {amount} to account {account_number}.New balance: {new_balance}")
-            except Exception as e:
-                self.repo.rollback()
-                raise e
-            return new_balance
+        new_balance = account.balance + amount
+        try:
+            self.repo.update_balance(account.account_number,new_balance)
+            self.repo.insert_transaction(account.account_number,"DEPOSIT",amount,new_balance)
+            self.repo.commit()
+            self.logger.info(f"Deposit of {amount} to account {account_number}.New balance: {new_balance}")
+        except Exception as e:
+            self.repo.rollback()
+            raise e
+        return new_balance
         
     
-    def withdraw(self,account_number,pin,amount):
-        account = self._verify_pin(account_number,pin)
+    def withdraw(self,account_number,amount):
+        account = self.repo.get_account(account_number)
+        #authentication
+        if not account:
+            raise AccountNotFoundException('Account Not Found.')
         #validating amount
         if amount <= 0:
             raise InvalidAmountException('Amount should be greater than 0.')
@@ -89,32 +94,31 @@ class BankingServices:
         if account.balance < amount:
             raise InsufficientBalanceException('Insufficient Balance.')
        
-        #authentication
-        if account :
-            new_balance = account.balance - amount
-            try :
-                self.repo.update_balance(account.account_number,new_balance)
-                self.repo.insert_transaction(account.account_number,"WITHDRAW",amount,new_balance)
-                self.repo.commit()
-                self.logger.info(f"Withdraw of {amount} to account {account_number}.New balance: {new_balance}")
-            except Exception as e:
-                self.repo.rollback()
-                raise e
-            return new_balance
+        new_balance = account.balance - amount
+        try :
+            self.repo.update_balance(account.account_number,new_balance)
+            self.repo.insert_transaction(account.account_number,"WITHDRAW",amount,new_balance)
+            self.repo.commit()
+            self.logger.info(f"Withdraw of {amount} to account {account_number}.New balance: {new_balance}")
+        except Exception as e:
+            self.repo.rollback()
+            raise e
+        return new_balance
     
-    def view_transactions(self,account_number,pin):
-        account = self._verify_pin(account_number,pin)
-
+    def view_transactions(self,account_number):
+        account = self.repo.get_account(account_number)
         #authentication
-        if account:
-            transactions_logs =  self.repo.get_transactions(account.account_number)
-            return transactions_logs
+        if not account:
+            raise AccountNotFoundException('Account Not Found.')
+        transactions_logs =  self.repo.get_transactions(account.account_number)
+        return transactions_logs
     
-    def view_balance(self,account_number,pin):
-        account = self._verify_pin(account_number,pin)
-        
-        if account:
-            return account.balance
+    def view_balance(self,account_number):
+        account = self.repo.get_account(account_number)
+        #authentication
+        if not account:
+            raise AccountNotFoundException('Account Not Found.')        
+        return account.balance
     
     def _verify_pin(self,account_number,pin):
         account = self.repo.get_account(account_number)
@@ -125,7 +129,8 @@ class BankingServices:
         if account.is_locked == 1:
             self.logger.error(f"Account {account_number} is locked due to multiple failed attempts.")
             raise AccountIsLockedException('The account is locked.')
-        
+        if pin is None:
+            return account
         pin_hash = hashlib.sha256(pin.encode()).hexdigest()
         if account.pin_hash != pin_hash:
             new_attempts = account.failed_attempts + 1
@@ -145,7 +150,9 @@ class BankingServices:
             raise InvalidPINException(f"Wrong Credentials. Attempts left :{3-new_attempts}")
         else :
             if account.failed_attempts > 0:
-                self.repo.update_security_state(account_number,failed_attempts=0,is_locked=0)
+                reset_failed_attempts = 0
+                reset_is_locked = 0
+                self.repo.update_security_state(account_number,reset_failed_attempts,reset_is_locked)
                 self.repo.commit()
             return account
         
@@ -161,3 +168,6 @@ class BankingServices:
         self.repo.unlock_account(account_number)
         self.logger.info(f"Account {account_number} is unlocked successful.")
         return "Account unlocked successfully."
+    
+    def authenticate(self,account_number,pin):
+        return self._verify_pin(account_number,pin)
