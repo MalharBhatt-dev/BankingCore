@@ -1,18 +1,22 @@
 import jwt
 from datetime import datetime,timezone,timedelta
+from app.config import Config
 from functools import wraps
-from flask import request,current_app,g
+from flask import request,g
+
+#! application context coupling:↓
+# from flask import current_app
 
 #generate_token
 def generate_token(account_number):
     payload={"account_number":account_number,"exp":datetime.now(timezone.utc)+timedelta(minutes=30)}
-    token = jwt.encode(payload,current_app.config["SECRET_KEY"],algorithm="HS256")
+    token = jwt.encode(payload,Config.SECRET_KEY,algorithm="HS256")
     return token
 
 #verify token
 def verify_token(token):
     try:
-        payload = jwt.decode(token,current_app.config["SECRET_KEY"],algorithms=["HS256"])
+        payload = jwt.decode(token,Config.SECRET_KEY,algorithms=["HS256"])
         return payload
     except jwt.ExpiredSignatureError:
         raise Exception("token expired")
