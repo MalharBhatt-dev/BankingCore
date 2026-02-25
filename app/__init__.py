@@ -1,6 +1,7 @@
 from flask import Flask
 from repository.account_repository import AccountRepository
 from services.banking_services import BankingServices
+from app.extensions import limiter
 from app.config import Config
 import os
 import logging
@@ -8,7 +9,7 @@ from logging.handlers import RotatingFileHandler
 
 def create_app():
     app = Flask(__name__)
-
+    limiter.init_app(app)
     app.config.from_object(Config)
     #dependency injection
     repo = AccountRepository()

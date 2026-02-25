@@ -1,4 +1,5 @@
 from flask import request,jsonify,g
+from app.extensions import limiter
 from app.auth import generate_access_token,generate_refresh_token,login_required,role_required,verify_token
 def register_routes(app):
     service = app.config["service"]
@@ -28,6 +29,7 @@ def register_routes(app):
             "balance":balance},200
     
     @app.route("/accounts/<int:account_number>/deposit",methods=["POST"])
+    @limiter.limit("20 per minute")
     @login_required
     def deposit(account_number):
         data = request.get_json(silent=True) or {}
@@ -42,6 +44,7 @@ def register_routes(app):
                 "message":"Deposit successful"},200
     
     @app.route("/accounts/<int:account_number>/withdraw",methods=["POST"])
+    @limiter.limit("20 per minute")
     @login_required
     def withdraw(account_number):
         data = request.get_json(silent=True) or {}
@@ -82,6 +85,7 @@ def register_routes(app):
         return {"account_number":account_number,"message":account_status}
     
     @app.route("/auth/login/",methods=["POST"])
+    @limiter.limit("5 per minute")
     def login():
         data = request.get_json(silent=True) or {}
         account_number = data.get("account_number")
@@ -94,8 +98,9 @@ def register_routes(app):
             return {"message":"login successful","access_token":access_token,"refresh_token":refresh_token},200
         except Exception as e:
             return {"error":str(e)},401
-        
+    
     @app.route("/auth/refresh",methods=["POST"])
+    @limiter.limit("10 per minute")
     def refresh():
         auth_header = request.headers.get("Authorization")
 
@@ -119,8 +124,8 @@ def register_routes(app):
             service.black_list_token(jti)
 
             #generate new token
-            new_refresh_token = generate_refresh_token(payload["sub"])
-            new_access_token = generate_access_token(payload["sub"])
+            new_refresh_token = generate_refresh_token(payload["sub"],payload["role"])
+            new_access_token = generate_access_token(payload["sub"],payload["role"])
             
             return {"access_token":new_access_token,"refresh_token":new_refresh_token},200
         except Exception as e:
