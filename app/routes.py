@@ -113,9 +113,13 @@ def register_routes(app):
                 return {"error":"Refresh token revoked."},401
             if payload.get("type") != "refresh":
                 return {"error":"Invalid refresh token"},401
-            
+            service.black_list_token(jti)
+
+            #generate new token
+            new_refresh_token = generate_refresh_token(payload["sub"])
             new_access_token = generate_access_token(payload["sub"])
-            return {"access_token":new_access_token},200
+            
+            return {"access_token":new_access_token,"refresh_token":new_refresh_token},200
         except Exception as e:
             return {"error":str(e)},401
         

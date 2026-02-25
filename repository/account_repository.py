@@ -75,6 +75,7 @@ class AccountRepository:
     def blacklist_jti(self,jti):
         revoked_at = datetime.now().isoformat()
         self.c.execute("""insert into token_blacklist (jti,revoked_at) values (?,?)""",(jti,revoked_at))
+        
 
     def is_token_blacklisted(self,jti):
         self.c.execute("""select 1 from token_blacklist where jti = ?""",(jti,))
