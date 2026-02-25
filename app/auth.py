@@ -1,4 +1,5 @@
 import jwt
+import uuid
 from app.config import Config
 from functools import wraps
 from flask import request,g
@@ -29,6 +30,7 @@ def generate_refresh_token(account_number):
     payload={#!  "sub":account_number,--> error(The "sub" (subject) claim MUST be a string.)
             "sub":str(account_number),
             "type":"refresh",
+            "jti": str(uuid.uuid4()),
             "role":"user",
             "iat":datetime.now(timezone.utc),
             "exp":datetime.now(timezone.utc)+timedelta(days=7)

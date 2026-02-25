@@ -71,6 +71,14 @@ class AccountRepository:
         self.c.execute("""update accounts
                        set failed_attempts = 0 , is_locked = 0
                        where account_number = ?""",(account_number,))
+        
+    def blacklist_jti(self,jti):
+        revoked_at = datetime.now().isoformat()
+        self.c.execute("""insert into token_blacklist (jti,revoked_at) values (?,?)""",(jti,revoked_at))
+
+    def is_token_blacklisted(self,jti):
+        self.c.execute("""select 1 from token_blacklist where jti = ?""",(jti,))
+        return self.c.fetchone() is not None
 
     def commit(self):
         self.conn.commit()

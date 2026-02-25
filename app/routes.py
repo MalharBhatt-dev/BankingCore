@@ -84,7 +84,7 @@ def register_routes(app):
         data = request.get_json(silent=True) or {}
         account_number = data.get("account_number")
         pin = data.get("pin")
-        try :
+        try :   
             service.authenticate(account_number,pin)
             access_token = generate_access_token(account_number)
             refresh_token = generate_refresh_token(account_number)
@@ -102,12 +102,15 @@ def register_routes(app):
         parts = auth_header.split(" ")
 
         if len(parts)!=2 or parts[0] != "Bearer":
-            return {"error":"Invalid Authorization header format"},401
+            return {"error":"Invalid Authorization  header format"},401
         
         token =  parts[1]
         try :
             payload = verify_token(token)
 
+            jti = payload.get("jti")
+            if service.is_blacklisted(jti):
+                return {"error":"Refresh token revoked."},401
             if payload.get("type") != "refresh":
                 return {"error":"Invalid refresh token"},401
             
@@ -115,3 +118,29 @@ def register_routes(app):
             return {"access_token":new_access_token},200
         except Exception as e:
             return {"error":str(e)},401
+        
+    @app.route("/auth/logout",methods=["POST"])
+    def logout():
+        auth_header = request.headers.get("Authorization")
+
+        if not auth_header:
+            return {"error":"Authorization header missing"},401
+        
+        parts = auth_header.split(" ")
+
+        if len(parts) != 2 or parts[0] != "Bearer":
+            return {"error":"Invalid authorization header format."},401
+        
+        refresh_token = parts[1]
+
+        try:
+            payload = verify_token(refresh_token)
+
+            if payload.get("type") != "refresh":
+                return{"error":"refresh token required"},401
+            
+            jti = payload.get("jti")
+            service.black_list_token(jti)
+            return {"message":"Logged out successfully."},200
+        except Exception as e:
+            return {"error":str(e)},401 

@@ -171,3 +171,10 @@ class BankingServices:
     
     def authenticate(self,account_number,pin):
         return self._verify_pin(account_number,pin)
+    
+    def is_blacklisted(self,jti):
+        return self.repo.is_token_blacklisted(jti)
+    
+    def black_list_token(self,jti):
+        self.repo.blacklist_jti(jti)
+        self.repo.commit()

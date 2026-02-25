@@ -31,5 +31,12 @@ c.execute("""
     FOREIGN KEY (account_number) REFERENCES accounts(account_number)
 );
 """)
+
+c.execute("""
+create table if not exists token_blacklist(
+          id integer primary key autoincrement,
+          jti text not null unique,
+          revoked_at text not null)
+""")
 conn.commit()
 conn.close()
