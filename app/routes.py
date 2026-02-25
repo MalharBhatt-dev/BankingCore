@@ -1,5 +1,5 @@
 from flask import request,jsonify,g
-from app.auth import generate_access_token,generate_refresh_token,login_required,verify_token
+from app.auth import generate_access_token,generate_refresh_token,login_required,role_required,verify_token
 def register_routes(app):
     service = app.config["service"]
 
@@ -73,6 +73,8 @@ def register_routes(app):
                 "transactions":result},200
     
     @app.route("/accounts/<int:account_number>/unlock",methods=["POST"])
+    @login_required
+    @role_required("admin")
     def unlock_account(account_number):
         data = request.get_json(silent=True) or {}
         provided_key = str(data.get("admin_key"))
@@ -85,9 +87,10 @@ def register_routes(app):
         account_number = data.get("account_number")
         pin = data.get("pin")
         try :   
-            service.authenticate(account_number,pin)
-            access_token = generate_access_token(account_number)
-            refresh_token = generate_refresh_token(account_number)
+            account = service.authenticate(account_number,pin)
+            role = account.role
+            access_token = generate_access_token(account_number,role)
+            refresh_token = generate_refresh_token(account_number,role)
             return {"message":"login successful","access_token":access_token,"refresh_token":refresh_token},200
         except Exception as e:
             return {"error":str(e)},401

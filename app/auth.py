@@ -12,12 +12,12 @@ from exceptions.unauthorized_exception import Unauthorized
 # from flask import current_app
 
 #generate_access_token
-def generate_access_token(account_number):
+def generate_access_token(account_number,role):
     
     payload={#!  "sub":account_number,--> error(The "sub" (subject) claim MUST be a string.)
             "sub":str(account_number),#subject
             "type":"access",
-            "role":"user",#role_ready
+            "role":role,#role_ready
             "iat":datetime.now(timezone.utc),#issued_at
             "exp":datetime.now(timezone.utc)+timedelta(minutes=15)#expires_at
              }
@@ -25,13 +25,13 @@ def generate_access_token(account_number):
     return jwt.encode(payload,Config.SECRET_KEY,algorithm="HS256")
 
 #generate_refresh_token
-def generate_refresh_token(account_number):
+def generate_refresh_token(account_number,role):
 
     payload={#!  "sub":account_number,--> error(The "sub" (subject) claim MUST be a string.)
             "sub":str(account_number),
             "type":"refresh",
             "jti": str(uuid.uuid4()),
-            "role":"user",
+            "role":role,#role_ready
             "iat":datetime.now(timezone.utc),
             "exp":datetime.now(timezone.utc)+timedelta(days=7)
             }
@@ -71,6 +71,7 @@ def login_required(f):
             if payload.get("type")!="access":
                 return {"error":"Access token reuired"},401
             g.account_number = int(payload["sub"]) #! payload must return int value..
+            g.role = str(payload["role"])
         except TokenExpiredException as e:
             return {"error": str(e)}, 401
         except InvalidTokenException as e:
@@ -80,3 +81,16 @@ def login_required(f):
         
         return f(*args,**kwargs)
     return decorated
+
+#role_required decorator
+def role_required(required_role):
+    def wrapper(f):
+        @wraps(f)
+        def decorated(*args,**kwargs):
+            if not hasattr(g ,"role"):
+                return {"error":"Unauthorized"},401
+            if g.role != required_role:
+                return {"error":"Forbidden"},403
+            return f(*args,**kwargs)
+        return decorated
+    return wrapper
