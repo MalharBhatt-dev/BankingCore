@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_talisman import Talisman
 from repository.account_repository import AccountRepository
 from services.banking_services import BankingServices
 from app.extensions import limiter
@@ -9,6 +10,7 @@ from logging.handlers import RotatingFileHandler
 
 def create_app():
     app = Flask(__name__)
+
     limiter.init_app(app)
     app.config.from_object(Config)
     #dependency injection
@@ -28,6 +30,9 @@ def create_app():
     app.logger.addHandler(file_handler)
     app.logger.setLevel(app.config["LOG_LEVEL"])
 
+    csp={"default-src":"'self'"}
+
+    Talisman(app,content_security_policy=csp,force_https=False)
     #register routes and errors
     from app.routes import register_routes
     from app.errors import register_error_handlers
