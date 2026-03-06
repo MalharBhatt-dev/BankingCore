@@ -14,7 +14,7 @@ def register_routes(app):
         print("Incoming data..",data)
         name = data.get("name")
         pin = data.get("pin")
-        initial_deposit = data.get("initial_deposit")
+        initial_deposit = float(data.get("initial_deposit"))
         account_number = service.create_account(name,pin,initial_deposit)
         return {"message":"Account created successfully!",
                 "account_number" : account_number},201

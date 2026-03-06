@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("account_info").innerText = account;
 
     loadBalance();
+    loadLastTransaction();
 
 });
 
@@ -49,4 +50,25 @@ async function withdraw(){
     alert(data.message);
 
     loadBalance();
+}
+
+async function loadLastTransaction(){
+
+const account = getAccountNumber();
+
+const data = await apiRequest(`/accounts/${account}/transactions`);
+
+const element = document.getElementById("last_transaction");
+
+if(!data.transactions || data.transactions.length === 0){
+
+element.innerText = "No transactions yet";
+return;
+
+}
+
+const last = data.transactions[0];
+
+element.innerText = `${last.transaction_type} ₹${last.amount}`;
+
 }

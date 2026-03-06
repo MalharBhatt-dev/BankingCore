@@ -23,7 +23,7 @@ function renderTransactions(transactions){
     transactions.forEach(txn => {
 
         const row = `
-        <tr class="border-b">
+        <tr class="border-b hover:bg-gray-100">
 
         <td class="p-3">${txn.transaction_type}</td>
         <td class="p-3">₹ ${txn.amount}</td>

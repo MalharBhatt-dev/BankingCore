@@ -48,10 +48,11 @@ class BankingServices:
        
        #generate pin hash
         hashed_pin = hashlib.sha256(pin.encode()).hexdigest()
-    
+
         #inserting account
+        role="user"
         try:
-            self.repo.insert_account(new_account_number,name,hashed_pin,initial_deposit)
+            self.repo.insert_account(new_account_number,name,hashed_pin,initial_deposit,role)
             self.repo.insert_transaction(new_account_number,"INITIAL DEPOSIT",initial_deposit,initial_deposit)
             self.repo.commit()
         except Exception as e:

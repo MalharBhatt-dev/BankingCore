@@ -14,26 +14,30 @@ class AccountRepository:
 
         self.conn = sqlite3.connect(DB_PATH,check_same_thread=False)
         self.conn.execute("PRAGMA foreign_key = ON")
-        self.c = self.conn.cursor()
+        
 
     def get_account(self,account_number):
-        self.c.execute("""select account_number,account_holder_name,pin_hash,balance,created_at,failed_attempts,is_locked,role
+        c = self.conn.cursor()
+        c.execute("""select account_number,account_holder_name,pin_hash,balance,created_at,failed_attempts,is_locked,role
                     from accounts 
                     where account_number = ?""",(account_number,))
-        acc = self.c.fetchone()
+        acc = c.fetchone()
         if acc is None:
             return None
+        
         return Account(acc[0],acc[1],acc[2],acc[3],acc[4],acc[5],acc[6],acc[7])
     
     def insert_account(self,account_number,name, pin_hash ,balance,role):
         created_at = datetime.now().strftime("%D-%M-%Y %H:%M:%S")
         failed_attempts = 0
         is_locked = 0
-        self.c.execute("""insert into accounts (account_number, account_holder_name ,pin_hash,balance,created_at, failed_attempts,is_locked,role) values(? , ? , ? , ?, ?, ?, ?, ?)""",(account_number , name , pin_hash , balance , created_at,failed_attempts,is_locked,role))
+        c = self.conn.cursor()
+        c.execute("""insert into accounts (account_number, account_holder_name ,pin_hash,balance,created_at, failed_attempts,is_locked,role) values(? , ? , ? , ?, ?, ?, ?, ?)""",(account_number , name , pin_hash , balance , created_at,failed_attempts,is_locked,role))
        
 
     def update_balance(self,account_number,new_balance):
-        self.c.execute("""update accounts 
+        c = self.conn.cursor()
+        c.execute("""update accounts 
                        set balance = ? 
                        where account_number = ?"""
                        ,(new_balance,account_number))
@@ -42,19 +46,22 @@ class AccountRepository:
 #!     we achieve.            → Audit trail capability
 #!                            → Foundation for atomic transactions ↓
     def insert_transaction(self,account_number,type,amount,balance_after):
+        c = self.conn.cursor()
         timestamp = datetime.now().isoformat()
-        self.c.execute("""insert into transactions (account_number,transaction_type,amount,balance_after,timestamp) values (?,?,?,?,?)""",(account_number,type,amount,balance_after,timestamp))
+        c.execute("""insert into transactions (account_number,transaction_type,amount,balance_after,timestamp) values (?,?,?,?,?)""",(account_number,type,amount,balance_after,timestamp))
     
     def get_last_account_number(self):
-        self.c.execute("select max(account_number) from accounts")
-        last_acc_no= self.c.fetchone()
+        c = self.conn.cursor()
+        c.execute("select max(account_number) from accounts")
+        last_acc_no= c.fetchone()
         if last_acc_no is None or last_acc_no[0] is None:
             return None
         return last_acc_no[0]
     
     def get_transactions(self,account_number):
-        self.c.execute("""select * from transactions where account_number = ? order by timestamp DESC""",(account_number,))
-        rows = self.c.fetchall()
+        c = self.conn.cursor()
+        c.execute("""select * from transactions where account_number = ? order by timestamp DESC""",(account_number,))
+        rows = c.fetchall()
         transactions = []
 
         for row in rows:
@@ -63,23 +70,27 @@ class AccountRepository:
         return transactions
     
     def update_security_state(self,account_number,failed_attempts,is_locked):
-        self.c.execute("""update accounts
+        c = self.conn.cursor()
+        c.execute("""update accounts
                        set failed_attempts = ? , is_locked =?
                        where account_number = ?""",(failed_attempts,is_locked,account_number))
         
     def unlock_account(self,account_number):
-        self.c.execute("""update accounts
+        c = self.conn.cursor()
+        c.execute("""update accounts
                        set failed_attempts = 0 , is_locked = 0
                        where account_number = ?""",(account_number,))
         
     def blacklist_jti(self,jti):
+        c = self.conn.cursor()
         revoked_at = datetime.now().isoformat()
-        self.c.execute("""insert into token_blacklist (jti,revoked_at) values (?,?)""",(jti,revoked_at))
+        c.execute("""insert into token_blacklist (jti,revoked_at) values (?,?)""",(jti,revoked_at))
         
 
     def is_token_blacklisted(self,jti):
-        self.c.execute("""select 1 from token_blacklist where jti = ?""",(jti,))
-        return self.c.fetchone() is not None
+        c = self.conn.cursor()
+        c.execute("""select 1 from token_blacklist where jti = ?""",(jti,))
+        return c.fetchone() is not None
 
     def commit(self):
         self.conn.commit()
