@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Dashboard</title>
+<link href="./css/output.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+<div class="flex">
+
+<!-- Sidebar -->
+
+<div class="w-64 bg-blue-900 text-white min-h-screen p-6">
+
+<h2 class="text-2xl font-bold mb-8">MyBank</h2>
+
+<ul class="space-y-4 font-semibold">
+
+<li class="hover:text-gray-300 cursor-pointer">
+<a href="dashboard.html">Dashboard</a>
+</li>
+
+<li class="hover:text-gray-300 cursor-pointer">
+<a href="transactions.html">Transactions</a>
+</li>
+
+<li class="hover:text-gray-300 cursor-pointer">
+<button onclick="logout()">Logout</button>
+</li>
+
+</ul>
+
+</div>
+
+<!-- Main Content -->
+
+<div class="flex-1 p-10">
+
+<h1 class="text-3xl font-bold mb-8">
+Dashboard
+</h1>
+
+<!-- Account Cards -->
+
+<div class="grid grid-cols-3 gap-6">
+
+<div class="bg-white p-6 rounded-lg shadow">
+<h2 class="text-lg font-semibold mb-2">Account Balance</h2>
+<p class="text-2xl font-bold text-green-600">
+₹ <span id="balance">0</span>
+</p>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow">
+<h2 class="text-lg font-semibold mb-2">Last Transaction</h2>
+<p id="last_transaction">None</p>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow">
+<h2 class="text-lg font-semibold mb-2">Account Number</h2>
+<p id="account_info">---</p>
+</div>
+
+</div>
+
+<!-- Actions -->
+
+<div class="mt-10 grid grid-cols-2 gap-6">
+
+<!-- Deposit -->
+
+<div class="bg-white p-6 rounded-lg shadow">
+
+<h2 class="text-lg font-semibold mb-4">Deposit</h2>
+
+<input
+type="number"
+id="deposit_amount"
+placeholder="Enter Amount"
+class="border p-2 rounded w-full mb-4"
+>
+
+<button
+onclick="deposit()"
+class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+>
+Deposit
+</button>
+
+</div>
+
+<!-- Withdraw -->
+
+<div class="bg-white p-6 rounded-lg shadow">
+
+<h2 class="text-lg font-semibold mb-4">Withdraw</h2>
+
+<input
+type="number"
+id="withdraw_amount"
+placeholder="Enter Amount"
+class="border p-2 rounded w-full mb-4"
+>
+
+<button
+onclick="withdraw()"
+class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+>
+Withdraw
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="./js/api.js"></script>
+<script src="./js/dashboard.js"></script>
+
+</body>
+</html>
