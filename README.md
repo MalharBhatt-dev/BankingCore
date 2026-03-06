@@ -316,6 +316,7 @@ Fetch API
 banking-core/
 │
 ├── app/
+│   │
 │   ├── __init__.py
 │   ├── routes.py
 │   ├── auth.py
@@ -323,7 +324,7 @@ banking-core/
 │   ├── errors.py
 │   └── extensions.py
 │
-├── entities/
+├── models/
 │   ├── account.py
 │   └── transaction.py
 │
@@ -334,36 +335,50 @@ banking-core/
 │   └── banking_services.py
 │
 ├── exceptions/
-│   └── custom exception classes
+│   ├── base_exception.py
+│   ├── account_not_found_exception.py
+│   ├── invalid_amount_exception.py
+│   └── ...
 │
 ├── database/
 │   └── accounts.db
 │
 ├── frontend/
 │   │
-│   ├──── src/
-│   │      │
-│   │      ├──── css/
-│   │      │        ├── input.css
-│   │      │        └── output.css
-│   │      │         
-│   │      ├──── js/
-│   │      │      ├── api.js
-│   │      │      ├── index.js
-│   │      │      ├── dashboard.js
-│   │      │      ├── transfer.js
-│   │      │      ├── transactions.js
-│   │      │      └── register.js 
-│   │      │ 
-│   │      ├── index.html
-│   │      ├── dashboard.html
-│   │      ├── transfer.html
-│   │      ├── transactions.html
-│   │      └── register.html
-│   │ 
+│   ├── src/
+│   │   │
+│   │   ├── css/
+│   │   │   ├── input.css
+│   │   │   └── output.css
+│   │   │
+│   │   ├── js/
+│   │   │   ├── api.js
+│   │   │   ├── login.js
+│   │   │   ├── dashboard.js
+│   │   │   ├── transfer.js
+│   │   │   ├── transactions.js
+│   │   │   └── register.js
+│   │   │
+│   │   ├── index.html
+│   │   ├── dashboard.html
+│   │   ├── transfer.html
+│   │   ├── transactions.html
+│   │   └── register.html
+│   │
 │   └── package.json
-├── run.py
+│
+├── logs/
+│   └── banking_core.log
+│
+├── tests/
+│   └── test_api.py
+│
+├── docs/
+│   └── development_log.md
+│
+├── .env
 ├── requirements.txt
+├── run.py
 └── README.md
 ```
 
