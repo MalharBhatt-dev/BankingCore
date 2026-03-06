@@ -9,30 +9,26 @@ function getAccountNumber(){
 }
 
 async function apiRequest(endpoint, method="GET", data=null){
-
     const headers = {
         "Content-Type": "application/json"
     };
-
+    
     const token = getAccessToken();
-
     if(token){
         headers["Authorization"] = "Bearer " + token;
     }
-
+    
     const response = await fetch(API_BASE + endpoint,{
         method: method,
         headers: headers,
         body: data ? JSON.stringify(data) : null
     });
-
+    
     const result = await response.json();
-
     if(!response.ok){
         alert(result.error || "Something went wrong");
         throw new Error(result.error);
     }
-
     return result;
 }
 

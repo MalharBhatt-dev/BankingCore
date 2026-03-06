@@ -6,21 +6,33 @@
         <title>Register Account</title>
         <link href="./css/output.css" rel="stylesheet">
     </head>
-    <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-        <div class="bg-white shadow-lg rounded-lg p-8 w-96">
-            <h2 class="text-2xl font-bold text-center mb-6 text-blue-900">Create New Account</h2>
-            <form class="flex flex-col gap-4">
-                <label class="font-semibold">Full Name</label>
-                <input type="text" id="name" class="border p-2 rounded w-full" placeholder="Enter your name">
-                <label class="font-semibold">PIN</label>
-                <input type="password" id="pin" class="border p-2 rounded w-full" placeholder="Enter PIN">
-                <label class="font-semibold">Initial Deposit</label>
-                <input type="number" id="deposit" class="border p-2 rounded w-full" placeholder="Enter amount">
-                <button type="button" onclick="registerAccount()" class="bg-blue-900 text-white py-2 rounded hover:bg-blue-700 transition">Create Account</button>
-            </form>
-            <p class="text-sm text-center mt-4">Already have an account?
-                <a href="./index.html" class="text-blue-700 font-semibold">Login</a>
-            </p>
+    <body class="bg-gray-100">
+                    <!-- Header -->
+        <section class="w-full h-20 bg-[rgb(16,63,184)] px-6">
+            <header class="w-full h-full flex items-center">
+                
+                <aside class="flex-1 text-xl font-bold text-white">
+                    <h1>Banking Core</h1>
+                </aside>
+            </header>
+        </section>
+                    <!-- Main Content -->
+        <div class="flex items-center justify-center min-h-[calc(100vh-80px)]">
+            <div class="bg-white shadow-lg rounded-lg p-8 w-96">
+                <h2 class="text-2xl font-bold text-center mb-6 text-blue-900">Create New Account</h2>
+                <form class="flex flex-col gap-4">
+                    <label class="font-semibold">Full Name</label>
+                    <input type="text" id="name" class="border p-2 rounded w-full" placeholder="Enter your name">
+                    <label class="font-semibold">PIN</label>
+                    <input type="password" id="pin" class="border p-2 rounded w-full" placeholder="Enter PIN">
+                    <label class="font-semibold">Initial Deposit</label>
+                    <input type="number" id="deposit" class="border p-2 rounded w-full" placeholder="Enter amount">
+                    <button type="button" onclick="registerAccount()" class="bg-blue-900 text-white py-2 rounded hover:bg-blue-700 transition">Create Account</button>
+                </form>
+                <p class="text-sm text-center mt-4">Already have an account?
+                    <a href="./index.html" class="text-blue-700 font-semibold">Login</a>
+                </p>
+            </div>
         </div>
         <script src="./js/register.js"></script>
     </body>
