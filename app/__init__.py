@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from flask import Flask
 from flask_talisman import Talisman
 from repository.account_repository import AccountRepository
@@ -10,7 +11,7 @@ from logging.handlers import RotatingFileHandler
 
 def create_app():
     app = Flask(__name__)
-
+    CORS(app)
     limiter.init_app(app)
     app.config.from_object(Config)
     #dependency injection

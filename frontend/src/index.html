@@ -19,16 +19,16 @@
         <main class="flex justify-center items-center h-screen pb-[17%]">
             <div class="bg-white p-8 rounded-lg shadow-md w-96">
                 <h2 class="text-xl font-bold mb-6 text-center">Login Page</h2>
-                <form class="flex flex-col text-base font-semibold gap-4" id="loginform">
+                <form class="flex flex-col text-base font-semibold gap-4" id="loginform" onsubmit="login(event)">
                     <label class="font-semibold">Account Number :</label>
                     <input type="number" placeholder=" Enter Account Number" class="w-full border p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500" id="account_number">
                     <label class="font-semibold">PIN Number :</label>
                     <input type="password" placeholder=" Enter PIN Number" class="w-full border p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500" id="pin_number">
-                    <button type="button" onclick="login()" class="bg-[rgb(16,63,184)] text-white py-2 rounded hover:bg-blue-600 transition cursor-pointer">Submit</button>
+                    <button type="submit" class="bg-[rgb(16,63,184)] text-white py-2 rounded hover:bg-blue-600 transition cursor-pointer">Login</button>
                 </form>
             </div>
         </main>
     </section>
-    <script src="./js/login.js"></script>
+    <script src="js/login.js"></script>
 </body>
 </html>

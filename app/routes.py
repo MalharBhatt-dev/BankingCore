@@ -84,7 +84,7 @@ def register_routes(app):
         account_status = service.unlock_account(account_number,provided_key)
         return {"account_number":account_number,"message":account_status}
     
-    @app.route("/auth/login/",methods=["POST"])
+    @app.route("/auth/login",methods=["POST"])
     @limiter.limit("5 per minute")
     def login():
         data = request.get_json(silent=True) or {}
