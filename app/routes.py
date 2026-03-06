@@ -58,6 +58,24 @@ def register_routes(app):
                 "new_balance":new_balance,
                 "message":"Withdraw successful"},200
     
+    @app.route("/accounts/<int:from_account>/transfer",methods=["POST"])
+    @limiter.limit("5 per minute")
+    @login_required
+    def transfer_money(from_account):
+        data=request.get_json()
+
+        to_account = data.get("to_account")
+        amount = float(data.get("amount"))
+
+        result = service.transfer(from_account,to_account,amount)
+
+        return {
+            "message":"Transfer successful",
+            "from_account":from_account,
+            "to_account":to_account,
+            "amount":amount
+        },200
+
     @app.route("/accounts/<int:account_number>/transactions",methods=["GET"])
     @login_required
     def get_transactions(account_number):
@@ -156,3 +174,5 @@ def register_routes(app):
             return {"message":"Logged out successfully."},200
         except Exception as e:
             return {"error":str(e)},401 
+    
+  

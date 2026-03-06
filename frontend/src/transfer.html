@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Core</title>
+    <link href="./css/output.css" rel="stylesheet">
+</head>
+<body>
+    <div class="flex">
+                         <!-- Sidebar -->
+        <div class="w-64 bg-blue-900 text-white min-h-screen  p-6">
+            <h2 class="text-2xl font-bold mb-8">MyBank</h2>
+            <ul class="space-y-4 font-semibold">
+                <li class="hover:text-gray-300 cursor-pointer">
+                    <a href="dashboard.html">Dashboard</a>
+                </li>
+                <li class="hover:text-gray-300 cursor-pointer">
+                    <a href="transfer.html">Transfer</a>
+                </li>
+                <li class="hover:text-gray-300 cursor-pointer">
+                    <a href="transactions.html">Transactions</a>
+                </li>
+                <li class="hover:text-gray-300 cursor-pointer">
+                    <button onclick="logout()">Logout</button>
+                </li>
+            </ul>
+        </div>
+                                        <!--Main Content-->
+        <div class="bg-white p-6 shadow w-full">
+                                        <!-- Account Info Div -->
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold mb-2">Account Balance</h2>
+                        <p class="text-2xl font-bold text-green-600">₹ <span id="balance">0</span></p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold mb-2">Last Transaction</h2>
+                        <p id="last_transaction">None</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold mb-2">Account Number</h2>
+                        <p id="account_info">---</p>
+                    </div>
+                </div>
+                                    <!--Transfer Form-->
+        <div class="flex items-center justify-center min-h-[calc(100vh-110px)]">
+            <div class="bg-white shadow-lg rounded-lg p-8 w-96">
+                <h2 class="text-2xl font-bold text-center mb-6 text-blue-900">Transfer Money</h2>
+                <form class="flex flex-col gap-4">
+                    <label class="font-semibold">Reciver's Account Number</label>
+                    <input type="number" id="to_account" class="border p-2 rounded w-full" placeholder="Enter Recipient Account Number">
+                    <label class="font-semibold">Amount</label>
+                    <input type="number" id="amount" class="border p-2 rounded w-full" placeholder="Enter Amount">
+                    <p class="text-gray-700 font-semibold">Sender Account: 
+                        <span id="sender_account_display" class="text-blue-900">Null</span>
+                    </p>
+                    <button type="button" onclick="transferMoney()" class="bg-blue-900 text-white py-2 rounded hover:bg-blue-700 transition">Send Money</button>
+                </form>
+        </div>
+    </div>
+    <script src="./js/api.js"></script>
+    <script src="./js/transfer.js"></script>
+    <script src="./js/dashboard.js"></script>
+</body>
+</html>

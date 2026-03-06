@@ -106,6 +106,36 @@ class BankingServices:
             raise e
         return new_balance
     
+    def transfer(self,from_account,to_account,amount):
+        if amount <= 0:
+            raise InvalidAmountException("Invalid Transfer Amount")
+        if from_account == to_account:
+            raise AccountNotFoundException("Cannot transfer to same account")
+        
+        sender = self.repo.get_account(from_account)
+        receiver = self.repo.get_account(to_account)
+
+        if sender is None or receiver is None:
+            raise AccountNotFoundException("Account not found")
+        
+        if sender.balance < amount:
+            raise InsufficientBalanceException("Insufficient balance")
+        
+        new_sender_balance = sender.balance - amount
+        new_receiver_balance = receiver.balance + amount
+
+        try:
+            self.repo.update_balance(from_account,new_sender_balance)
+            self.repo.update_balance(to_account,new_receiver_balance)
+            self.repo.insert_transaction(from_account,"TRANSFER_OUT",amount,new_sender_balance)
+            self.repo.insert_transaction(to_account,"TRANSFER_IN",amount,new_receiver_balance)
+            self.repo.commit()
+        except Exception:
+            self.repo.rollback()
+            raise
+
+
+
     def view_transactions(self,account_number):
         account = self.repo.get_account(account_number)
         #authentication
