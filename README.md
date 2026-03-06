@@ -1,30 +1,44 @@
 # 🏦 Banking Core System
 
-A **secure full-stack banking backend system** built using **Python, Flask, SQLite, and Vanilla JavaScript**.
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![Flask](https://img.shields.io/badge/Flask-3.x-black)
+![SQLite](https://img.shields.io/badge/Database-SQLite-blue)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![Security](https://img.shields.io/badge/Security-RateLimit%20%7C%20JWT%20%7C%20CSP-green)
+![Status](https://img.shields.io/badge/Project-Active-success)
 
-This project demonstrates **real-world backend architecture**, including authentication, security hardening, layered design, and REST API integration with a frontend dashboard.
+A **secure full-stack banking backend system** built using **Python, Flask, SQLite, and JavaScript**.
 
-The system simulates core banking operations such as account creation, deposits, withdrawals, transfers, and transaction history.
+This project demonstrates **production-style backend architecture**, including authentication, layered design, security hardening, and REST API integration with a frontend dashboard.
 
 ---
 
 # 📌 Project Overview
 
-The Banking Core System was built to simulate a **production-style backend architecture** while maintaining clean engineering principles.
+The **Banking Core System** simulates real-world banking operations while applying professional backend engineering practices.
 
-It includes:
+The system supports:
 
-- Secure REST API
-- JWT Authentication
-- Rate limiting
-- Account locking mechanism
+- Account creation
+- Deposit funds
+- Withdraw funds
+- Money transfer
+- Transaction history
+- Authentication
+- Account locking
 - Admin account unlock
-- Token refresh & blacklist
-- SQLite persistent storage
-- Transaction audit trail
-- Frontend banking dashboard
 
-The project follows **clean layered architecture** and demonstrates backend engineering best practices.
+Unlike basic CRUD projects, this system implements:
+
+✔ Layered Architecture  
+✔ Repository Pattern  
+✔ Domain Entity Modeling  
+✔ JWT Authentication  
+✔ Token Refresh & Blacklisting  
+✔ Rate Limiting  
+✔ Security Headers  
+✔ SQLite Persistence  
+✔ Transaction Logging  
 
 ---
 
@@ -33,20 +47,27 @@ The project follows **clean layered architecture** and demonstrates backend engi
 ```
 Frontend (HTML / JS)
         ↓
-REST API (Flask Routes)
+Flask REST API
         ↓
 Service Layer (Business Logic)
         ↓
-Repository Layer (Data Access)
+Repository Layer (Database Access)
         ↓
 SQLite Database
 ```
+
+This structure ensures:
+
+- clean separation of responsibilities  
+- scalable architecture  
+- maintainable codebase  
 
 ---
 
 # ⚙️ Tech Stack
 
-### Backend
+## Backend
+
 - Python
 - Flask
 - SQLite
@@ -55,46 +76,94 @@ SQLite Database
 - Flask-Talisman
 - python-dotenv
 
-### Frontend
+## Frontend
+
 - HTML
 - TailwindCSS
 - Vanilla JavaScript
+- Fetch API
 
 ---
 
 # 🔐 Security Features
 
-The system implements several backend security mechanisms:
+This project implements multiple backend security mechanisms.
 
-### JWT Authentication
-- Access Token (15 minutes)
-- Refresh Token (7 days)
+## JWT Authentication
 
-### Token Revocation
-- Refresh tokens use **JTI**
-- Revoked tokens stored in **token_blacklist table**
+Two token system:
 
-### Rate Limiting
-Implemented using Flask-Limiter.
+**Access Token**
+
+```
+Expires in 15 minutes
+```
+
+**Refresh Token**
+
+```
+Expires in 7 days
+```
+
+---
+
+## Token Blacklisting
+
+Refresh tokens include **JTI identifiers**.
+
+Revoked tokens are stored in:
+
+```
+token_blacklist table
+```
+
+Used for:
+
+- logout
+- token revocation
+- refresh security
+
+---
+
+## Rate Limiting
+
+Implemented using **Flask-Limiter**.
 
 Examples:
+
 ```
-Login → 5 requests/minute  
-Transfer → 5 requests/minute  
-Deposit/Withdraw → 20 requests/minute
+Login → 5 requests/minute
+Transfer → 5 requests/minute
+Deposit → 20 requests/minute
+Withdraw → 20 requests/minute
 ```
 
-### Account Locking
-- 3 incorrect PIN attempts
-- Account automatically locked
+Prevents brute-force and abuse attacks.
 
-### Admin Unlock
-Admin can unlock accounts using **ADMIN_KEY**.
+---
 
-### HTTP Security Headers
-Implemented using Flask-Talisman.
+## Account Locking
+
+Security mechanism for authentication.
+
+```
+3 incorrect PIN attempts → account locked
+```
+
+Unlock requires:
+
+```
+ADMIN_KEY
+```
+
+---
+
+## HTTP Security Headers
+
+Implemented using **Flask-Talisman**
 
 Includes:
+
 - HSTS
 - X-Frame-Options
 - X-Content-Type-Options
@@ -102,78 +171,49 @@ Includes:
 
 ---
 
-# 🧱 Application Layers
+# 🎯 Core Features
 
-## 1️⃣ Entities (Domain Models)
+### Account Creation
 
-Entities represent business objects.
-
-```
-Account
-Transaction
-```
-
-They decouple the service layer from database schema.
+- Name validation
+- PIN hashing
+- Unique account generation
+- Initial transaction logging
 
 ---
 
-## 2️⃣ Service Layer (Business Logic)
+### Deposit
 
-`BankingServices`
-
-Responsibilities:
-
-- Business rule validation
-- Transaction control
-- Atomic operations
-- Security checks
-- Exception raising
-
-Example operations:
-
-- Create account
-- Deposit
-- Withdraw
-- Transfer money
-- Authenticate user
-- Unlock account
-- Token blacklist management
-
-This layer contains **zero SQL code**.
+- Validates account
+- Ensures positive amount
+- Updates balance atomically
+- Logs transaction
 
 ---
 
-## 3️⃣ Repository Layer (Data Access)
+### Withdrawal
 
-`AccountRepository`
-
-Responsibilities:
-
-- Database connection management
-- SQL execution
-- Entity mapping
-- Commit / rollback handling
-
-SQLite is configured for Flask threading:
-
-```
-sqlite3.connect(DB_PATH, check_same_thread=False)
-```
+- Validates account
+- Prevents overdraft
+- Logs withdrawal
 
 ---
 
-## 4️⃣ API Layer
+### Transfer
 
-Flask routes expose the system as a REST API.
+- Atomic transfer operation
+- Logs sender and receiver transactions
 
-Endpoints handle:
+---
 
-- Request parsing
-- Authentication
-- Authorization
-- Delegation to service layer
+### Transaction History
 
-Global error handlers convert exceptions into HTTP responses.
+Returns full transaction audit trail including:
+
+- transaction type
+- amount
+- balance after transaction
+- timestamp
 
 ---
 
@@ -181,147 +221,92 @@ Global error handlers convert exceptions into HTTP responses.
 
 ## Authentication
 
-### Login
-```
-POST /auth/login
-```
-
-Returns:
-
-```
-access_token
-refresh_token
-```
-
-### Refresh Token
-```
-POST /auth/refresh
-```
-
-### Logout
-```
-POST /auth/logout
-```
+| Method | Endpoint | Description |
+|------|---------|-------------|
+| POST | `/auth/login` | User login |
+| POST | `/auth/refresh` | Refresh tokens |
+| POST | `/auth/logout` | Logout |
 
 ---
 
 ## Account Operations
 
-### Create Account
-```
-POST /accounts
-```
+| Method | Endpoint | Description |
+|------|---------|-------------|
+| POST | `/accounts` | Create account |
+| GET | `/accounts/<id>` | View balance |
+| POST | `/accounts/<id>/deposit` | Deposit money |
+| POST | `/accounts/<id>/withdraw` | Withdraw money |
+| POST | `/accounts/<id>/transfer` | Transfer money |
+| GET | `/accounts/<id>/transactions` | Transaction history |
 
-### View Balance
-```
-GET /accounts/<account_number>
-```
+---
 
-### Deposit
-```
-POST /accounts/<account_number>/deposit
-```
+## Admin
 
-### Withdraw
-```
-POST /accounts/<account_number>/withdraw
-```
-
-### Transfer
-```
-POST /accounts/<account_number>/transfer
-```
-
-### Transaction History
-```
-GET /accounts/<account_number>/transactions
-```
-
-### Unlock Account (Admin)
-```
-POST /accounts/<account_number>/unlock
-```
+| Method | Endpoint | Description |
+|------|---------|-------------|
+| POST | `/accounts/<id>/unlock` | Unlock locked account |
 
 ---
 
 # 💾 Database Schema
 
-## accounts
+## Accounts Table
 
 | Column | Description |
 |------|-------------|
-| account_number | Unique account id |
-| account_holder_name | Account owner |
+| account_number | Unique account identifier |
+| account_holder_name | Owner name |
 | pin_hash | Hashed PIN |
 | balance | Current balance |
 | created_at | Creation timestamp |
 | failed_attempts | Failed login attempts |
 | is_locked | Account lock state |
-| role | user/admin |
+| role | user / admin |
 
 ---
 
-## transactions
+## Transactions Table
 
 | Column | Description |
 |------|-------------|
-| account_number | Associated account |
-| transaction_type | DEPOSIT / WITHDRAW / TRANSFER |
+| account_number | Related account |
+| transaction_type | Deposit / Withdraw / Transfer |
 | amount | Transaction amount |
-| balance_after | Balance after transaction |
+| balance_after | Balance after operation |
 | timestamp | Transaction time |
 
 ---
 
-## token_blacklist
+## Token Blacklist Table
 
 | Column | Description |
 |------|-------------|
 | jti | Token identifier |
-| revoked_at | Revocation timestamp |
-
----
-
-# 🎯 Core Features
-
-### Account Creation
-- Validates name and PIN
-- Generates unique account number
-- Logs initial deposit
-
-### Deposit
-- Validates account existence
-- Logs transaction
-- Updates balance atomically
-
-### Withdrawal
-- Ensures sufficient balance
-- Logs withdrawal
-
-### Transfer
-- Atomic balance update
-- Logs transfer in both accounts
-
-### Transaction History
-- Full audit trail
+| revoked_at | Revocation time |
 
 ---
 
 # 🎨 Frontend Interface
 
-Simple banking dashboard built with HTML and JavaScript.
+The project includes a simple banking dashboard.
 
-Pages include:
+### Pages
 
 ```
-Login Page
-Register Account
+Login
+Register
 Dashboard
-Transfer Page
-Transaction History
+Transfer
+Transactions
 ```
 
-Frontend communicates with backend using **Fetch API**.
+Frontend communicates with backend using:
+
+```
+Fetch API
+```
 
 ---
 
@@ -386,13 +371,15 @@ banking-core/
 
 # 🚀 Running the Project
 
-### Install dependencies
+### 1️⃣ Install dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
-### Set environment variables
+---
+
+### 2️⃣ Configure environment variables
 
 Create `.env`
 
@@ -402,13 +389,15 @@ ADMIN_KEY=your_admin_key
 FLASK_DEBUG=true
 ```
 
-### Run the server
+---
+
+### 3️⃣ Run the server
 
 ```
 python run.py
 ```
 
-Server starts at:
+Server runs at:
 
 ```
 http://127.0.0.1:5000
@@ -422,12 +411,12 @@ http://127.0.0.1:5000
 - Repository Pattern
 - Dependency Injection
 - Domain Modeling
+- RESTful Design
 - JWT Authentication
 - Security Hardening
-- Centralized Error Handling
 - Atomic Transactions
+- Centralized Error Handling
 - Separation of Concerns
-- RESTful Design
 
 ---
 
@@ -435,19 +424,19 @@ http://127.0.0.1:5000
 
 Possible improvements:
 
-- Role-based admin dashboard
 - Docker containerization
 - CI/CD pipeline
-- Unit testing
-- PostgreSQL migration
-- Request validation (Pydantic)
 - API documentation (Swagger)
+- PostgreSQL migration
+- Automated testing
+- Role-based admin dashboard
+- Request validation (Pydantic)
 
 ---
 
 # 📘 Development Log
 
-For full development evolution:
+Full architectural evolution:
 
 ```
 development_log.md
@@ -459,8 +448,8 @@ development_log.md
 
 Start simple.  
 Refactor intentionally.  
-Design for scale.  
-Separate responsibilities.
+Separate responsibilities.  
+Design for scale.
 
 ---
 
