@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"npx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/output.css --watch",
+    "start": "npx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/output.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,5 +14,6 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.2.1",
     "tailwindcss": "^4.2.1"
-  }
+  },
+  "devDependencies": {}
 }
