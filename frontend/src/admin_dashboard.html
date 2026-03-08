@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Dashboard</title>
+        <link href="./css/output.css" rel="stylesheet">
+    </head>
+    <body class="bg-gray-100">
+        <div class="flex">
+                            <!-- Sidebar -->
+            <div class="w-64 bg-blue-900 text-white min-h-screen p-6">
+                <h2 class="text-2xl font-bold mb-8">MyBank</h2>
+                <ul class="space-y-4 font-semibold">
+                    <li class="hover:text-gray-300 cursor-pointer">
+                        <a href="admin_dashboard.html">Admin Dashboard</a>
+                    </li>
+                    <li class="hover:text-gray-300 cursor-pointer">
+                        <a href="unlock_account.html">Unlock Account</a>
+                    </li>
+                    <li class="hover:text-gray-300 cursor-pointer">
+                        <button onclick="adminLogout()">Logout</button>
+                    </li>
+                </ul>
+            </div>
+                        <!-- Main Content -->
+            <div class="flex-1  p-10 max-w-7xl">
+                <h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
+                <!-- Admin Overview Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Total Bank Balance -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold mb-2">Total Bank Balance</h2>
+                        <p class="text-2xl font-bold text-green-600">
+                            ₹ <span id="total_balance">0</span>
+                        </p>
+                    </div>
+                    <!-- Total Accounts -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold mb-2">Total Accounts</h2>
+                        <p class="text-2xl font-bold text-blue-600">
+                            <span id="total_accounts">0</span>
+                        </p>
+                    </div>
+                    <!-- Total Locked Accounts -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold mb-2">Locked Accounts</h2>
+                        <p class="text-2xl font-bold text-red-600">
+                            <span id="locked_accounts">0</span>
+                        </p>
+                    </div>
+                    <!-- Last Locked / Unlocked -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold mb-2">Last Lock / Unlock Event</h2>
+                        <p id="last_lock_event">None</p>
+                    </div>
+                </div>
+                    <!-- Actions Div-->
+                <div class="mt-10 grid grid-cols-2 gap-6">
+                    <!-- Deposit Div-->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold mb-4">Deposit</h2>
+                        <input type="number" id="deposit_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4">
+                        <button onclick="deposit()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Deposit</button>
+                    </div>
+                    <!-- Withdraw Div-->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold mb-4">Withdraw</h2>
+                        <input type="number" id="withdraw_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4">
+                        <button onclick="withdraw()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Withdraw</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./js/api.js"></script>
+        <script src="./js/admin.js"></script>
+        <script src="./js/admin_dashboard.js"></script>
+    </body>
+</html>

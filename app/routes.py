@@ -93,15 +93,34 @@ def register_routes(app):
         return {"account_number":account_number,
                 "transactions":result},200
     
-    @app.route("/accounts/<int:account_number>/unlock",methods=["POST"])
+    # @app.route("/accounts/<int:account_number>/unlock",methods=["POST"])
+    # @login_required
+    # @role_required("admin")
+    # def unlock_account(account_number):
+    #     data = request.get_json(silent=True) or {}
+    #     provided_key = str(data.get("admin_key"))
+    #     account_status = service.unlock_account(account_number,provided_key)
+    #     return {"account_number":account_number,"message":account_status}
+
+    @app.route("/admin/unlock",methods=["POST"])
     @login_required
     @role_required("admin")
-    def unlock_account(account_number):
+    def admin_unlock():
         data = request.get_json(silent=True) or {}
-        provided_key = str(data.get("admin_key"))
-        account_status = service.unlock_account(account_number,provided_key)
-        return {"account_number":account_number,"message":account_status}
+        account_number = data.get("account_number")
+        admin_key = str(data.get("admin_key"))
+        account_status = service.unlock_account(account_number,admin_key)
+        return {"message":account_status,"account_number":account_number},200
     
+    @app.route("/admin/stats",methods=["GET"])
+    @login_required
+    @role_required("admin")
+    def admin_stats():
+        return {"total_balance":service.get_total_balance(),
+                "locked_accounts":service.get_locked_accounts_count(),
+                "total_accounts":service.get_total_accounts_count(),
+                "last_locked_account":service.get_last_lock_event()}
+
     @app.route("/auth/login",methods=["POST"])
     @limiter.limit("5 per minute")
     def login():

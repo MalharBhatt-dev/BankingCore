@@ -134,8 +134,6 @@ class BankingServices:
             self.repo.rollback()
             raise
 
-
-
     def view_transactions(self,account_number):
         account = self.repo.get_account(account_number)
         #authentication
@@ -168,6 +166,7 @@ class BankingServices:
             is_locked = account.is_locked
             if new_attempts >= 3:
                 is_locked = 1
+                self.repo.insert_transaction(account_number,"ACCOUNT_LOCKED",0,account.balance)
             self.repo.update_security_state(account_number,new_attempts,is_locked)
             self.repo.commit()
             self.logger.warning(f"Failed PIN attempt for account {account_number}")
@@ -197,8 +196,21 @@ class BankingServices:
             raise AccountNotLockedException('Account is not locked.')
         
         self.repo.unlock_account(account_number)
+        self.repo.insert_transaction(account_number,"ACCOUNT_UNLOCKED",0,account.balance)
         self.logger.info(f"Account {account_number} is unlocked successful.")
         return "Account unlocked successfully."
+    
+    def get_total_balance(self):
+        return self.repo.get_total_balance()
+    
+    def get_total_accounts_count(self):
+        return self.repo.get_total_accounts_count()
+    
+    def get_locked_accounts_count(self):
+        return self.repo.get_locked_accounts_count()
+    
+    def get_last_lock_event(self):
+        return self.repo.get_last_account_lock_event()
     
     def authenticate(self,account_number,pin):
         return self._verify_pin(account_number,pin)
