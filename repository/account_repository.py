@@ -18,21 +18,21 @@ class AccountRepository:
 
     def get_account(self,account_number):
         c = self.conn.cursor()
-        c.execute("""select account_number,account_holder_name,pin_hash,balance,created_at,failed_attempts,is_locked,role
+        c.execute("""select account_number,account_holder_name,pin_hash,balance,created_at,failed_attempts,is_locked,role,account_type
                     from accounts 
                     where account_number = ?""",(account_number,))
         acc = c.fetchone()
         if acc is None:
             return None
         
-        return Account(acc[0],acc[1],acc[2],acc[3],acc[4],acc[5],acc[6],acc[7])
+        return Account(acc[0],acc[1],acc[2],acc[3],acc[4],acc[5],acc[6],acc[7],acc[8])
     
-    def insert_account(self,account_number,name, pin_hash ,balance,role):
+    def insert_account(self,account_number,name, pin_hash ,balance,role,account_type):
         created_at = datetime.now().strftime("%D-%M-%Y %H:%M:%S")
         failed_attempts = 0
         is_locked = 0
         c = self.conn.cursor()
-        c.execute("""insert into accounts (account_number, account_holder_name ,pin_hash,balance,created_at, failed_attempts,is_locked,role) values(? , ? , ? , ?, ?, ?, ?, ?)""",(account_number , name , pin_hash , balance , created_at,failed_attempts,is_locked,role))
+        c.execute("""insert into accounts (account_number, account_holder_name ,pin_hash,balance,created_at, failed_attempts,is_locked,role,account_type) values(? , ? , ? , ?, ?, ?, ?, ?, ?)""",(account_number , name , pin_hash , balance , created_at,failed_attempts,is_locked,role,account_type))
        
 
     def update_balance(self,account_number,new_balance):
