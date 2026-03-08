@@ -33,8 +33,12 @@ async function unlockAccount(){
     }
 
     try{
-       const data = await apiRequest(`/admin/unlock`,"POST",{"account_number":account_number,"admin_key":admin_key});
-       alert(data.message); 
+        const data = await apiRequest(`/admin/unlock`,"POST",{"account_number":account_number,"admin_key":admin_key});
+        const hide_table = document.getElementById("accounts_table")
+        const formContainer = document.getElementById("unlock_form_container");
+        hide_table.classList.remove("hidden");
+        formContainer.classList.add("hidden");
+        alert(data.message); 
     }
     catch(error){
         console.log("Unlock failed",error)

@@ -16,7 +16,7 @@
                         <a href="admin_dashboard.html">Admin Dashboard</a>
                     </li>
                     <li class="hover:text-gray-300 cursor-pointer">
-                        <a href="admin_unlock_account.html">Unlock Account</a>
+                        <a href="admin_unlock_account.html">Management</a>
                     </li>
                     <li class="hover:text-gray-300 cursor-pointer">
                         <button onclick="adminLogout()">Logout</button>
@@ -51,36 +51,33 @@
                     </div>
                     <!-- Last Locked / Unlocked -->
                     <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Last Lock / Unlock Event</h2>
+                        <h2 class="text-lg font-semibold mb-2">Last Security Event</h2>
                         <p id="last_lock_event">None</p>
                     </div>
                 </div>
- <!-- Security Events Table -->
-<div class="mt-10 p-6 rounded-lg shadow">
-
- <div class="flex-1 p-6">
-                <h1 class="text-3xl font-bold mb-8">Security Events</h1>
-                <div class="max-h-[80vh] overflow-y-auto flex-1 bg-white shadow rounded-lg">
-                    <div class="p-6">
-                        <table class="min-w-full text-left border-collapse">
-                            <thead class="border-b">
-                                <tr class="border-b hover:bg-gray-100">
-                                    <th class="p-3 sticky top-0 bg-white z-10">Account Number</th>
-                                    <th class="p-3 sticky top-0 bg-white z-10">Event</th>
-                                    <th class="p-3 sticky top-0 bg-white z-10">Balance</th>
-                                    <th class="p-3 sticky top-0 bg-white z-10">Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="event_table" class="divide-y">
-                                <!-- JS will insert rows -->
-                            </tbody>
-                        </table>
+                <!-- Security Events Table -->
+                <div class="mt-10 p-3 rounded-lg shadow">
+                    <div class="flex-1 p-6">
+                        <h1 class="text-3xl font-bold mb-8">Security Events</h1>
+                        <div class="max-h-[47vh] overflow-y-auto flex-1 bg-white shadow rounded-lg">
+                            <div class="p-6">
+                                <table class="min-w-full text-left border-collapse">
+                                    <thead class="border-b">
+                                        <tr class="border-b hover:bg-gray-100">
+                                            <th class="p-3 sticky top-0 bg-white z-10">Account Number</th>
+                                            <th class="p-3 sticky top-0 bg-white z-10">Event</th>
+                                            <th class="p-3 sticky top-0 bg-white z-10">Balance</th>
+                                            <th class="p-3 sticky top-0 bg-white z-10">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="event_table" class="divide-y">   
+                                        <!-- JS will insert rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-</div>
-               
+                </div>           
             </div>
         </div>
         <script src="./js/api.js"></script>

@@ -194,10 +194,13 @@ class BankingServices:
 
         if not account.is_locked:
             raise AccountNotLockedException('Account is not locked.')
-        
-        self.repo.unlock_account(account_number)
-        self.repo.insert_transaction(account_number,"ACCOUNT_UNLOCKED",0,account.balance)
-        self.logger.info(f"Account {account_number} is unlocked successful.")
+        try :
+            self.repo.unlock_account(account_number)
+            self.repo.insert_transaction(account_number,"ACCOUNT_UNLOCKED",0,account.balance)
+            self.logger.info(f"Account {account_number} is unlocked successful.")
+            self.repo.commit()
+        except Exception as e:
+            return {"error":str(e)}
         return "Account unlocked successfully."
     
     def get_total_balance(self):
@@ -208,6 +211,9 @@ class BankingServices:
     
     def get_locked_accounts_count(self):
         return self.repo.get_locked_accounts_count()
+    
+    def get_locked_accounts(self):
+        return self.repo.get_locked_accounts()
     
     def get_last_lock_event(self):
         return self.repo.get_last_account_lock_event()

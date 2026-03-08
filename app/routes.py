@@ -136,6 +136,13 @@ def register_routes(app):
                 "timestamp":e.timestamp
             })
         return {"events":result},200
+    
+    @app.route("/admin/locked-accounts",methods=["GET"])
+    @login_required
+    @role_required("admin")
+    def locke_accounts():
+        accounts = service.get_locked_accounts()
+        return {"accounts":accounts},200
 
     @app.route("/auth/login",methods=["POST"])
     @limiter.limit("5 per minute")

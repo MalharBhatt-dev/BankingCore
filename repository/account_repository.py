@@ -97,6 +97,19 @@ class AccountRepository:
         c.execute("""select count(*) from accounts where is_locked = 1""")
         return c.fetchone()[0]
     
+    def get_locked_accounts(self):
+        c =self.conn.cursor()
+        c.execute("""select account_number,account_holder_name,failed_attempts
+                  from accounts where is_locked = 1 order by account_number""")
+        rows  = c.fetchall()
+        result = []
+        for row in rows :
+            result.append({"account_number":row[0],
+                           "name":row[1],
+                           "failed_attempts":row[2]})
+        return result
+
+
     def get_last_account_lock_event(self):
         c = self.conn.cursor()
         c.execute("""select account_number , transaction_type , timestamp

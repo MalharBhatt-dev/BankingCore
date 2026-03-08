@@ -16,62 +16,86 @@
                     <a href="admin_dashboard.html">Admin Dashboard</a>
                 </li>
                 <li class="hover:text-gray-300 cursor-pointer">
-                    <a href="admin_unlock_account.html">Unlock Account</a>
+                    <a href="admin_unlock_account.html">Management</a>
                 </li>
                 <li class="hover:text-gray-300 cursor-pointer">
                     <button onclick="adminLogout()">Logout</button>
                 </li>
             </ul>
         </div>
-                                        <!--Main Content-->
                           <!-- Main Content -->
-            <div class="flex-1  p-10 max-w-7xl">
-                <h1 class="text-3xl font-bold mb-8">Admin Management</h1>
-                <!-- Admin Overview Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Total Bank Balance -->
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Total Bank Balance</h2>
-                        <p class="text-2xl font-bold text-green-600">
-                            ₹ <span id="total_balance">0</span>
-                        </p>
-                    </div>
-                    <!-- Total Accounts -->
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Total Accounts</h2>
-                        <p class="text-2xl font-bold text-blue-600">
-                            <span id="total_accounts">0</span>
-                        </p>
-                    </div>
-                    <!-- Total Locked Accounts -->
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Locked Accounts</h2>
-                        <p class="text-2xl font-bold text-red-600">
-                            <span id="locked_accounts">0</span>
-                        </p>
-                    </div>
-                    <!-- Last Locked / Unlocked -->
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Last Lock / Unlock Event</h2>
-                        <p id="last_lock_event">None</p>
+        <div class="flex-1  p-10 max-w-7xl">
+            <h1 class="text-3xl font-bold mb-8">Admin Management</h1>
+            <!-- Admin Overview Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Total Bank Balance -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-2">Total Bank Balance</h2>
+                    <p class="text-2xl font-bold text-green-600">
+                        ₹ <span id="total_balance">0</span>
+                    </p>
+                </div>
+                <!-- Total Accounts -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-2">Total Accounts</h2>
+                    <p class="text-2xl font-bold text-blue-600">
+                        <span id="total_accounts">0</span>
+                    </p>
+                </div>
+                <!-- Total Locked Accounts -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-2">Locked Accounts</h2>
+                    <p class="text-2xl font-bold text-red-600">
+                        <span id="locked_accounts">0</span>
+                    </p>
+                </div>
+                <!-- Last Locked / Unlocked -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-2">Last Lock / Unlock Event</h2>
+                    <p id="last_lock_event">None</p>
+                </div>
+            </div>
+            <!-- Security Events Table -->
+            <div id="accounts_table" class="mt-10 p-6 rounded-lg shadow">
+                <div class="flex-1 p-6">
+                    <h1 class="text-3xl font-bold mb-8">Locked Accounts</h1>
+                    <div class="max-h-[80vh] overflow-y-auto flex-1 bg-white shadow rounded-lg">
+                        <div class="p-6">
+                            <table class="min-w-full text-left border-collapse">
+                                <thead class="border-b">
+                                    <tr class="border-b hover:bg-gray-100">
+                                        <th class="p-3 sticky top-0 bg-white z-10">Account Number</th>
+                                        <th class="p-3 sticky top-0 bg-white z-10">Name</th>
+                                        <th class="p-3 sticky top-0 bg-white z-10">Attempts</th>
+                                        <th class="p-3 sticky top-0 bg-white z-10">Status</th>
+                                        <th class="p-3 sticky top-0 bg-white z-10">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="locked_accounts_table" class="divide-y">   
+                                    <!-- JS will insert rows -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                                    <!--Unlock Form-->
-        <div class="flex items-center justify-center min-h-[calc(100vh-210px)]">
-            <div class="bg-white shadow-lg rounded-lg p-8 w-96">
-                <h2 class="text-2xl font-bold text-center mb-6 text-blue-900">Unlock Account</h2>
-                <form class="flex flex-col gap-4">
-                    <label class="font-semibold">Account Number</label>
-                    <input type="number" id="account_number" class="border p-2 rounded w-full" placeholder="Enter Account Number">
-                    <label class="font-semibold">Admin Key</label>
-                    <input type="password" id="admin_key" class="border p-2 rounded w-full" placeholder="Enter Admin Key">
-                    <button type="button" onclick="unlockAccount()" class="bg-blue-900 text-white py-2 rounded hover:bg-blue-700 transition">Submit</button>
-                </form>
+            </div> 
+                                <!--Unlock Form-->
+            <div id="unlock_form_container" class="flex items-center justify-center min-h-[calc(100vh-210px)] hidden">
+                <div class="bg-white shadow-lg rounded-lg p-8 w-96">
+                    <h2 class="text-2xl font-bold text-center mb-6 text-blue-900">Unlock Account</h2>
+                    <form class="flex flex-col gap-4">
+                        <label class="font-semibold">Account Number</label>
+                        <input type="number" id="account_number" class="border p-2 rounded w-full" placeholder="Enter Account Number" readonly>
+                        <label class="font-semibold">Admin Key</label>
+                        <input type="password" id="admin_key" class="border p-2 rounded w-full" placeholder="Enter Admin Key">
+                        <button type="button" onclick="unlockAccount()" class="bg-blue-900 text-white py-2 rounded hover:bg-blue-700 transition">Submit</button>
+                    </form>
+                </div> 
+            </div>
         </div>
     </div>
     <script src="./js/api.js"></script>
     <script src="./js/admin.js"></script>
     <script src="./js/admin_dashboard.js"></script>
-
 </body>
 </html>
