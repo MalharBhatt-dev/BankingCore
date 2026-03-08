@@ -1,13 +1,24 @@
-document.addEventListener("DOMContentLoaded", function(){
-    const account = getAccountNumber();
-    if(!account){
+document.addEventListener("DOMContentLoaded", async function(){
+    
+    if(!getRefreshToken()){
         window.location.href="index.html";
         return;
     }
-    document.getElementById("account_info").innerText = account;
-    loadBalance();
-    loadLastTransaction();
+    if(!getAccountNumber()){
+        window.location.href="index.html";
+        return;
+    }
+    await loadAccountNumber();
+    await loadBalance();
+    await loadLastTransaction();
 });
+
+async function loadAccountNumber(){
+    const account = getAccountNumber();
+    document.getElementById("account_info").innerText = account;
+
+}
+
 
 async function loadBalance(){
     const account = getAccountNumber();
