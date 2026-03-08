@@ -22,6 +22,25 @@ async function adminLogin(event){
     }
 }
 
+async function unlockAccount(){
+    
+    const account_number = document.getElementById("account_number").value;
+    const admin_key = document.getElementById("admin_key").value;
+
+    if(!account_number || !admin_key){
+        alert("Please fill all fields.");
+        return;
+    }
+
+    try{
+       const data = await apiRequest(`/admin/unlock`,"POST",{"account_number":account_number,"admin_key":admin_key});
+       alert(data.message); 
+    }
+    catch(error){
+        console.log("Unlock failed",error)
+    }
+}
+
 function adminLogout(){
     localStorage.clear();
     window.location.href="admin.html";

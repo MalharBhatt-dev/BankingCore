@@ -4,5 +4,11 @@ async function loadAdminStats(){
     document.getElementById("total_balance").innerText = data.total_balance;
     document.getElementById("total_accounts").innerText = data.total_accounts;
     document.getElementById("locked_accounts").innerText = data.locked_accounts;
-    document.getElementById("last_lock_event").innerText = data.last_locked_account;
+    const event = data.last_lock_event;
+    if(event){
+        document.getElementById("last_lock_event").innerText =
+`${event.event.replace("_"," ")} - Acc ${event.account_number}`;
+    }else{
+        document.getElementById("last_lock_event").innerText = "None";
+    }
 }

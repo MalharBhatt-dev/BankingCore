@@ -16,7 +16,7 @@
                         <a href="admin_dashboard.html">Admin Dashboard</a>
                     </li>
                     <li class="hover:text-gray-300 cursor-pointer">
-                        <a href="unlock_account.html">Unlock Account</a>
+                        <a href="admin_unlock_account.html">Unlock Account</a>
                     </li>
                     <li class="hover:text-gray-300 cursor-pointer">
                         <button onclick="adminLogout()">Logout</button>
@@ -55,21 +55,40 @@
                         <p id="last_lock_event">None</p>
                     </div>
                 </div>
-                    <!-- Actions Div-->
-                <div class="mt-10 grid grid-cols-2 gap-6">
-                    <!-- Deposit Div-->
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-4">Deposit</h2>
-                        <input type="number" id="deposit_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4">
-                        <button onclick="deposit()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Deposit</button>
-                    </div>
-                    <!-- Withdraw Div-->
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-4">Withdraw</h2>
-                        <input type="number" id="withdraw_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4">
-                        <button onclick="withdraw()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Withdraw</button>
-                    </div>
-                </div>
+ <!-- Security Events Table -->
+<div class="mt-10 bg-white p-6 rounded-lg shadow">
+
+<h2 class="text-xl font-semibold mb-4">Account Security Events</h2>
+
+<div class="max-h-[60vh] overflow-y-auto">
+
+<table class="min-w-full text-left border-collapse" id="security_event_table">
+
+<thead class="border-b">
+
+<tr class="border-b">
+
+<th class="p-3 sticky top-0 bg-white">Account</th>
+<th class="p-3 sticky top-0 bg-white">Event</th>
+<th class="p-3 sticky top-0 bg-white">Balance</th>
+<th class="p-3 sticky top-0 bg-white">Timestamp</th>
+
+</tr>
+
+</thead>
+
+<tbody id="event_table" class="divide-y">
+
+<!-- JS will insert rows -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+               
             </div>
         </div>
         <script src="./js/api.js"></script>

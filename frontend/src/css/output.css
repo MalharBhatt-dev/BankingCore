@@ -235,14 +235,41 @@
   .h-full {
     height: 100%;
   }
+  .max-h-\[60vh\] {
+    max-height: 60vh;
+  }
   .max-h-\[80vh\] {
     max-height: 80vh;
+  }
+  .min-h-\[calc\(100vh-10px\)\] {
+    min-height: calc(100vh - 10px);
   }
   .min-h-\[calc\(100vh-80px\)\] {
     min-height: calc(100vh - 80px);
   }
+  .min-h-\[calc\(100vh-100px\)\] {
+    min-height: calc(100vh - 100px);
+  }
   .min-h-\[calc\(100vh-110px\)\] {
     min-height: calc(100vh - 110px);
+  }
+  .min-h-\[calc\(100vh-120px\)\] {
+    min-height: calc(100vh - 120px);
+  }
+  .min-h-\[calc\(100vh-130px\)\] {
+    min-height: calc(100vh - 130px);
+  }
+  .min-h-\[calc\(100vh-150px\)\] {
+    min-height: calc(100vh - 150px);
+  }
+  .min-h-\[calc\(100vh-190px\)\] {
+    min-height: calc(100vh - 190px);
+  }
+  .min-h-\[calc\(100vh-200px\)\] {
+    min-height: calc(100vh - 200px);
+  }
+  .min-h-\[calc\(100vh-210px\)\] {
+    min-height: calc(100vh - 210px);
   }
   .min-h-screen {
     min-height: 100vh;

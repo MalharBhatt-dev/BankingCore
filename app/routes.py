@@ -6,7 +6,7 @@ def register_routes(app):
 
     @app.route("/")
     def home():
-        return {"message :":"Banking API is running."}
+        return {"message":"Banking API is running."}
     
     @app.route("/accounts", methods=["POST"])
     def create_account():
@@ -116,10 +116,11 @@ def register_routes(app):
     @login_required
     @role_required("admin")
     def admin_stats():
+        last_event = service.get_last_lock_event()
         return {"total_balance":service.get_total_balance(),
                 "locked_accounts":service.get_locked_accounts_count(),
                 "total_accounts":service.get_total_accounts_count(),
-                "last_locked_account":service.get_last_lock_event()}
+                "last_locked_account":last_event}
 
     @app.route("/auth/login",methods=["POST"])
     @limiter.limit("5 per minute")

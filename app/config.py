@@ -2,8 +2,8 @@ import os
 import logging
 from dotenv import load_dotenv
 class Config:
-    load_dotenv()
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+    load_dotenv(os.path.join(BASE_DIR,".env"))
 
     SECRET_KEY =os.getenv("SECRET_KEY")
     if not SECRET_KEY:
@@ -13,7 +13,7 @@ class Config:
     if not ADMIN_KEY:
         raise ValueError("ADMIN_KEY environment variable is not set")
     
-    DEBUG = os.getenv("FLASK_DEBUG","false").lower() == "true"
+    DEBUG = os.getenv("FLASK_DEBUG","0") == "1"
     
     LOG_FILE = os.path.join(BASE_DIR, "logs", "banking_core.log")
     LOG_LEVEL = logging.INFO
