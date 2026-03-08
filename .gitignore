@@ -7,7 +7,9 @@ __pycache__/
 *.pyc
 
 #logs
+logs/
 *.log
+*.log.*
 
 #db
 *.db
