@@ -121,6 +121,21 @@ def register_routes(app):
                 "locked_accounts":service.get_locked_accounts_count(),
                 "total_accounts":service.get_total_accounts_count(),
                 "last_locked_account":last_event}
+    
+    @app.route("/admin/events",methods=["GET"])
+    @login_required
+    @role_required("admin")
+    def get_security_stats():
+        events = service.get_security_events()
+        result =[]
+        for e in events:
+            result.append({
+                "account_number":e.account_number,
+                "event":e.transaction_type,
+                "balance":e.balance_after,
+                "timestamp":e.timestamp
+            })
+        return {"events":result},200
 
     @app.route("/auth/login",methods=["POST"])
     @limiter.limit("5 per minute")

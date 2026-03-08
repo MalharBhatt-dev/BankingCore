@@ -106,6 +106,19 @@ class AccountRepository:
         if not row:
             return None
         return {"account_number":row[0],"event":row[1],"timestamp":row[2]}
+    
+    def get_security_events(self):
+        c=self.conn.cursor()
+        c.execute(""" SELECT account_number, transaction_type, balance_after, timestamp
+        FROM transactions
+        WHERE transaction_type IN ('ACCOUNT_LOCKED','ACCOUNT_UNLOCKED')
+        ORDER BY timestamp DESC
+        LIMIT 20""")
+        rows = c.fetchall()
+        events = []
+        for row in rows:
+            events.append(Transaction(row[0], row[1], 0, row[2], row[3]))
+        return events
 
     def blacklist_jti(self,jti):
         c = self.conn.cursor()

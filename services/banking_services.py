@@ -212,6 +212,9 @@ class BankingServices:
     def get_last_lock_event(self):
         return self.repo.get_last_account_lock_event()
     
+    def get_security_events(self):
+        return self.repo.get_security_events()
+    
     def authenticate(self,account_number,pin):
         return self._verify_pin(account_number,pin)
     
