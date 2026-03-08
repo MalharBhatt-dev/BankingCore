@@ -19,19 +19,26 @@ def create_app():
     service = BankingServices(repo,app.config["ADMIN_KEY"],app.logger)
 
     app.config["service"] = service
+    
+    log_dir = os.path.dirname(app.config["LOG_FILE"])
+    if log_dir :
+        os.makedirs(log_dir,exist_ok=True)
 
-    os.makedirs(os.path.dirname(app.config["LOG_FILE"]), exist_ok=True)
     #loggin setup
     file_handler = RotatingFileHandler(app.config.get("LOG_FILE","banking_core.log"),maxBytes=10240,backupCount=5)
 
-    file_handler.setLevel(app.config["LOG_LEVEL"])
+
     formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
     file_handler.setFormatter(formatter)
 
     app.logger.addHandler(file_handler)
     app.logger.setLevel(app.config["LOG_LEVEL"])
 
-    csp={"default-src":"'self'"}
+    csp={
+        "default-src":["'self'"],
+        "sript-src":["'self'","'unsafe-inline'"],
+        "style-src":["'self'","'unsafe-inline'"]
+        }
 
     Talisman(app,content_security_policy=csp,force_https=False)
     #register routes and errors

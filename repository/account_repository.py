@@ -80,7 +80,59 @@ class AccountRepository:
         c.execute("""update accounts
                        set failed_attempts = 0 , is_locked = 0
                        where account_number = ?""",(account_number,))
-        
+    
+    def get_total_balance(self):
+        c=self.conn.cursor()
+        c.execute("""select sum(balance) from accounts""")
+        result = c.fetchone()
+        return result[0] or 0
+
+    def get_total_accounts_count(self):
+        c=self.conn.cursor()
+        c.execute("""select count(*) from accounts""")
+        return c.fetchone()[0]
+    
+    def get_locked_accounts_count(self):
+        c=self.conn.cursor()
+        c.execute("""select count(*) from accounts where is_locked = 1""")
+        return c.fetchone()[0]
+    
+    def get_locked_accounts(self):
+        c =self.conn.cursor()
+        c.execute("""select account_number,account_holder_name,failed_attempts
+                  from accounts where is_locked = 1 order by account_number""")
+        rows  = c.fetchall()
+        result = []
+        for row in rows :
+            result.append({"account_number":row[0],
+                           "name":row[1],
+                           "failed_attempts":row[2]})
+        return result
+
+
+    def get_last_account_lock_event(self):
+        c = self.conn.cursor()
+        c.execute("""select account_number , transaction_type , timestamp
+                  from transactions where transaction_type in ('ACCOUNT_LOCKED','ACCOUNT_UNLOCKED')
+                  order by timestamp desc limit 1""")
+        row = c.fetchone()
+        if not row:
+            return None
+        return {"account_number":row[0],"event":row[1],"timestamp":row[2]}
+    
+    def get_security_events(self):
+        c=self.conn.cursor()
+        c.execute(""" SELECT account_number, transaction_type, balance_after, timestamp
+        FROM transactions
+        WHERE transaction_type IN ('ACCOUNT_LOCKED','ACCOUNT_UNLOCKED')
+        ORDER BY timestamp DESC
+        LIMIT 20""")
+        rows = c.fetchall()
+        events = []
+        for row in rows:
+            events.append(Transaction(row[0], row[1], 0, row[2], row[3]))
+        return events
+
     def blacklist_jti(self,jti):
         c = self.conn.cursor()
         revoked_at = datetime.now().isoformat()
