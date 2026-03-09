@@ -19,6 +19,31 @@ c.execute("""CREATE TABLE IF NOT EXISTS accounts (
     is_locked INTEGER DEFAULT 0
 );
 """)
+
+c.execute("""CREATE TABLE IF NOT EXISTS service_requests (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          account_number INTEGER NOT NULL,
+          query_type TEXT NOT NULL,
+          description text not null,
+          status text default 'PENDING',
+          created_at text not null,
+          approved_by_employee integer default 0,
+          approved_at text default 'None',
+          expires_at text default 'None'
+          );
+""")
+
+c.execute("""create table if not exists request_submissions(
+          id integer primary key autoincrement,
+          request_id integer not null,
+          account_number integer not null,
+          submission_data text not null,
+          submitted_at text not null );
+""")
+
+# c.execute("""ALTER TABLE accounts
+#           ADD COLUMN account_type text not null default 'SAVINGS'""")
+
 c.execute("""
 
           CREATE TABLE IF NOT EXISTS transactions (
@@ -36,15 +61,15 @@ c.execute("""
 create table if not exists token_blacklist(
           id integer primary key autoincrement,
           jti text not null unique,
-          revoked_at text not null)
+          revoked_at text not null);
 """)
 
 c.execute("PRAGMA table_info(accounts)")
 columns = [row[1] for row in c.fetchall()]
 
 if "role" not in columns:
-    c.execute("ALTER TABLE accounts ADD COLUMN role TEXT DEFAULT 'user' ")
+    c.execute("ALTER TABLE accounts ADD COLUMN role TEXT DEFAULT 'user' ;")
 
-c.execute("update accounts set role ='admin' where account_number = 1003")
+c.execute("update accounts set role ='admin' where account_number = 1003;")
 conn.commit()
 conn.close()
