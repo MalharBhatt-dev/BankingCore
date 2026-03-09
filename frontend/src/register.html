@@ -21,6 +21,11 @@
             <div class="bg-white shadow-lg rounded-lg p-8 w-96">
                 <h2 class="text-2xl font-bold text-center mb-6 text-blue-900">Create New Account</h2>
                 <form class="flex flex-col gap-4">
+                    <label class="font-semibold">Account Type</label>
+                    <select id="account_type" class="border p-2 rounded">
+                        <option value="SAVINGS">Savings Account</option>
+                        <option value="CURRENT">Current Account</option>
+                    </select>
                     <label class="font-semibold">Full Name</label>
                     <input type="text" id="name" class="border p-2 rounded w-full" placeholder="Enter your name">
                     <label class="font-semibold">PIN</label>
