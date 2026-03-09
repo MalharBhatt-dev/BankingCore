@@ -19,6 +19,10 @@ c.execute("""CREATE TABLE IF NOT EXISTS accounts (
     is_locked INTEGER DEFAULT 0
 );
 """)
+
+c.execute("""ALTER TABLE accounts
+          ADD COLUMN account_type text not null default 'SAVINGS';""")
+
 c.execute("""
 
           CREATE TABLE IF NOT EXISTS transactions (
@@ -29,7 +33,7 @@ c.execute("""
     balance_after REAL not null,
     timestamp TEXT NOT NULL,
     FOREIGN KEY (account_number) REFERENCES accounts(account_number)
-);
+)
 """)
 
 c.execute("""
