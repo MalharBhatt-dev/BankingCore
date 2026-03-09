@@ -21,5 +21,15 @@ class ServiceRequestRepository:
         #!remove it after the addition of the features in the service layer.
         self.conn.commit()
 
+    def get_user_requests(self,account_number):
+        c=self.conn.cursor()
+        c.execute("""select * from service_requests where account_number = ? order by created_at desc""",(account_number,))
+        return c.fetchall()
+    
+    def get_pending_requests(self):
+        c= self.conn.cursor()
+        c.execute("""select * from service_requests where status = "PENDING" order by created_at desc""")
+        return c.fetchall()
+    
 a = ServiceRequestRepository()
-a.create_request(1001,"pin_change","PIN CHANGED")
+print(a.get_pending_requests())
