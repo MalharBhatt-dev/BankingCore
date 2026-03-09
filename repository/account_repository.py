@@ -155,7 +155,6 @@ class AccountRepository:
 
 # ac = AccountRepository()
 # ac.get_account(1001)
-
 #NOTE :
 #?What is Repository Responsible For?
 #? Repository only:→Talks to database,→Executes SQL,→Returns raw data.
