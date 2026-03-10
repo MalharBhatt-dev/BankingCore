@@ -93,15 +93,6 @@ def register_routes(app):
             })
         return {"account_number":account_number,
                 "transactions":result},200
-    
-    # @app.route("/accounts/<int:account_number>/unlock",methods=["POST"])
-    # @login_required
-    # @role_required("admin")
-    # def unlock_account(account_number):
-    #     data = request.get_json(silent=True) or {}
-    #     provided_key = str(data.get("admin_key"))
-    #     account_status = service.unlock_account(account_number,provided_key)
-    #     return {"account_number":account_number,"message":account_status}
 
     @app.route("/admin/unlock",methods=["POST"])
     @login_required
@@ -218,4 +209,51 @@ def register_routes(app):
         except Exception as e:
             return {"error":str(e)},401 
     
-  
+    @app.route("/requests",methods=["POST"])
+    @login_required
+    # @role_required("employee")
+    def create_request():
+        data = request.get_json(silent=True) or {}
+        query_type = data.get("query_type")
+        description = data.get("description")
+
+        request_service.create_request(g.account_number,query_type,description)
+
+        return {"message":"Request created successsfully"},201
+
+    @app.route("/requests/my",methods=["GET"])
+    @login_required
+    def my_requests():
+        requests = request_service.get_user_requests(g.account_number)
+        return {"requests":requests}
+
+    @app.route("/employee/requests",methods=["GET"])
+    @login_required
+    @role_required("employee")
+    def pending_requests():
+        requests = request_service.get_pending_requests()
+        return {"requests":requests}
+
+    @app.route("/employee/requests/<int:request_id>/approve",methods=["POST"])
+    @login_required
+    @role_required("employee")
+    def approve_request(request_id):
+        request_service.approve_request(request_id,g.account_number)
+        return {"message":"Request approved"}
+    
+    @app.route("/employee/requests/<int:request_id>/reject",methods=["POST"])
+    @login_required
+    @role_required("employee")
+    def approve_request(request_id):
+        request_service.reject_request(request_id,g.account_number)
+        return {"message":"Request rejected"}
+    
+    @app.route("/requests/<int:request_id/submit",methods=["POST"])
+    @login_required
+    def submit_request(request_id):
+        data = request.get_json(silent=True) or {}
+        request_service.submit_request(request_id,data)
+        return {"message":"Request submitted successfully"}
+    
+
+
