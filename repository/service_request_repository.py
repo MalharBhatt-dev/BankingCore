@@ -12,24 +12,43 @@ class ServiceRequestRepository:
         self.conn.execute("PRAGMA foreign_key = ON")
     
     def create_request(self,account_number,query_type,description):
-        created_at = datetime.now().strftime("%D-%M-%Y %H:%M:%S")
+        created_at = datetime.now().isoformat()
         status = "PENDING"
 
         c= self.conn.cursor()
         c.execute("""insert into service_requests (account_number , query_type,description,created_at) values (?, ?, ?, ?)""",(account_number,query_type,description,created_at))
-        
-        #!remove it after the addition of the features in the service layer.
-        self.conn.commit()
 
     def get_user_requests(self,account_number):
         c=self.conn.cursor()
         c.execute("""select * from service_requests where account_number = ? order by created_at desc""",(account_number,))
-        return c.fetchall()
+        rows = c.fetchall()
+        return rows
     
     def get_pending_requests(self):
         c= self.conn.cursor()
-        c.execute("""select * from service_requests where status = "PENDING" order by created_at desc""")
-        return c.fetchall()
+        c.execute("""select * from service_requests where status = 'PENDING' order by created_at ASC""")
+        rows = c.fetchall()
+        return rows
     
-a = ServiceRequestRepository()
-print(a.get_pending_requests())
+    def approve_request(self,request_id,employee_id,expires_at):
+        c = self.conn.cursor()
+        approved_at = datetime.now().isoformat()
+        c.execute("""UPDATE service_requests SET statues = ? ,approved_by_employee = ?,approved_at = ?,expires_at =? where id = ?""",("APPROVED",employee_id,approved_at,expires_at,request_id))
+
+    def reject_request(self,request_id,employee_id):
+        c = self.conn.cursor()
+        c.execute("""UPDATE service_requests SET status = ? , approved_by_employee = ? where id = ?""",("REJECTED",employee_id,request_id))
+    
+    def submit_request(self,request_id,submission_data):
+        c=self.conn.cursor()
+        submitted_at = datetime.now().isoformat()
+        c.execute("""INSERT INTO request_submissions (request_id,submission_data,submitted_at) values (?,?,?)""",(request_id,submission_data,submitted_at))
+    
+    def commit(self):
+        self.conn.commit()
+    
+    def rollback(self):
+        self.conn.rollback()
+    
+    def close(self):
+        self.conn.close()
