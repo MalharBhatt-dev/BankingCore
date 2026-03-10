@@ -4,6 +4,15 @@ from datetime import datetime, timedelta
 
 class ServiceRequestService:
 
+    VALID_TRANSITIONS = {
+    "PENDING": ["APPROVED", "REJECTED"],
+    "APPROVED": ["SUBMITTED", "EXPIRED"],
+    "SUBMITTED": ["COMPLETED"],
+    "REJECTED": [],
+    "COMPLETED": [],
+    "EXPIRED": []
+    }
+
     def __init__(self, repository, logger):
         self.repo = repository
         self.logger = logger
@@ -66,22 +75,13 @@ class ServiceRequestService:
         return result
 
 
-    def approve_request(self, request_id, employee_id):
-
-        expires_at = (datetime.now() + timedelta(minutes=10)).isoformat()
-
-        try:
-
-            self.repo.approve_request(request_id, employee_id, expires_at)
-            self.repo.commit()
-
-            self.logger.info(
-                f"Request {request_id} approved by employee {employee_id}"
-            )
-
-        except Exception as e:
-            self.repo.rollback()
-            raise e
+    def approve_request(self,request_id,employee_id):
+        request = self.repo.get_request(request_id)
+        current_status = request[4]
+        self.validate_transition(current_status,"APPROVED")
+        expires_at = (datetime.now()+timedelta(minutes=10)).isoformat()
+        self.repo.approve_request(request_id,employee_id,expires_at)
+        self.repo.commit()
 
 
     def reject_request(self, request_id, employee_id):
@@ -100,19 +100,31 @@ class ServiceRequestService:
             raise e
 
 
-    def submit_request(self, request_id, submission_data):
+    def submit_request(self,request_id,submission_data):
 
-        try:
+        request = self.repo.get_request(request_id)
 
-            data_json = json.dumps(submission_data)
+        status = request[4]
+        expires_at = request[8]
 
-            self.repo.submit_request(request_id, data_json)
-            self.repo.commit()
+        self.validate_transition(status,"SUBMITTED")
 
-            self.logger.info(
-                f"Submission received for request {request_id}"
+        if expires_at and datetime.now() > datetime.fromisoformat(expires_at):
+            raise Exception("Request expired")
+
+        data_json = json.dumps(submission_data)
+
+        self.repo.submit_request(request_id,data_json)
+
+        self.repo.commit()
+        
+    def validate_transition(self,current,new):
+        allowed = self.VALID_TRANSITIONS.get(current,[])
+        if new not in allowed:
+            raise Exception(
+                f"Invalid state transition: {current} → {new}"
             )
-
-        except Exception as e:
-            self.repo.rollback()
-            raise e
+        
+    def expire_requests(self):
+        now = datetime.now().isoformat()
+        self.repo.expire_old_requests(now)

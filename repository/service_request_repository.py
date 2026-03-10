@@ -29,6 +29,14 @@ class ServiceRequestRepository:
         rows = c.fetchall()
         return rows
     
+    def get_request(self,request_id):
+        c = self.conn.cursor()
+        c.execute("""
+        SELECT *
+        FROM service_requests
+        WHERE id = ?""",(request_id,))
+        return c.fetchone()
+    
     def approve_request(self,request_id,employee_id,expires_at):
         c = self.conn.cursor()
         approved_at = datetime.now().isoformat()
