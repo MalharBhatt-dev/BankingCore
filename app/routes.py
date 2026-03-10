@@ -3,6 +3,7 @@ from app.extensions import limiter
 from app.auth import generate_access_token,generate_refresh_token,login_required,role_required,verify_token
 def register_routes(app):
     service = app.config["service"]
+    request_service = app.config["request_service"]
 
     @app.route("/")
     def home():

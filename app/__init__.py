@@ -2,7 +2,9 @@ from flask_cors import CORS
 from flask import Flask
 from flask_talisman import Talisman
 from repository.account_repository import AccountRepository
+from repository.service_request_repository import ServiceRequestRepository
 from services.banking_services import BankingServices
+from services.service_request_service import ServiceRequestService
 from app.extensions import limiter
 from app.config import Config
 import os
@@ -17,9 +19,13 @@ def create_app():
     #dependency injection
     repo = AccountRepository()
     service = BankingServices(repo,app.config["ADMIN_KEY"],app.logger)
-
     app.config["service"] = service
-    
+
+    #dependecy injection for service_request
+    request_repo = ServiceRequestRepository()
+    request_service = ServiceRequestService(request_repo,app.logger)
+    app.config["request_service"] = request_service
+
     log_dir = os.path.dirname(app.config["LOG_FILE"])
     if log_dir :
         os.makedirs(log_dir,exist_ok=True)
