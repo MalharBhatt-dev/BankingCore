@@ -1,188 +1,295 @@
-# 📘 Banking Core – Development Evolution Log
+# 📘 Banking Core – Development Log
 
-This document tracks the architectural and structural evolution of the Banking Core project.
+This document tracks the architectural evolution of the Banking Core system.
 
-The goal of this log is:
-- To document learning progression
-- To preserve architectural decisions
-- To serve as a reference guide for future backend projects
-- To build professional development habits
+The project began as a simple banking script and evolved into a secure full-stack backend system.
 
 ---
 
-# 🚀 Phase 1 – Basic CLI Banking (Initial Objective)
+# 🚀 Phase 1 — Basic Banking Logic
 
-### Goal:
-Build a simple CLI banking system with:
+Initial goal was to simulate banking operations.
+
+Features implemented:
 
 - Create account
 - Deposit
 - Withdraw
 - Check balance
-- Exit
 
-### Characteristics:
+Characteristics:
+
 - No database
-- In-memory storage
-- Basic class-based design
-- Direct logic handling inside CLI
+- Data stored in memory
+- Basic class structure
 
-### Learning:
-- Basic OOP
-- Class structure
-- Method interaction
-- Simple validation
+Learning outcomes:
 
----
-
-# 💾 Phase 2 – SQLite Integration
-
-### Upgrade:
-Replace in-memory storage with SQLite persistence.
-
-### Changes:
-- Introduced `sqlite3`
-- Created `accounts` and `transactions` tables
-- Implemented commit / rollback handling
-- Ensured atomic transactions
-
-### Architectural Impact:
-- Data persists after application closes
-- Introduced real database constraints
-- Learned transaction safety
+- Object oriented programming
+- Basic validation
+- Method interactions
 
 ---
 
-# 🏗 Phase 3 – Repository Pattern
+# 💾 Phase 2 — SQLite Integration
 
-### Problem:
-Business logic and SQL were mixed.
+To persist data, SQLite was introduced.
 
-### Solution:
-Created `AccountRepository` layer.
+Changes:
 
-### Responsibilities:
+- Created database schema
+- Introduced accounts table
+- Introduced transactions table
+- Implemented commit and rollback
+
+Benefits:
+
+- Data persistence
+- Transaction safety
+- Real database structure
+
+---
+
+# 🏗 Phase 3 — Repository Pattern
+
+Problem identified:
+
+Business logic and SQL queries were mixed.
+
+Solution:
+
+Created `AccountRepository`.
+
+Responsibilities:
+
 - Handle SQL queries
-- Manage DB connection
-- Map DB rows
-- Commit / rollback
+- Manage database connection
+- Return entity objects
 
-### Result:
+Benefits:
+
 - Separation of concerns
-- Service layer isolated from SQL
 - Cleaner architecture
+- Easier maintenance
 
 ---
 
-# 🧠 Phase 4 – Service Layer (Business Logic Isolation)
+# 🧠 Phase 4 — Service Layer
 
-### Introduced:
-`BankingServices` layer
+Introduced `BankingServices`.
 
-### Responsibilities:
-- Input validation
+Responsibilities:
+
 - Business rules
+- Validation
 - Transaction control
-- Raising domain errors
+- Raising domain exceptions
 
-### Benefits:
-- No SQL in business logic
-- Atomic operation control
-- Clear responsibility separation
+Important rule:
+
+Service layer contains **no SQL code**.
 
 ---
 
-# 📦 Phase 5 – Domain Entities
+# 📦 Phase 5 — Domain Entities
 
-### Added:
-- `Account` entity
-- `Transaction` entity
+Added:
 
-### Before:
+```
+Account
+Transaction
+```
+
+Before:
+
 Repository returned tuples.
 
-### After:
-Repository maps DB rows → Entity objects.
+After:
 
-### Improvement:
-- Removed tuple indexing (e.g., account[2])
-- Improved readability (account.balance)
-- Decoupled service layer from DB structure
+Repository maps rows to objects.
+
+Example improvement:
+
+```
+account.balance
+```
+
+instead of
+
+```
+account[3]
+```
+
+Benefits:
+
+- Better readability
+- Domain abstraction
 
 ---
 
-# ⚠️ Phase 6 – Custom Exception Architecture
+# ⚠️ Phase 6 — Custom Exception Architecture
 
-### Introduced:
-Custom domain exception hierarchy:
+Introduced domain exception hierarchy.
 
-- BankingException (Base)
+Examples:
+
+- BankingException
 - AccountNotFoundException
 - InvalidAmountException
 - InsufficientBalanceException
-- InvalidAccountNameException
+- InvalidPINException
 
-### Benefits:
+Benefits:
+
 - Clear domain error semantics
-- Business errors separated from system errors
-- REST API ready error mapping
+- Better API responses
+- Easier debugging
 
 ---
 
-# 🖥 Phase 7 – Thin CLI Controller
+# 🌐 Phase 7 — REST API Implementation
 
-### Final CLI Structure:
-- main.py acts as controller
-- Only interacts with service layer
-- No SQL in CLI
-- Catches BankingException separately
+Flask was introduced to expose backend functionality.
 
-### Architectural Model:
+Endpoints added:
 
-```bash
-CLI → Service → Repository → SQLite  
-            ↑  
-         Entities  
 ```
----
-
-# 🌐 Phase 8 – REST API Implementation (Flask Integration)
-
-### Objective:
-- Expose the banking backend as a RESTful API while preserving    clean layered architecture.
-
-### Key Decisions:
-- Reuse existing Service + Repository layers
-- Keep API layer thin
-- Maintain dependency injection
-- Preserve atomic transaction handling
-
-### 🔹 Endpoints Implemented
-
-#### 1️⃣ Create Account
-```bash
 POST /accounts
-```
-#### 2️⃣ View Balance
-```bash
-GET /accounts/<int:account_number>
-```
-#### 3️⃣ Deposit
-```bash
-POST /accounts/<int:account_number>/deposit
-```
-#### 4️⃣ Withdraw
-```bash
-POST /accounts/<int:account_number>/withdraw
+GET /accounts/<account>
+POST /deposit
+POST /withdraw
+GET /transactions
 ```
 
-#### 5️⃣ View Transaction History
-```bash
-GET /accounts/<int:account_number>/transactions
+Benefits:
+
+- External interface support
+- JSON communication
+- HTTP status codes
+
+---
+
+# 🔐 Phase 8 — Authentication System
+
+Added secure authentication using JWT.
+
+Two token types introduced:
+
+Access Token
+
 ```
-### 🔹 REST Architectural Model
-```bash
-REST API (Flask)
+valid for 15 minutes
+```
+
+Refresh Token
+
+```
+valid for 7 days
+```
+
+Benefits:
+
+- Stateless authentication
+- Secure session handling
+
+---
+
+# 🚫 Phase 9 — Token Blacklisting
+
+Refresh tokens now include JTI.
+
+Revoked tokens stored in:
+
+```
+token_blacklist
+```
+
+Used for:
+
+- Logout
+- Token revocation
+
+---
+
+# 🛡 Phase 10 — Security Hardening
+
+Added security mechanisms:
+
+Rate limiting
+
+```
+Flask-Limiter
+```
+
+Security headers
+
+```
+Flask-Talisman
+```
+
+Includes:
+
+- HSTS
+- X-Frame-Options
+- Content Security Policy
+
+Benefits:
+
+- Protection against abuse
+- Improved API security
+
+---
+
+# 🔐 Phase 11 — Account Locking
+
+Security feature added.
+
+Rules:
+
+```
+3 failed PIN attempts → account locked
+```
+
+Unlock requires:
+
+```
+ADMIN_KEY
+```
+
+Benefits:
+
+- Prevent brute force attacks
+
+---
+
+# 🎨 Phase 12 — Frontend Dashboard
+
+A simple banking UI was built.
+
+Pages:
+
+```
+Login
+Register
+Dashboard
+Transfer
+Transaction History
+```
+
+Frontend communicates with backend using:
+
+```
+Fetch API
+```
+
+---
+
+# 🧩 Final System Architecture
+
+```
+Frontend (HTML / JS)
+        ↓
+Flask API
         ↓
 Service Layer
         ↓
@@ -190,77 +297,20 @@ Repository Layer
         ↓
 SQLite Database
 ```
-- CLI and REST now share the same backend core.
-
-### 🔹 Threading Issue & Resolution
-- Problem:
-   - SQLite connection raised:
-   ```bash
-   SQLite objects created in a thread can only be used in that same thread
-   ```
-- Cause:
-   - Flask runs in multi-threaded environment.
-
-- Fix:
-   - Enabled cross-thread usage:
-   ```bash
-   sqlite3.connect(DB_PATH, check_same_thread=False)
-   ```
-- Learning:
-   - Web servers are multi-threaded
-   - DB connection handling differs from CLI applications
-
-### 🔹 Global Error Handling
-- Before:
-   - Each endpoint had repetitive try/except blocks.
-
-- After:
-   - Implemented Flask global error handlers:
-   - BankingException → 400
-   - Generic Exception → 500
-
-- Benefits:
-   - Cleaner endpoints
-   - Centralized error logic
-   - Professional API structure
-
-### 🔹 Input Validation Refinement
-- Enhanced domain validation:
-   - Name must contain only alphabets and spaces (Regex enforced)
-   - Prevented numeric and special-character names
-   - Consistent JSON response structure
-   - Standardized snake_case response keys
----
-
-# 🧩 Final Architecture Summary
-
-The system now follows:
-
-- Clean layered architecture
-- Repository pattern
-- Domain modeling
-- Atomic transactions
-- Dependency injection
-- Custom exception hierarchy
-- SQLite persistence
-- REST API exposure
-- Global error handling
-- Thread-aware DB integration
 
 ---
 
-# 🧠 Key Engineering Lessons Learned
+# 🧠 Key Engineering Lessons
 
 1. Separate business logic from database logic.
-2. Never expose raw DB rows to service layer.
-3. Use entities for domain modeling.
-4. Use custom exceptions for semantic clarity.
-5. Keep controllers (CLI/REST) thin.
-6. Control transactions in service layer.
-7. Web applications introduce threading complexity.
-8. Centralized error handling improves maintainability.
-9. Validation belongs in service layer, not controller.
-10. Design for interface independence (CLI + REST)..
+2. Keep controllers thin.
+3. Use entities instead of tuples.
+4. Implement centralized error handling.
+5. Design APIs with security in mind.
+6. Use layered architecture for scalability.
+7. Web applications introduce concurrency challenges.
+8. Authentication should be stateless.
+9. Logging and monitoring are essential for production systems.
 
 ---
 
@@ -268,46 +318,41 @@ The system now follows:
 
 The project is now:
 
-- Resume-level backend system
-- CLI + REST dual-interface architecture
-- Structurally scalable
-- Cleanly layered
+- Full REST backend
+- Secure authentication system
+- Persistent database
+- Layered architecture
 - Transaction-safe
-- Error-managed
-- Database persistent
-- Production-ready foundation
+- Rate-limited
+- Token-based authentication
+- Frontend dashboard enabled
 
 ---
 
-# 🚀 Next Possible Evolution Paths
+# 🔮 Future Improvements
 
-- Add Authentication (PIN system)
-- Implement account locking logic
-- Introduce logging & monitoring
-- Refactor into Blueprint / App Factory pattern
-- Add request schema validation (Marshmallow / Pydantic)
-- Dockerize application
-- Add CI/CD pipeline
-- Add unit & integration testing
-- Migrate to MySQL/PostgreSQL
+Possible next steps:
+
+- Docker containerization
+- CI/CD pipeline
+- API documentation
+- Automated testing
+- PostgreSQL migration
+- Role-based admin dashboard
+- API schema validation
 
 ---
 
 # 📌 Personal Reflection
 
-The project began as a small CLI tool.
+The project began as a small CLI banking script.
 
-It evolved into a structured backend system with:
+It evolved into a structured backend system featuring:
 
-- A structured backend core
-- A persistent database system
-- A layered architecture implementation
-- A REST-enabled service
-- A thread-safe web backend
+- Clean layered architecture
+- Secure authentication
+- REST API
+- Database persistence
+- Frontend interface
 
-This marks the transition from beginner scripting to structured backend engineering.
-
-The CLI phase built fundamentals.
-The REST phase introduced real-world backend complexity.
-
-This document represents the foundation of a scalable backend system.
+This marks the transition from basic scripting to **structured backend engineering**.
