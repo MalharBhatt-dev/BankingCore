@@ -244,11 +244,11 @@ def register_routes(app):
     @app.route("/employee/requests/<int:request_id>/reject",methods=["POST"])
     @login_required
     @role_required("employee")
-    def approve_request(request_id):
+    def reject_request(request_id):
         request_service.reject_request(request_id,g.account_number)
         return {"message":"Request rejected"}
     
-    @app.route("/requests/<int:request_id/submit",methods=["POST"])
+    @app.route("/requests/<int:request_id>/submit",methods=["POST"])
     @login_required
     def submit_request(request_id):
         data = request.get_json(silent=True) or {}
