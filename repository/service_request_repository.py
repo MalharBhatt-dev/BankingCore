@@ -13,7 +13,6 @@ class ServiceRequestRepository:
     
     def create_request(self,account_number,query_type,description):
         created_at = datetime.now().isoformat()
-        status = "PENDING"
 
         c= self.conn.cursor()
         c.execute("""insert into service_requests (account_number , query_type,description,created_at) values (?, ?, ?, ?)""",(account_number,query_type,description,created_at))
@@ -33,7 +32,7 @@ class ServiceRequestRepository:
     def approve_request(self,request_id,employee_id,expires_at):
         c = self.conn.cursor()
         approved_at = datetime.now().isoformat()
-        c.execute("""UPDATE service_requests SET statues = ? ,approved_by_employee = ?,approved_at = ?,expires_at =? where id = ?""",("APPROVED",employee_id,approved_at,expires_at,request_id))
+        c.execute("""UPDATE service_requests SET status = ? ,approved_by_employee = ?,approved_at = ?,expires_at =? where id = ?""",("APPROVED",employee_id,approved_at,expires_at,request_id))
 
     def reject_request(self,request_id,employee_id):
         c = self.conn.cursor()
