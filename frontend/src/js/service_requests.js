@@ -95,6 +95,11 @@ fields.innerHTML = `
 <label>New PIN</label>
 <input type="password" id="new_pin"
 class="border p-2 w-full mb-3">
+<button
+onclick="submitRequest('CHANGE_PIN')"
+class="mt-4 bg-blue-900 text-white px-4 py-2 rounded">
+Submit
+</button>
 `;
 
 break;
@@ -105,6 +110,11 @@ fields.innerHTML = `
 <label>New Account Name</label>
 <input type="text" id="new_name"
 class="border p-2 w-full mb-3">
+<button
+onclick="submitRequest('CHANGE_ACCOUNT_NAME')"
+class="mt-4 bg-blue-900 text-white px-4 py-2 rounded">
+Submit
+</button>
 `;
 
 break;
@@ -119,6 +129,12 @@ class="border p-2 w-full mb-3">
 <label>Email</label>
 <input type="email" id="email"
 class="border p-2 w-full mb-3">
+
+<button
+onclick="submitRequest('UPDATE_CONTACT')"
+class="mt-4 bg-blue-900 text-white px-4 py-2 rounded">
+Submit
+</button>
 `;
 
 break;
@@ -133,6 +149,12 @@ class="border p-2 w-full mb-3">
 <label>ID Number</label>
 <input type="text" id="id_number"
 class="border p-2 w-full mb-3">
+
+<button
+onclick="submitRequest('UPDATE_KYC')"
+class="mt-4 bg-blue-900 text-white px-4 py-2 rounded">
+Submit
+</button>
 `;
 
 break;
@@ -143,6 +165,12 @@ fields.innerHTML = `
 <label>Reason</label>
 <textarea id="reason"
 class="border p-2 w-full"></textarea>
+
+<button
+onclick="submitRequest('CLOSE_ACCOUNT')"
+class="mt-4 bg-blue-900 text-white px-4 py-2 rounded">
+Submit
+</button>
 `;
 
 break;
@@ -153,10 +181,63 @@ fields.innerHTML = `
 <label>Reason</label>
 <textarea id="unlock_reason"
 class="border p-2 w-full"></textarea>
+
+<button
+onclick="submitRequest('ACCOUNT_UNLOCK_REQUEST')"
+class="mt-4 bg-blue-900 text-white px-4 py-2 rounded">
+Submit
+</button>
 `;
 
 break;
 
 }
 
+}
+
+async function submitRequest(query_type){
+
+const fields = document
+.querySelectorAll("#dynamic_form_fields input, #dynamic_form_fields textarea");
+
+const payload = {};
+
+fields.forEach(field=>{
+payload[field.id] = field.value;
+});
+
+try{
+
+const data = await apiRequest(
+`/requests/${currentRequestId}/submit`,
+"POST",
+payload
+);
+alert(data.message);
+updateAccount(query_type,payload);
+const complete_data = await apiRequest(`/requests/${currentRequestId}/complete`,"GET");
+alert(complete_data.message);
+
+location.reload();
+
+}
+catch(error){
+console.error("Submission failed:",error);
+}
+
+}
+
+async function updateAccount(query_type,payload){
+if(query_type == 'CHANGE_ACCOUNT_NAME'){
+    try {
+        const update_data = await apiRequest(
+            `/update/account_holder_name`,"POST",payload
+            
+        );
+        alert(update_data.message);
+    }
+    catch(error){
+        console.log("Updation Failed:",error);
+    }
+}
 }

@@ -143,7 +143,12 @@ class AccountRepository:
         c = self.conn.cursor()
         c.execute("""select 1 from token_blacklist where jti = ?""",(jti,))
         return c.fetchone() is not None
-
+    
+    #~ Updating the account Porperties....
+    def update_account_holder_name(self,account_number,account_holder_name):
+        c= self.conn.cursor()
+        c.execute("""update accounts set account_holder_name = ? where account_number = ?""",(account_holder_name,account_number))
+        
     def commit(self):
         self.conn.commit()
     
