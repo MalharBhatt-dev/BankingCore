@@ -46,11 +46,19 @@ class ServiceRequestRepository:
         c = self.conn.cursor()
         c.execute("""UPDATE service_requests SET status = ? , approved_by_employee = ? where id = ?""",("REJECTED",employee_id,request_id))
     
-    def submit_request(self,request_id,submission_data):
+    def submit_request(self,request_id,account_number,submission_data,employee_id):
         c=self.conn.cursor()
         submitted_at = datetime.now().isoformat()
-        c.execute("""INSERT INTO request_submissions (request_id,submission_data,submitted_at) values (?,?,?)""",(request_id,submission_data,submitted_at))
+        c.execute("""INSERT INTO request_submissions (request_id,account_number,submission_data,submitted_at) values (?,?,?,?)""",(request_id,account_number,submission_data,submitted_at))
+        c.execute("""UPDATE service_requests SET status = ? , approved_by_employee = ? where id = ?""",("SUBMITTED",employee_id,request_id))
     
+    def complete_request(self,request_id):
+        c = self.conn.cursor()
+        c.execute("""update service_requests set status = ? where id = ?""",("COMPLETED",request_id))
+
+    def expire_old_requests(self,timestamp):
+        c = self.conn.cursor()
+        c.execute("""update service_requests set status = ? where (approved_at < ? and status = "APPROVED")""",("EXPIRED",timestamp))
     def commit(self):
         self.conn.commit()
     

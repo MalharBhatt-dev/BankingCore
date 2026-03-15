@@ -106,6 +106,29 @@ class BankingServices:
             raise e
         return new_balance
     
+    def update_account_holder_name(self,account_number,account_holder_name):
+        account= self.repo.get_account(account_number)
+       
+        #authentication
+        if not account:
+            raise AccountNotFoundException('Account Not Found.')
+        
+        #validating account_holder_name
+        if not account_holder_name or not account_holder_name.strip():
+            raise InvalidAccountNameException('Name cannot be empty.')
+        if not re.fullmatch(r"[A-Za-z ]+", account_holder_name):
+            raise InvalidAccountNameException('Name must only contain letters and spaces.')
+        if account.account_holder_name == account_holder_name:
+            raise InvalidAccountNameException('Account Holder\'s name is same as the previous holder.')
+        
+        try :
+            self.repo.update_account_holder_name(account_number,account_holder_name)
+            self.repo.commit()
+            self.logger.info(f"Updation of account_holder_name to account_number {account_number} with new name :{account_holder_name}")
+        except Exception as e:
+            self.repo.rollback()
+            raise e
+
     def transfer(self,from_account,to_account,amount):
         if amount <= 0:
             raise InvalidAmountException("Invalid Transfer Amount")

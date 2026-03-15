@@ -82,6 +82,9 @@ class ServiceRequestService:
         expires_at = (datetime.now()+timedelta(minutes=10)).isoformat()
         self.repo.approve_request(request_id,employee_id,expires_at)
         self.repo.commit()
+        self.logger.info(
+                f"Request {request_id} approved by employee {employee_id}"
+            )
 
 
     def reject_request(self, request_id, employee_id):
@@ -100,24 +103,44 @@ class ServiceRequestService:
             raise e
 
 
-    def submit_request(self,request_id,submission_data):
+    def submit_request(self,request_id,account_number,submission_data):
 
         request = self.repo.get_request(request_id)
-
         status = request[4]
+        employee_id = request[6]
         expires_at = request[8]
 
         self.validate_transition(status,"SUBMITTED")
 
         if expires_at and datetime.now() > datetime.fromisoformat(expires_at):
+            self.expire_requests()
             raise Exception("Request expired")
 
         data_json = json.dumps(submission_data)
+        try:
+            self.repo.submit_request(request_id,account_number,data_json,employee_id)
+            self.repo.commit()
+            self.logger.info(
+                f"Request {request_id} submitted by account {account_number}"
+            )
+        except Exception as e:
+            self.repo.rollback()
+            raise e
 
-        self.repo.submit_request(request_id,data_json)
+    def complete_request(self,request_id):
+        request = self.repo.get_request(request_id)
+        account_number = request[1]
+        status = request[4]
+        self.validate_transition(status,"COMPLETED")
+        try:
+            self.repo.complete_request(request_id)
+            self.repo.commit()
+            self.logger.info(f"Request {request_id} completed by account {account_number}")
+        except Exception as e:
+            self.repo.rollback()
+            raise e
 
-        self.repo.commit()
-        
+
     def validate_transition(self,current,new):
         allowed = self.VALID_TRANSITIONS.get(current,[])
         if new not in allowed:
@@ -128,3 +151,5 @@ class ServiceRequestService:
     def expire_requests(self):
         now = datetime.now().isoformat()
         self.repo.expire_old_requests(now)
+
+    

@@ -261,8 +261,21 @@ def register_routes(app):
     @login_required
     def submit_request(request_id):
         data = request.get_json(silent=True) or {}
-        request_service.submit_request(request_id,data)
+        request_service.submit_request(request_id,g.account_number,data)
         return {"message":"Request submitted successfully"}
     
+    @app.route("/requests/<int:request_id>/complete",methods=["GET"])
+    @login_required
+    def complete_request(request_id):
+        request_service.complete_request(request_id)
+        return {"message":"Request completed successfully"}
+
+    @app.route("/update/account_holder_name",methods=["POST"])
+    @login_required
+    def update_account_holder_name():
+        data = request.get_json(silent=True) or {}
+        account_holder_name = data.get("new_name")
+        service.update_account_holder_name(g.account_number,account_holder_name)
+        return {"message":"Account Holder Name updated successfully"}
 
 
