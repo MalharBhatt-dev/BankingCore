@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", async function(){
         window.location.href="index.html";
         return;
     }
-    await loadAccountType();
     await loadAccountNumber();
     await loadBalance();
     await loadLastTransaction();
@@ -17,13 +16,9 @@ document.addEventListener("DOMContentLoaded", async function(){
 async function loadAccountNumber(){
     const account = getAccountNumber();
     document.getElementById("account_info").innerText = account;
+
 }
 
-async function loadAccountType(){
-    const account = getAccountNumber();
-    const data = await apiRequest(`/accounts/${account}/account_type`);
-    document.getElementById("account_type").innerText = data.account_type;
-}
 
 async function loadBalance(){
     const account = getAccountNumber();

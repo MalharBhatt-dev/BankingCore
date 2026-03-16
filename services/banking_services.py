@@ -19,16 +19,13 @@ class BankingServices:
         self.logger = logger
 
 
-    def create_account(self,name,pin,initial_deposit,account_type):
+    def create_account(self,name,pin,initial_deposit):
         #name validation
         if not name or not name.strip():
             raise InvalidAccountNameException('Name cannot be empty.')
         if not re.fullmatch(r"[A-Za-z ]+", name):
             raise InvalidAccountNameException('Name must only contain letters and spaces.')
         
-        if(account_type not in ["SAVINGS","CURRENT"]):
-            raise Exception("Invalid Account type")
-
         #pin validation
         if not pin :
             raise InvalidPINException('PIN is required')
@@ -39,8 +36,6 @@ class BankingServices:
         #deposit validation
         if initial_deposit<=0:
             raise InvalidAmountException('Initial Deposit should be greater than 0.')
-        
-        self.account_rules(account_type,"INITIAL_DEPOSIT",initial_deposit,0)
         
         #generate account_number    
         last_account_number = self.repo.get_last_account_number()
@@ -57,7 +52,7 @@ class BankingServices:
         #inserting account
         role="user"
         try:
-            self.repo.insert_account(new_account_number,name,hashed_pin,initial_deposit,role,account_type)
+            self.repo.insert_account(new_account_number,name,hashed_pin,initial_deposit,role)
             self.repo.insert_transaction(new_account_number,"INITIAL DEPOSIT",initial_deposit,initial_deposit)
             self.repo.commit()
         except Exception as e:
@@ -75,7 +70,7 @@ class BankingServices:
         #validatin amount
         if amount <= 0:
             raise InvalidAmountException('Amount should be greater than 0.')
-
+        
         new_balance = account.balance + amount
         try:
             self.repo.update_balance(account.account_number,new_balance)
@@ -99,9 +94,7 @@ class BankingServices:
         #validating balance
         if account.balance < amount:
             raise InsufficientBalanceException('Insufficient Balance.')
-
-        self.account_rules(account.account_type,"WITHDRAW",amount,account.balance)
-
+       
         new_balance = account.balance - amount
         try :
             self.repo.update_balance(account.account_number,new_balance)
@@ -112,6 +105,66 @@ class BankingServices:
             self.repo.rollback()
             raise e
         return new_balance
+    
+    def update_account_holder_name(self,account_number,account_holder_name):
+        account= self.repo.get_account(account_number)
+       
+        #authentication
+        if not account:
+            raise AccountNotFoundException('Account Not Found.')
+        
+        #validating account_holder_name
+        if not account_holder_name or not account_holder_name.strip():
+            raise InvalidAccountNameException('Name cannot be empty.')
+        if not re.fullmatch(r"[A-Za-z ]+", account_holder_name):
+            raise InvalidAccountNameException('Name must only contain letters and spaces.')
+        if account.account_holder_name == account_holder_name:
+            raise InvalidAccountNameException('Account Holder\'s name is same as the previous holder.')
+        
+        try :
+            self.repo.update_account_holder_name(account_number,account_holder_name)
+            self.repo.commit()
+            self.logger.info(f"Updation of account_holder_name to account_number {account_number} with new name :{account_holder_name}")
+        except Exception as e:
+            self.repo.rollback()
+            raise e
+    
+    def update_pin_number(self,account_number,pin_number):
+        account = self.repo.get_account(account_number)
+
+        #authentication
+        if not account:
+            raise AccountNotFoundException("Account not found")
+        
+        #validating PIN number
+        if not pin_number :
+            raise InvalidPINException("PIN number is required")
+        if len(pin_number) != 4 or not pin_number.isdigit():
+            raise InvalidPINException("PIN number must be of 4 digits")
+        
+        new_hashed_pin = hashlib.sha256(pin_number.encode()).hexdigest()
+        
+        if account.pin_hash == new_hashed_pin:
+            raise InvalidPINException("PIN number should be different")
+        try :
+            self.repo.update_pin(account_number,new_hashed_pin)
+            self.repo.commit()
+            self.logger.info(f"Updation of PIN number to account_number {account_number} with new pin is successful")
+        except Exception as e:
+            self.repo.rollback()
+            raise e
+        
+    #NOTE : #h UNDER DEVELOPMENT
+    def update_contact(self,account_number):
+        #~ UNDER DEVELOPMENT.
+        #! ADD ANOTHER COLUMN NAMED contact_details IN THE ACCOUNTS DATABASE.
+        return False
+    
+    #NOTE : #h UNDER DEVELOPMENT
+    def update_kyc(self,account_number):
+        #~ UNDER DEVELOPMENT.
+        #! ADD ANOTHER COLUMN NAMED kyc_details IN THE ACCOUNTS DATABASE.
+        return False
     
     def transfer(self,from_account,to_account,amount):
         if amount <= 0:
@@ -209,24 +262,6 @@ class BankingServices:
         except Exception as e:
             return {"error":str(e)}
         return "Account unlocked successfully."
-    
-    def account_rules(self,account_type,method,amount,balance):
-        if account_type == "SAVINGS":
-            if method == "INITIAL_DEPOSIT":
-                if amount < 500:
-                    raise Exception("Minimum balance for savings account is ₹500")
-            elif method == "WITHDRAW":
-                if (balance - amount)<500:
-                    raise Exception("Minimum balance for savings account is ₹500")
-        elif account_type == "CURRENT":
-            if method == "WITHDRAW":
-                OVERDRAFT_LIMIT = 10000
-                if (balance+OVERDRAFT_LIMIT)<amount:
-                       raise Exception("Overdraft limit exceeded")
-
-    def get_account_type(self,account_number):
-        account = self.repo.get_account(account_number)
-        return account.account_type            
     
     def get_total_balance(self):
         return self.repo.get_total_balance()

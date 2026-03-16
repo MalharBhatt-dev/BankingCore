@@ -2,7 +2,6 @@ const API_BASE = "http://127.0.0.1:5000";
 
 async function registerAccount(){
     console.log("Register button clicked");
-    const account_type = document.getElementById("account_type").value;
     const name = document.getElementById("name").value;
     const pin = document.getElementById("pin").value;
     const deposit = parseFloat(document.getElementById("deposit").value);
@@ -15,7 +14,7 @@ async function registerAccount(){
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify({
-                name:name,pin:pin,initial_deposit:deposit,account_type:account_type
+                name:name,pin:pin,initial_deposit:deposit
             })
         });
         console.log("Response status:", response.status);

@@ -18,21 +18,21 @@ class AccountRepository:
 
     def get_account(self,account_number):
         c = self.conn.cursor()
-        c.execute("""select account_number,account_holder_name,pin_hash,balance,created_at,failed_attempts,is_locked,role,account_type
+        c.execute("""select account_number,account_holder_name,pin_hash,balance,created_at,failed_attempts,is_locked,role
                     from accounts 
                     where account_number = ?""",(account_number,))
         acc = c.fetchone()
         if acc is None:
             return None
         
-        return Account(acc[0],acc[1],acc[2],acc[3],acc[4],acc[5],acc[6],acc[7],acc[8])
+        return Account(acc[0],acc[1],acc[2],acc[3],acc[4],acc[5],acc[6],acc[7])
     
-    def insert_account(self,account_number,name, pin_hash ,balance,role,account_type):
+    def insert_account(self,account_number,name, pin_hash ,balance,role):
         created_at = datetime.now().strftime("%D-%M-%Y %H:%M:%S")
         failed_attempts = 0
         is_locked = 0
         c = self.conn.cursor()
-        c.execute("""insert into accounts (account_number, account_holder_name ,pin_hash,balance,created_at, failed_attempts,is_locked,role,account_type) values(? , ? , ? , ?, ?, ?, ?, ?, ?)""",(account_number , name , pin_hash , balance , created_at,failed_attempts,is_locked,role,account_type))
+        c.execute("""insert into accounts (account_number, account_holder_name ,pin_hash,balance,created_at, failed_attempts,is_locked,role) values(? , ? , ? , ?, ?, ?, ?, ?)""",(account_number , name , pin_hash , balance , created_at,failed_attempts,is_locked,role))
        
 
     def update_balance(self,account_number,new_balance):
@@ -143,6 +143,16 @@ class AccountRepository:
         c = self.conn.cursor()
         c.execute("""select 1 from token_blacklist where jti = ?""",(jti,))
         return c.fetchone() is not None
+    
+    #~ Updating the account Porperties....
+    #& Account Holder Name
+    def update_account_holder_name(self,account_number,account_holder_name):
+        c= self.conn.cursor()
+        c.execute("""update accounts set account_holder_name = ? where account_number = ?""",(account_holder_name,account_number))
+    #& PIN
+    def update_pin(self,account_number,hashed_pin):
+        c = self.conn.cursor()
+        c.execute("""update accounts set pin_hash = ? where account_number = ?""",(hashed_pin,account_number))
 
     def commit(self):
         self.conn.commit()
@@ -155,6 +165,7 @@ class AccountRepository:
 
 # ac = AccountRepository()
 # ac.get_account(1001)
+
 #NOTE :
 #?What is Repository Responsible For?
 #? Repository only:→Talks to database,→Executes SQL,→Returns raw data.
