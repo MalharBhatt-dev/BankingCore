@@ -229,6 +229,13 @@ def register_routes(app):
 
         return {"message":"Request created successsfully"},201
 
+    @app.route("/requests/user",methods=["GET"])
+    @login_required
+    @role_required("admin")
+    def user_requests():
+        requests = request_service.get_requests_logs()
+        return {"requests":requests}
+
     @app.route("/requests/my",methods=["GET"])
     @login_required
     def my_requests():

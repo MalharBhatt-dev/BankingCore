@@ -36,13 +36,20 @@ class ServiceRequestService:
             self.repo.rollback()
             raise e
 
+    def get_requests_logs(self):
+        rows = self.repo.get_requests_logs()
+        result = []
+        for r in rows:
+            result.append({"request_id":r[1],
+                           "account_number":r[2],
+                           "submission_data":r[3],
+                           "submitted_at":r[4]
+                           })
+        return result
 
     def get_user_requests(self, account_number):
-
         rows = self.repo.get_user_requests(account_number)
-
         result = []
-
         for r in rows:
             result.append({
                 "id": r[0],
@@ -52,7 +59,6 @@ class ServiceRequestService:
                 "status": r[4],
                 "created_at": r[5]
             })
-
         return result
 
 
