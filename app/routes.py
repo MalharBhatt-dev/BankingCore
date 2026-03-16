@@ -140,7 +140,7 @@ def register_routes(app):
     @app.route("/admin/locked-accounts",methods=["GET"])
     @login_required
     @role_required("admin")
-    def locke_accounts():
+    def locked_accounts():
         accounts = service.get_locked_accounts()
         return {"accounts":accounts},200
 
@@ -293,4 +293,19 @@ def register_routes(app):
         email = data.get("email")
         return{"message":"This feature is under development"}
     
+    @app.route("/update/kyc",methods=["POST"])
+    @login_required
+    def update_kyc():
+        data = request.get_json(silent= True) or {}
+        address = data.get("address")
+        id_number = data.get("id_number")
+        service.update_kyc()
+        return{"message":"This feature is under development"}
+    
+    @app.route("/update/account_close",methods=["POST"])
+    @login_required
+    def account_close():
+        data = request.get_json(silent = True) or {}
+        service.account_close(g.account_number)
+        return{"message":"Account is closed successdfully"}
     

@@ -160,8 +160,19 @@ class BankingServices:
         except Exception as e:
             self.repo.rollback()
             raise e
-
-
+        
+    #NOTE : #h UNDER DEVELOPMENT
+    def update_contact(self,account_number):
+        #~ UNDER DEVELOPMENT.
+        #! ADD ANOTHER COLUMN NAMED contact_details IN THE ACCOUNTS DATABASE.
+        return False
+    
+    #NOTE : #h UNDER DEVELOPMENT
+    def update_kyc(self,account_number):
+        #~ UNDER DEVELOPMENT.
+        #! ADD ANOTHER COLUMN NAMED kyc_details IN THE ACCOUNTS DATABASE.
+        return False
+    
     def transfer(self,from_account,to_account,amount):
         if amount <= 0:
             raise InvalidAmountException("Invalid Transfer Amount")
@@ -259,6 +270,13 @@ class BankingServices:
             return {"error":str(e)}
         return "Account unlocked successfully."
     
+    #NOTE : #h UNDER DEVELOPMENT
+    def account_close(self,account_number):
+        #~ UNDER DEVELOPMENT.
+        #! ADD ANOTHER COLUMN NAMED is_closed IN THE ACCOUNTS DATABASE.
+        return False
+    
+
     def account_rules(self,account_type,method,amount,balance):
         if account_type == "SAVINGS":
             if method == "INITIAL_DEPOSIT":
