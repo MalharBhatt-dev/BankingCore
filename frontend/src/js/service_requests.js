@@ -121,61 +121,62 @@ Submit
 
 break;
 
-case "UPDATE_CONTACT":
+//NOTE : //h future request query implementation :
+// case "UPDATE_CONTACT":
 
-fields.innerHTML = `
-<label class="font-semibold">Phone</label>
-<input type="text" id="phone"
-class="border p-2 rounded w-full" placeholder="Enter new Phone number">
+// fields.innerHTML = `
+// <label class="font-semibold">Phone</label>
+// <input type="text" id="phone"
+// class="border p-2 rounded w-full" placeholder="Enter new Phone number">
 
-<label>Email</label>
-<input type="email" id="email"
-class="border p-2 rounded w-full" placeholder="Enter new Email ID">
+// <label>Email</label>
+// <input type="email" id="email"
+// class="border p-2 rounded w-full" placeholder="Enter new Email ID">
 
-<button
-onclick="submitRequest('UPDATE_CONTACT')"
-class="mt-4 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
-Submit
-</button>
-`;
+// <button
+// onclick="submitRequest('UPDATE_CONTACT')"
+// class="mt-4 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
+// Submit
+// </button>
+// `;
 
-break;
+// break;
 
-case "UPDATE_KYC":
+// case "UPDATE_KYC":
 
-fields.innerHTML = `
-<label class="font-semibold">Address</label>
-<input type="text" id="address"
-class="border p-2 rounded w-full" placeholder="Enter new Address">
+// fields.innerHTML = `
+// <label class="font-semibold">Address</label>
+// <input type="text" id="address"
+// class="border p-2 rounded w-full" placeholder="Enter new Address">
 
-<label class="font-semibold">ID Number</label>
-<input type="text" id="id_number"
-class="border p-2 rounded w-full" placeholder="Enter new ID number">
+// <label class="font-semibold">ID Number</label>
+// <input type="text" id="id_number"
+// class="border p-2 rounded w-full" placeholder="Enter new ID number">
 
-<button
-onclick="submitRequest('UPDATE_KYC')"
-class="mt-4 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
-Submit
-</button>
-`;
+// <button
+// onclick="submitRequest('UPDATE_KYC')"
+// class="mt-4 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
+// Submit
+// </button>
+// `;
 
-break;
+// break;
 
-case "CLOSE_ACCOUNT":
+// case "CLOSE_ACCOUNT":
 
-fields.innerHTML = `
-<label class="font-semibold">Reason</label>
-<textarea id="reason"
-class="border p-2 rounded w-full" placeholder="Enter your reason:"></textarea>
+// fields.innerHTML = `
+// <label class="font-semibold">Reason</label>
+// <textarea id="reason"
+// class="border p-2 rounded w-full" placeholder="Enter your reason:"></textarea>
 
-<button
-onclick="submitRequest('CLOSE_ACCOUNT')"
-class="mt-4 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
-Submit
-</button>
-`;
+// <button
+// onclick="submitRequest('CLOSE_ACCOUNT')"
+// class="mt-4 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
+// Submit
+// </button>
+// `;
 
-break;
+// break;
 
 
 }
@@ -241,29 +242,30 @@ else if(query_type == 'CHANGE_PIN'){
         console.log("Updation Failed:",error);
     }
 }
-else if(query_type == 'UPDATE_CONTACT'){
-    try {
-        const update_data = await apiRequest(
-            `/update/contact`,"POST",payload
+//NOTE : //h future request query implementation :
+// else if(query_type == 'UPDATE_CONTACT'){
+//     try {
+//         const update_data = await apiRequest(
+//             `/update/contact`,"POST",payload
             
-        );
-        alert(update_data.message);
-    }
-    catch(error){
-        console.log("Updation Failed:",error);
-    }
-}
-else if(query_type == 'CLOSE_ACCOUNT'){
-    try {
-        const update_data = await apiRequest(
-            `/update/account_close`,"POST",payload
+//         );
+//         alert(update_data.message);
+//     }
+//     catch(error){
+//         console.log("Updation Failed:",error);
+//     }
+// }
+// else if(query_type == 'CLOSE_ACCOUNT'){
+//     try {
+//         const update_data = await apiRequest(
+//             `/update/account_close`,"POST",payload
             
-        );
-        alert(update_data.message);
-    }
-    catch(error){
-        console.log("Updation Failed:",error);
-    }
-}
+//         );
+//         alert(update_data.message);
+//     }
+//     catch(error){
+//         console.log("Updation Failed:",error);
+//     }
+// }
 
 }
