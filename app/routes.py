@@ -276,5 +276,11 @@ def register_routes(app):
         account_holder_name = data.get("new_name")
         service.update_account_holder_name(g.account_number,account_holder_name)
         return {"message":"Account Holder Name updated successfully"}
-
-
+    
+    @app.route("/update/pin_number",methods=["POST"])
+    @login_required
+    def update_pin_number():
+        data=request.get_json(silent = True) or {}
+        pin_number = data.get("new_pin")
+        service.update_pin_number(g.account_number,pin_number)
+        return{"message":"PIN number updated successfully"}

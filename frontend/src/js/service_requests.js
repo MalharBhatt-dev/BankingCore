@@ -240,4 +240,16 @@ if(query_type == 'CHANGE_ACCOUNT_NAME'){
         console.log("Updation Failed:",error);
     }
 }
+else if(query_type == 'CHANGE_PIN'){
+    try {
+        const update_data = await apiRequest(
+            `/update/pin_number`,"POST",payload
+            
+        );
+        alert(update_data.message);
+    }
+    catch(error){
+        console.log("Updation Failed:",error);
+    }
+}
 }

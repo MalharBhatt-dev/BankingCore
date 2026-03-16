@@ -135,6 +135,32 @@ class BankingServices:
         except Exception as e:
             self.repo.rollback()
             raise e
+    
+    def update_pin_number(self,account_number,pin_number):
+        account = self.repo.get_account(account_number)
+
+        #authentication
+        if not account:
+            raise AccountNotFoundException("Account not found")
+        
+        #validating PIN number
+        if not pin_number :
+            raise InvalidPINException("PIN number is required")
+        if len(pin_number) != 4 or not pin_number.isdigit():
+            raise InvalidPINException("PIN number must be of 4 digits")
+        
+        new_hashed_pin = hashlib.sha256(pin_number.encode()).hexdigest()
+        
+        if account.pin_hash == new_hashed_pin:
+            raise InvalidPINException("PIN number should be different")
+        try :
+            self.repo.update_pin(account_number,new_hashed_pin)
+            self.repo.commit()
+            self.logger.info(f"Updation of PIN number to account_number {account_number} with new pin is successful")
+        except Exception as e:
+            self.repo.rollback()
+            raise e
+
 
     def transfer(self,from_account,to_account,amount):
         if amount <= 0:
