@@ -284,3 +284,13 @@ def register_routes(app):
         pin_number = data.get("new_pin")
         service.update_pin_number(g.account_number,pin_number)
         return{"message":"PIN number updated successfully"}
+    
+    @app.route("/update/contact",methods=["POST"])
+    @login_required
+    def update_contact():
+        data = request.get_json(silent =True) or {}
+        contact_number = data.get("phone")
+        email = data.get("email")
+        return{"message":"This feature is under development"}
+    
+    

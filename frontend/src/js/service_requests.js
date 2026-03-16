@@ -252,4 +252,16 @@ else if(query_type == 'CHANGE_PIN'){
         console.log("Updation Failed:",error);
     }
 }
+else if(query_type == 'UPDATE_CONTACT'){
+    try {
+        const update_data = await apiRequest(
+            `/update/contact`,"POST",payload
+            
+        );
+        alert(update_data.message);
+    }
+    catch(error){
+        console.log("Updation Failed:",error);
+    }
+}
 }
