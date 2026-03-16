@@ -16,6 +16,12 @@ class ServiceRequestRepository:
 
         c= self.conn.cursor()
         c.execute("""insert into service_requests (account_number , query_type,description,created_at) values (?, ?, ?, ?)""",(account_number,query_type,description,created_at))
+    
+    def get_requests_logs(self):
+        c = self.conn.cursor()
+        c.execute("""select * from request_submissions order by submitted_at""")
+        rows = c.fetchall()
+        return rows
 
     def get_user_requests(self,account_number):
         c=self.conn.cursor()

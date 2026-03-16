@@ -145,10 +145,15 @@ class AccountRepository:
         return c.fetchone() is not None
     
     #~ Updating the account Porperties....
+    #& Account Holder Name
     def update_account_holder_name(self,account_number,account_holder_name):
         c= self.conn.cursor()
         c.execute("""update accounts set account_holder_name = ? where account_number = ?""",(account_holder_name,account_number))
-        
+    #& PIN
+    def update_pin(self,account_number,hashed_pin):
+        c = self.conn.cursor()
+        c.execute("""update accounts set pin_hash = ? where account_number = ?""",(hashed_pin,account_number))
+
     def commit(self):
         self.conn.commit()
     

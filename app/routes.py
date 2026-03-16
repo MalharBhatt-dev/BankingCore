@@ -141,7 +141,7 @@ def register_routes(app):
     @app.route("/admin/locked-accounts",methods=["GET"])
     @login_required
     @role_required("admin")
-    def locke_accounts():
+    def locked_accounts():
         accounts = service.get_locked_accounts()
         return {"accounts":accounts},200
 
@@ -230,6 +230,13 @@ def register_routes(app):
 
         return {"message":"Request created successsfully"},201
 
+    @app.route("/requests/user",methods=["GET"])
+    @login_required
+    @role_required("admin")
+    def user_requests():
+        requests = request_service.get_requests_logs()
+        return {"requests":requests}
+
     @app.route("/requests/my",methods=["GET"])
     @login_required
     def my_requests():
@@ -277,5 +284,37 @@ def register_routes(app):
         account_holder_name = data.get("new_name")
         service.update_account_holder_name(g.account_number,account_holder_name)
         return {"message":"Account Holder Name updated successfully"}
-
-
+    
+    @app.route("/update/pin_number",methods=["POST"])
+    @login_required
+    def update_pin_number():
+        data=request.get_json(silent = True) or {}
+        pin_number = data.get("new_pin")
+        service.update_pin_number(g.account_number,pin_number)
+        return{"message":"PIN number updated successfully"}
+    
+    #NOTE : #h Future Request Feature Implementation :
+    # @app.route("/update/contact",methods=["POST"])
+    # @login_required
+    # def update_contact():
+    #     data = request.get_json(silent =True) or {}
+    #     contact_number = data.get("phone")
+    #     email = data.get("email")
+    #     return{"message":"This feature is under development"}
+    
+    # @app.route("/update/kyc",methods=["POST"])
+    # @login_required
+    # def update_kyc():
+    #     data = request.get_json(silent= True) or {}
+    #     address = data.get("address")
+    #     id_number = data.get("id_number")
+    #     service.update_kyc()
+    #     return{"message":"This feature is under development"}
+    
+    # @app.route("/update/account_close",methods=["POST"])
+    # @login_required
+    # def account_close():
+    #     data = request.get_json(silent = True) or {}
+    #     service.account_close(g.account_number)
+    #     return{"message":"Account is closed successdfully"}
+    
