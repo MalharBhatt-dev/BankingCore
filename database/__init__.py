@@ -19,10 +19,6 @@ c.execute("""CREATE TABLE IF NOT EXISTS accounts (
     is_locked INTEGER DEFAULT 0
 );
 """)
-
-c.execute("""ALTER TABLE accounts
-          ADD COLUMN account_type text not null default 'SAVINGS'""")
-
 c.execute("""
 
           CREATE TABLE IF NOT EXISTS transactions (
@@ -40,15 +36,15 @@ c.execute("""
 create table if not exists token_blacklist(
           id integer primary key autoincrement,
           jti text not null unique,
-          revoked_at text not null);
+          revoked_at text not null)
 """)
 
 c.execute("PRAGMA table_info(accounts)")
 columns = [row[1] for row in c.fetchall()]
 
 if "role" not in columns:
-    c.execute("ALTER TABLE accounts ADD COLUMN role TEXT DEFAULT 'user' ;")
+    c.execute("ALTER TABLE accounts ADD COLUMN role TEXT DEFAULT 'user' ")
 
-c.execute("update accounts set role ='admin' where account_number = 1003;")
+c.execute("update accounts set role ='admin' where account_number = 1003")
 conn.commit()
 conn.close()
