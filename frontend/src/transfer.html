@@ -6,31 +6,33 @@
     <title>Banking Core</title>
     <link href="./css/output.css" rel="stylesheet">
 </head>
-<body>
+    <body class="bg-gray-100">
     <div class="flex">
                          <!-- Sidebar -->
-        <div class="w-64 bg-blue-900 text-white min-h-screen  p-6">
-            <h2 class="text-2xl font-bold mb-8">MyBank</h2>
-            <ul class="space-y-4 font-semibold">
-                <li class="hover:text-gray-300 cursor-pointer">
-                    <a href="dashboard.html">Dashboard</a>
-                </li>
-                <li class="hover:text-gray-300 cursor-pointer">
-                    <a href="transfer.html">Transfer</a>
-                </li>
-                <li class="hover:text-gray-300 cursor-pointer">
-                    <a href="transactions.html">Transactions</a>
-                </li>
-                <li class="hover:text-gray-300 cursor-pointer">
+       <aside class="w-64 bg-blue-900 text-white min-h-screen p-6  border-white border-1">
+                <h2 class="text-2xl font-bold mb-8">MyBank</h2>
+                <ul class="flex flex-col font-semibold min-h-[87vh]">
+                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                        <a href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                        <a href="transfer.html">Transfer</a>
+                    </li>
+                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                        <a href="transactions.html">Transactions</a>
+                    </li>
+                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
                         <a href="service_requests.html">Service Requests</a>
-                </li>
-                <li class="hover:text-gray-300 cursor-pointer">
-                    <button onclick="logout()">Logout</button>
-                </li>
-            </ul>
-        </div>
+                    </li>
+                    <li class="hover:text-red-300 p-1 mt-auto border-1 rounded-lg mr-auto">
+                        <button onclick="logout()" class="cursor-pointer">Logout</button>
+                    </li>
+                </ul>
+            </aside>
                                         <!--Main Content-->
-        <div class="bg-white p-6 shadow w-full">
+        <div class="flex-1 p-10 shadow w-full">
+            <h1 class="text-3xl font-bold mb-8">Transfer</h1>
+
                                         <!-- Account Info Div -->
                 <div class="grid grid-cols-3 gap-6">
                     <div class="bg-white p-6 rounded-lg shadow">
@@ -47,7 +49,7 @@
                     </div>
                 </div>
                                     <!--Transfer Form-->
-        <div class="flex items-center justify-center min-h-[calc(100vh-110px)]">
+        <div class="flex items-center justify-center min-h-[calc(90vh-200px)]">
             <div class="bg-white shadow-lg rounded-lg p-8 w-96">
                 <h2 class="text-2xl font-bold text-center mb-6 text-blue-900">Transfer Money</h2>
                 <form class="flex flex-col gap-4">
@@ -61,6 +63,7 @@
                     <button type="button" onclick="transferMoney()" class="bg-blue-900 text-white py-2 rounded hover:bg-blue-700 transition">Send Money</button>
                 </form>
         </div>
+    </div>
     </div>
     <script src="./js/api.js"></script>
     <script src="./js/transfer.js"></script>

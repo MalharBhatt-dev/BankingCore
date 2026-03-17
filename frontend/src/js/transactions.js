@@ -12,10 +12,10 @@ function renderTransactions(transactions){
     transactions.forEach(txn => {
         const row = `
         <tr class="border-b hover:bg-gray-100">
-        <td class="p-3">${txn.transaction_type}</td>
-        <td class="p-3">₹ ${txn.amount}</td>
-        <td class="p-3">₹ ${txn.balance_after}</td>
-        <td class="p-3">${txn.timestamp}</td>
+        <td class="p-3 text-left">${txn.transaction_type}</td>
+        <td class="p-3 text-center">₹ ${txn.amount}</td>
+        <td class="p-3 text-center">₹ ${txn.balance_after}</td>
+        <td class="p-3 text-center">${txn.timestamp}</td>
         </tr>
         `;
         table.innerHTML += row;

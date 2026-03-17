@@ -9,26 +9,26 @@
     <body class="bg-gray-100">
         <div class="flex">
                             <!-- Sidebar -->
-            <div class="w-64 bg-blue-900 text-white min-h-screen p-6">
+            <aside class="w-64 bg-blue-900 text-white min-h-screen p-6  border-white border-1">
                 <h2 class="text-2xl font-bold mb-8">MyBank</h2>
-                <ul class="space-y-4 font-semibold">
-                    <li class="hover:text-gray-300 cursor-pointer">
+                <ul class="flex flex-col font-semibold min-h-[87vh]">
+                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
                         <a href="dashboard.html">Dashboard</a>
                     </li>
-                    <li class="hover:text-gray-300 cursor-pointer">
+                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
                         <a href="transfer.html">Transfer</a>
                     </li>
-                    <li class="hover:text-gray-300 cursor-pointer">
+                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
                         <a href="transactions.html">Transactions</a>
                     </li>
-                    <li class="hover:text-gray-300 cursor-pointer">
+                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
                         <a href="service_requests.html">Service Requests</a>
                     </li>
-                    <li class="hover:text-gray-300 cursor-pointer">
-                        <button onclick="logout()">Logout</button>
+                    <li class="hover:text-red-300 p-1 mt-auto border-1 rounded-lg mr-auto">
+                        <button onclick="logout()" class="cursor-pointer">Logout</button>
                     </li>
                 </ul>
-            </div>
+            </aside>
                         <!-- Main Content -->
             <div class="flex-1 p-10">
                 <h1 class="text-3xl font-bold mb-8">Dashboard</h1>

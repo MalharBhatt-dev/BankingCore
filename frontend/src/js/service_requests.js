@@ -2,9 +2,16 @@ document.addEventListener("DOMContentLoaded",loadRequests);
 
 async function createRequest(){
 
+    const selectedEmployee = document.querySelector('input[name="employee"]:checked');
+    let employee_id = null
+    employee_id = selectedEmployee ? selectedEmployee.value : null;
     const query_type = document.getElementById("query_type").value;
     const description = document.getElementById("description").value;
 
+    if(!employee_id){
+        alert("Please select employee");
+        return;
+    }
     if(!query_type){
         alert("Please select request type");
         return;
@@ -16,6 +23,7 @@ async function createRequest(){
             "/requests",
             "POST",
             {
+                employee_id:employee_id,
                 query_type: query_type,
                 description: description
             }
@@ -43,22 +51,27 @@ async function loadRequests(){
         data.requests.forEach(req => {
 
            const row = `
-<tr class="border-b">
+<tr class="border-b hover:bg-gray-100">
 
-<td class="p-3">${req.query_type}</td>
+<td class="p-3 text-left">${req.query_type}</td>
 
-<td class="p-3">${req.description}</td>
+<td class="p-3 text-center">${req.description}</td>
 
-<td class="p-3">${req.status}</td>
+<td class="p-3 text-center">${req.status}</td>
 
-<td class="p-3">
+<td class="p-3 text-center">${req.created_at}</td>
 
+<td class="p-3 text-center">${req.employee_id}</td>
+
+<td class="p-3 text-center">
 ${req.status === "APPROVED" ?
 `<button onclick="openRequestForm(${req.id}, '${req.query_type}')"
 class="bg-blue-900 text-white px-3 py-1 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
 Submit
-</button>` : ""}
-
+</button>` : `<button onclick="openRequestForm(${req.id}, '${req.query_type}')"
+class="bg-gray-300 text-white px-3 py-1 rounded-lg  cursor-pointer transition" disabled>
+Submit
+</button>`}
 </td>
 
 </tr>
