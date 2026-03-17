@@ -18,14 +18,14 @@ class ServiceRequestService:
         self.logger = logger
 
 
-    def create_request(self, account_number, query_type, description):
+    def create_request(self, account_number, employee_id,query_type, description):
 
         if not query_type:
             raise Exception("Query type required")
 
         try:
 
-            self.repo.create_request(account_number, query_type, description)
+            self.repo.create_request(account_number, employee_id ,query_type, description)
             self.repo.commit()
 
             self.logger.info(
@@ -57,14 +57,15 @@ class ServiceRequestService:
                 "query_type": r[2],
                 "description": r[3],
                 "status": r[4],
-                "created_at": r[5]
+                "created_at": r[5],
+                "employee_id":r[9]
             })
         return result
 
 
-    def get_pending_requests(self):
+    def get_pending_requests(self,account_number):
 
-        rows = self.repo.get_pending_requests()
+        rows = self.repo.get_pending_requests(account_number)
 
         result = []
 
