@@ -6,15 +6,16 @@
         <title>Register Account</title>
         <link href="./css/output.css" rel="stylesheet">
     </head>
-<body class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
+<body class="bg-gradient-to-br from-blue-50 via-blue-200 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
                     <!-- Header -->
-        <section class="w-full h-20 bg-[rgb(16,63,184)] px-6 shadow-md">
+        <section class="animate-[slideDown_0.5s_ease-out] w-full h-20 px-6 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 backdrop-blur-md border border-b border-white/10 shadow-lg">
         <header class="flex items-center justify-between h-full">
-            <h1 class="text-xl font-bold text-white font-sans">Banking Core</h1>
+            <!--Logo-->
+            <h1 class="text-xl font-bold text-white tracking-wide drop-shadow-[0_0_8px_rgba(59,130,246,.6)] flex items-center gap-2">💳<span class="opacity-90">Banking Core</span></h1>
             <div>
             <!-- Theme Button -->
             <button onclick="toggleDarkMode()" id="themeBtn"
-                class="ml-4 text-white border px-3 py-1 rounded hover:bg-white hover:text-blue-900 transition">
+                class="ml-4 text-white border border-white/30 px-3 py-1 rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-300 hover:rotate-12">
                 🌙
             </button>
             </div>
@@ -22,14 +23,14 @@
     </section>
                     <!-- Main Content -->
         <div class="flex items-center justify-center min-h-[calc(100vh-80px)]">
-            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 w-96 transtion">
-                <h2 class="text-3xl font-bold text-blue-900 dark:text-white">Welcome</h2>
-            <p class="text-gray-500 dark:text-gray-400">Create your account</p>
-                <form class="flex flex-col gap-4">
+            <div class="animate-fadeIn bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-xl rounded-2xl p-8 w-96 border border-white/30 dark:border-gray-700 transition">
+                <h2 class="text-3xl font-bold text-blue-900 dark:text-white mb-1">Welcome</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Create your account</p>
+                <form class="flex flex-col gap-5 mt-4">
                     <!--Account HoldeR Name -->
                     <div class="relative">
                     <input type="text" id="name" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">  
+                        class="peer w-full px-3 pt-5 pb-2 rounded-lg border bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">  
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         Full Name
                     </label>
@@ -37,34 +38,34 @@
                     <!--Pin Number-->
                      <div class="relative">
                     <input type="password" id="pin" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
+                        class="peer w-full px-3 pt-5 pb-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         PIN
                     </label>
 
                     <button type="button" id="toggleIcon" onclick="togglePin()"
-                        class="absolute right-3 top-2.5 text-gray-500 hover:text-blue-700">
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-700">
                         👁️
                     </button>
                 </div>
                 <!--Initial Deposit-->
                 <div class="relative">
                     <input type="number" id="deposit" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">  
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">  
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         Initial Deposit
                     </label>
                 </div>
                     <!-- Button -->
-                     <button type="buttoon" onclick="registerAccount()"
-                    class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                     <button type="button" onclick="registerAccount()"
+                    class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 active:scale-95  transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
 
                     <span id="btnText">Create Account</span>
 
                     <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
                         <path class="opacity-75" fill="white"
-                            d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
+                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
                     </svg>
                 </button>
                 </form>

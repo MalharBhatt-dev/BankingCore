@@ -66,3 +66,10 @@ function toggleDarkMode() {
         localStorage.setItem("theme", "light");
     }
 }
+
+function setLoading(btn, isLoading) {
+    btn.disabled = isLoading;
+    btn.innerHTML = isLoading 
+        ? '<span class="animate-spin">⏳</span>' 
+        : btn.dataset.text;
+}

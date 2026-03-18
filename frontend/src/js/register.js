@@ -33,6 +33,20 @@ async function registerAccount(){
     }
 }
 
+// Toggle PIN
+function togglePin() {
+    const pinInput = document.getElementById("pin");
+    const icon = document.getElementById("toggleIcon");
+
+    if (pinInput.type === "password") {
+        pinInput.type = "text";
+        icon.textContent = "🙈";
+    } else {
+        pinInput.type = "password";
+        icon.textContent = "👁️";
+    }
+}
+
 function toggleDarkMode() {
     const html = document.documentElement;
     html.classList.toggle("dark");
