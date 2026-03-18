@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", async function(){
         window.location.href="index.html";
         return;
     }
+    await loadLastTransaction();
     await loadAccountNumber();
     await loadBalance();
-    await loadLastTransaction();
 });
 
 async function loadAccountNumber(){
@@ -59,11 +59,65 @@ async function loadLastTransaction(){
     const data = await apiRequest(`/accounts/${account}/transactions`);
     const element = document.getElementById("last_transaction");
     if(!data.transactions || data.transactions.length === 0){
-        element.innerText = "No transactions yet";
+        element.innerHTML = `
+        <span class="text-gray-500">No transactions yet 📭</span>`;
         return;
     }
+
     const last = data.transactions[0];
-    element.innerText = `${last.transaction_type} ₹${last.amount}`;
+    console.log(last);
+    
+    let color = "";
+    let bg = "";
+    let icon = "";
+    
+    if(last.transaction_type.includes("DEPOSIT")){
+        color = "text-green-600";
+        bg="bg-green-100";
+        icon = "💰";
+    }
+    else if(last.transaction_type.includes("WITHDRAW")){
+        color="text-red-500";
+        bg="bg-red-100";
+        icon = "💸";
+    }
+    else{
+        color="text-blue-500";
+        bg = "bg-blue-100";
+        icon = "🔄";
+    }
+
+    const date = new Date(last.timestamp).toLocaleString("en-IN",{
+        hour:"2-digit",
+        minute:"2-digit",
+        day:"2-digit",
+        month:"short",
+        year:"numeric"
+    });
+
+    element.innerHTML = `
+    <div class="flex items-center justify-between">
+    
+    <!--LEFT-->
+    <div class="flex flex-col">
+    <span class="text-sm text-gray-500 dark:text-gray-400">
+    ${last.transaction_type}
+    </span>
+    <span class="text-xs text-gray-400">
+    ${date}
+    </span>
+    </div>
+
+    <!--Right-->
+    <div class="text-right">
+    <span class="px-2 py-1 text-xs rounded-full ${bg}">
+    ${icon}
+    </span>
+    <p class="text-lg font-bold ${color}">₹ ${last.amount}
+    </p>
+    </div>
+    </div> 
+    `;
 }
 
 function toggleDarkMode() {
