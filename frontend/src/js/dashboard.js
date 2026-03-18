@@ -1,3 +1,10 @@
+(function () {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+    }
+})();
+
 document.addEventListener("DOMContentLoaded", async function(){
     
     if(!getRefreshToken()){
@@ -56,4 +63,19 @@ async function loadLastTransaction(){
     }
     const last = data.transactions[0];
     element.innerText = `${last.transaction_type} ₹${last.amount}`;
+}
+
+function toggleDarkMode() {
+    const html = document.documentElement;
+    const btn = document.getElementById("themeBtn");
+
+    html.classList.toggle("dark");
+
+    if (html.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        if (btn) btn.textContent = "☀️";
+    } else {
+        localStorage.setItem("theme", "light");
+        if (btn) btn.textContent = "🌙";
+    }
 }

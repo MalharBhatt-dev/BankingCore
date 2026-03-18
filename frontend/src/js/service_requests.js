@@ -51,7 +51,7 @@ async function loadRequests(){
         data.requests.forEach(req => {
 
            const row = `
-<tr class="border-b hover:bg-gray-100">
+<tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">
 
 <td class="p-3 text-left">${req.query_type}</td>
 
@@ -282,3 +282,27 @@ else if(query_type == 'CHANGE_PIN'){
 // }
 
 }
+
+function toggleDarkMode() {
+    const html = document.documentElement;
+    html.classList.toggle("dark");
+
+    // Save preference
+    if (html.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        document.getElementById("themeBtn").textContent = "☀️";
+    } else {
+        localStorage.setItem("theme", "light");
+        document.getElementById("themeBtn").textContent = "🌙";
+    }
+}
+
+// Load theme on page load
+window.onload = () => {
+    const theme = localStorage.getItem("theme");
+
+    if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+        document.getElementById("themeBtn").textContent = "☀️";
+    }
+};

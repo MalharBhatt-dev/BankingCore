@@ -1,3 +1,10 @@
+(function () {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+    }
+})();
+
 document.addEventListener("DOMContentLoaded", function(){
     account = getAccountNumber();
     if(!account){
@@ -47,4 +54,15 @@ async function transferMoney(){
 async function loadAccountNumber(){
     const account = getAccountNumber();
     document.getElementById("from_account").innerText = account;
+}
+
+function toggleDarkMode() {
+    document.documentElement.classList.toggle("dark");
+
+    // Save preference
+    if (document.documentElement.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+    } else {
+        localStorage.setItem("theme", "light");
+    }
 }

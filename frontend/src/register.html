@@ -6,31 +6,70 @@
         <title>Register Account</title>
         <link href="./css/output.css" rel="stylesheet">
     </head>
-    <body class="bg-gray-100">
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
                     <!-- Header -->
-        <section class="w-full h-20 bg-[rgb(16,63,184)] px-6">
-            <header class="w-full h-full flex items-center">
-                
-                <aside class="flex-1 text-xl font-bold text-white">
-                    <h1>Banking Core</h1>
-                </aside>
-            </header>
-        </section>
+        <section class="w-full h-20 bg-[rgb(16,63,184)] px-6 shadow-md">
+        <header class="flex items-center justify-between h-full">
+            <h1 class="text-xl font-bold text-white font-sans">Banking Core</h1>
+            <div>
+            <!-- Theme Button -->
+            <button onclick="toggleDarkMode()" id="themeBtn"
+                class="ml-4 text-white border px-3 py-1 rounded hover:bg-white hover:text-blue-900 transition">
+                🌙
+            </button>
+            </div>
+        </header>
+    </section>
                     <!-- Main Content -->
         <div class="flex items-center justify-center min-h-[calc(100vh-80px)]">
-            <div class="bg-white shadow-lg rounded-lg p-8 w-96">
-                <h2 class="text-2xl font-bold text-center mb-6 text-blue-900">Create New Account</h2>
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 w-96 transtion">
+                <h2 class="text-3xl font-bold text-blue-900 dark:text-white">Welcome</h2>
+            <p class="text-gray-500 dark:text-gray-400">Create your account</p>
                 <form class="flex flex-col gap-4">
-                    <label class="font-semibold">Full Name</label>
-                    <input type="text" id="name" class="border p-2 rounded w-full" placeholder="Enter your name">
-                    <label class="font-semibold">PIN</label>
-                    <input type="password" id="pin" class="border p-2 rounded w-full" placeholder="Enter PIN">
-                    <label class="font-semibold">Initial Deposit</label>
-                    <input type="number" id="deposit" class="border p-2 rounded w-full" placeholder="Enter amount">
-                    <button type="button" onclick="registerAccount()" class="bg-blue-900 text-white py-2 rounded hover:bg-blue-700 transition">Create Account</button>
+                    <!--Account HoldeR Name -->
+                    <div class="relative">
+                    <input type="text" id="name" placeholder=" "
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">  
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        Full Name
+                    </label>
+                    </div>
+                    <!--Pin Number-->
+                     <div class="relative">
+                    <input type="password" id="pin" placeholder=" "
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        PIN
+                    </label>
+
+                    <button type="button" id="toggleIcon" onclick="togglePin()"
+                        class="absolute right-3 top-2.5 text-gray-500 hover:text-blue-700">
+                        👁️
+                    </button>
+                </div>
+                <!--Initial Deposit-->
+                <div class="relative">
+                    <input type="number" id="deposit" placeholder=" "
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">  
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        Initial Deposit
+                    </label>
+                </div>
+                    <!-- Button -->
+                     <button type="buttoon" onclick="registerAccount()"
+                    class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+
+                    <span id="btnText">Create Account</span>
+
+                    <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="white"
+                            d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
+                    </svg>
+                </button>
                 </form>
-                <p class="text-sm text-center mt-4">Already have an account?
-                    <a href="./index.html" class="text-blue-700 font-semibold">Login</a>
+                <p class="text-sm text-center mt-4 dark:text-gray-300">Already have an account?
+                    <a href="./index.html" class="text-blue-700 dark:text-blue-400 font-semibold">Login</a>
                 </p>
             </div>
         </div>

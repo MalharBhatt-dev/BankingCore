@@ -6,63 +6,116 @@
     <title>Banking Core</title>
     <link href="./css/output.css" rel="stylesheet">
 </head>
-    <body class="bg-gray-100">
+    <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
     <div class="flex">
                          <!-- Sidebar -->
-       <aside class="w-64 bg-blue-900 text-white min-h-screen p-6  border-white border-1">
+       <aside class="w-64 bg-blue-900 dark:bg-gray-800 text-white min-h-screen p-6 transition-colors border-white border-1">
                 <h2 class="text-2xl font-bold mb-8">MyBank</h2>
                 <ul class="flex flex-col font-semibold min-h-[87vh]">
-                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="dashboard.html">Dashboard</a>
                     </li>
-                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="transfer.html">Transfer</a>
                     </li>
-                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="transactions.html">Transactions</a>
                     </li>
-                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="service_requests.html">Service Requests</a>
                     </li>
-                    <li class="hover:text-red-300 p-1 mt-auto border-1 rounded-lg mr-auto">
-                        <button onclick="logout()" class="cursor-pointer">Logout</button>
-                    </li>
+                    <div class="mt-auto flex justify-between items-center">
+                        <!-- Logout (Left) -->
+                        <li class="hover:text-red-500 dark:hover:text-red-500 border rounded-lg p-2">
+                            <button onclick="logout()" class="cursor-pointer">
+                                Logout
+                            </button>
+                        </li>
+
+                        <!-- Theme Toggle (Right) -->
+                        <li>
+                            <button onclick="toggleDarkMode()" id="themeBtn"
+                                class="cursor-pointer px-3 py-1 border rounded-lg dark:border-gray-600">
+                                🌙
+                            </button>
+                        </li>
+                    </div>
                 </ul>
             </aside>
                                         <!--Main Content-->
-        <div class="flex-1 p-10 shadow w-full">
+        <div class="flex-1 p-10 shadow w-full bg-gray-100 dark:bg-gray-900 transition">
             <h1 class="text-3xl font-bold mb-8">Transfer</h1>
 
                                         <!-- Account Info Div -->
                 <div class="grid grid-cols-3 gap-6">
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Account Balance</h2>
-                        <p class="text-2xl font-bold text-green-600">₹ <span id="balance">0</span></p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Last Transaction</h2>
-                        <p id="last_transaction">None</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Account Number</h2>
-                        <p id="account_info">---</p>
-                    </div>
-                </div>
+    
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition">
+        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">Account Balance</h2>
+        <p class="text-2xl font-bold text-green-600 dark:text-green-400">
+            ₹ <span id="balance">0</span>
+        </p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition">
+        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">Last Transaction</h2>
+        <p id="last_transaction" class="text-gray-900 dark:text-gray-300">None</p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition">
+        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">Account Number</h2>
+        <p id="account_info" class="text-gray-900 dark:text-gray-300">---</p>
+    </div>
+
+</div>
                                     <!--Transfer Form-->
         <div class="flex items-center justify-center min-h-[calc(90vh-200px)]">
-            <div class="bg-white shadow-lg rounded-lg p-8 w-96">
-                <h2 class="text-2xl font-bold text-center mb-6 text-blue-900">Transfer Money</h2>
-                <form class="flex flex-col gap-4">
-                    <label class="font-semibold">Reciver's Account Number</label>
-                    <input type="number" id="to_account" class="border p-2 rounded w-full" placeholder="Enter Recipient Account Number">
-                    <label class="font-semibold">Amount</label>
-                    <input type="number" id="amount" class="border p-2 rounded w-full" placeholder="Enter Amount">
-                    <p class="text-gray-700 font-semibold">Sender Account: 
-                        <span id="sender_account_display" class="text-blue-900">Null</span>
-                    </p>
-                    <button type="button" onclick="transferMoney()" class="bg-blue-900 text-white py-2 rounded hover:bg-blue-700 transition">Send Money</button>
-                </form>
-        </div>
+    
+    <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 w-96 transition">
+        
+        <h2 class="text-2xl font-bold text-center mb-6 text-blue-900 dark:text-blue-400">
+            Transfer Money
+        </h2>
+
+        <form class="flex flex-col gap-4">
+
+            <label class="font-semibold dark:text-gray-300">
+                Receiver's Account Number
+            </label>
+
+            <input type="number" id="to_account"
+                class="border p-2 rounded w-full 
+                bg-white dark:bg-gray-700 
+                text-black dark:text-white 
+                border-gray-300 dark:border-gray-600 
+                focus:ring-2 focus:ring-blue-500 outline-none">
+
+            <label class="font-semibold dark:text-gray-300">
+                Amount
+            </label>
+
+            <input type="number" id="amount"
+                class="border p-2 rounded w-full 
+                bg-white dark:bg-gray-700 
+                text-black dark:text-white 
+                border-gray-300 dark:border-gray-600 
+                focus:ring-2 focus:ring-blue-500 outline-none">
+
+            <p class="text-gray-700 dark:text-gray-300 font-semibold">
+                Sender Account: 
+                <span id="sender_account_display" class="text-blue-900 dark:text-blue-400">
+                    Null
+                </span>
+            </p>
+
+            <button type="button" onclick="transferMoney()"
+                class="bg-blue-900 dark:bg-blue-700 text-white py-2 rounded 
+                hover:bg-blue-700 dark:hover:bg-blue-600 transition">
+                Send Money
+            </button>
+
+        </form>
+    </div>
+</div>
     </div>
     </div>
     <script src="./js/api.js"></script>

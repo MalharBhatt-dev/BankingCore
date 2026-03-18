@@ -6,60 +6,73 @@
         <title>Bank Dashboard</title>
         <link href="./css/output.css" rel="stylesheet">
     </head>
-    <body class="bg-gray-100">
+    <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <div class="flex">
                             <!-- Sidebar -->
-            <aside class="w-64 bg-blue-900 text-white min-h-screen p-6  border-white border-1">
+            <aside class="w-64 bg-blue-900 dark:bg-gray-800  text-white min-h-screen p-6 transition-colors border-white border-1">
                 <h2 class="text-2xl font-bold mb-8">MyBank</h2>
                 <ul class="flex flex-col font-semibold min-h-[87vh]">
-                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="dashboard.html">Dashboard</a>
                     </li>
-                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="transfer.html">Transfer</a>
                     </li>
-                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="transactions.html">Transactions</a>
                     </li>
-                    <li class="hover:text-gray-300 p-1 m-1 cursor-pointer">
+                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="service_requests.html">Service Requests</a>
                     </li>
-                    <li class="hover:text-red-300 p-1 mt-auto border-1 rounded-lg mr-auto">
-                        <button onclick="logout()" class="cursor-pointer">Logout</button>
-                    </li>
+                    <div class="mt-auto flex justify-between items-center">
+                        <!-- Logout (Left) -->
+                        <li class="hover:text-red-500 dark:hover:text-red-500 border rounded-lg p-2">
+                            <button onclick="logout()" class="cursor-pointer">
+                                Logout
+                            </button>
+                        </li>
+
+                        <!-- Theme Toggle (Right) -->
+                        <li>
+                            <button onclick="toggleDarkMode()" id="themeBtn"
+                                class="cursor-pointer px-3 py-1 border rounded-lg dark:border-gray-600">
+                                🌙
+                            </button>
+                        </li>
+                    </div>
                 </ul>
             </aside>
                         <!-- Main Content -->
-            <div class="flex-1 p-10">
+            <div class="flex-1 p-10 bg-gray-100 dark:bg-gray-900 transition">
                 <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
                             <!-- Account Info Div -->
                 <div class="grid grid-cols-3 gap-6">
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Account Balance</h2>
-                        <p class="text-2xl font-bold text-green-600">₹ <span id="balance">0</span></p>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition">
+                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">Account Balance</h2>
+                        <p class="text-2xl font-bold text-green-600 dark:text-green-700">₹ <span id="balance">0</span></p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Last Transaction</h2>
-                        <p id="last_transaction">None</p>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition">
+                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">Last Transaction</h2>
+                        <p id="last_transaction" class="text-gray-900 dark:text-gray-300">None</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-lg font-semibold mb-2">Account Number</h2>
-                        <p id="account_info">---</p>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition">
+                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">Account Number</h2>
+                        <p id="account_info" class="text-gray-900 dark:text-gray-300">---</p>
                     </div>
                 </div>
                     <!-- Actions Div-->
                 <div class="mt-10 grid grid-cols-2 gap-6">
                     <!-- Deposit Div-->
-                    <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="bg-white p-6 rounded-lg shadow bg-gray-100 dark:bg-gray-800 transition">
                         <h2 class="text-lg font-semibold mb-4">Deposit</h2>
-                        <input type="number" id="deposit_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4">
-                        <button onclick="deposit()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Deposit</button>
+                        <input type="number" id="deposit_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <button onclick="deposit()" class="bg-green-500 dark:bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600 dark:hover:bg-green-800">Deposit</button>
                     </div>
                     <!-- Withdraw Div-->
-                    <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="bg-white p-6 rounded-lg shadow bg-gray-100 dark:bg-gray-800 transition">
                         <h2 class="text-lg font-semibold mb-4">Withdraw</h2>
-                        <input type="number" id="withdraw_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4">
-                        <button onclick="withdraw()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Withdraw</button>
+                        <input type="number" id="withdraw_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                        <button onclick="withdraw()" class="bg-red-500 dark:bg-red-700 text-white px-4 py-2 rounded hover:bg-red-600 dark:hover:bg-red-800">Withdraw</button>
                     </div>
                 </div>
             </div>
