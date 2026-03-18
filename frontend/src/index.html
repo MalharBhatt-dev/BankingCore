@@ -8,21 +8,25 @@
 </head>
 
 <!--  LIGHT MODE BACKGROUND -->
-<body class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
+<body class="bg-gradient-to-br from-blue-50 via-blue-200 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
     <!-- Header -->
-    <section class="w-full h-20 bg-[rgb(16,63,184)] px-6 shadow-md">
+    <section class="animate-[slideDown_0.5s_ease-out] w-full h-20 px-6 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 backdrop-blur-md border border-b border-white/10 shadow-lg">
         <header class="flex items-center justify-between h-full">
-            <h1 class="text-xl font-bold text-white font-sans">Banking Core</h1>
-            <div>
+            <!--Logo-->
+            <h1 class="text-xl font-bold text-white tracking-wide drop-shadow-[0_0_8px_rgba(59,130,246,0.6)] flex items-center gap-2">
+              💳<span class="opacity-90">Banking Core</span>
+            </h1>
+            <!--Right Side-->
+            <div class="flex items-center gap-4">
             <a href="register.html">
-                <button class="rounded-full font-semibold text-sm text-white border border-white px-4 py-2 hover:bg-white hover:text-blue-900 transition">
+                <button class="rounded-full font-semibold text-sm text-white border border-white/30 px-4 py-2 hover:bg-white hover:text-blue-900 transition-all duration-300 hover:scale-105">
                     Register Account
                 </button>
             </a>
 
             <!-- Theme Button -->
             <button onclick="toggleDarkMode()" id="themeBtn"
-                class="ml-4 text-white border px-3 py-1 rounded hover:bg-white hover:text-blue-900 transition">
+                class="text-white border border-white/30 px-3 py-1 rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-300 hover:rotate-12">
                 🌙
             </button>
             </div>
@@ -34,8 +38,8 @@
         
         <!--CARD -->
         <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md p-8 rounded-2xl shadow-xl w-96 border border-white/40 dark:border-gray-700 animate-fadeIn transition">
-            <h2 class="text-3xl font-bold text-blue-900 dark:text-white">Welcome Back</h2>
-            <p class="text-gray-500 dark:text-gray-400">Login to your account</p>
+            <h2 class="text-3xl font-bold text-blue-900 dark:text-white mb-1">Welcome Back</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Login to your account</p>
 
             <form class="flex flex-col gap-4 font-semibold" id="loginform" onsubmit="login(event)">
 
@@ -57,7 +61,7 @@
                     </label>
 
                     <button type="button" id="toggleIcon" onclick="togglePin()"
-                        class="absolute right-3 top-2.5 text-gray-500 hover:text-blue-700">
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-700">
                         👁️
                     </button>
                 </div>
@@ -75,7 +79,7 @@
 
                 <!-- Button -->
                 <button type="submit" id="loginBtn"
-                    class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
 
                     <span id="btnText">Login</span>
 
