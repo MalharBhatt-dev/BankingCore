@@ -31,6 +31,7 @@ async function loadBalance(){
     const account = getAccountNumber();
     const data = await apiRequest(`/accounts/${account}`);
     document.getElementById("balance").innerText = data.balance;
+    document.getElementById("balance_top").innerText = data.balance;
 }
 
 async function deposit(){

@@ -6,22 +6,22 @@
         <title>Bank Dashboard</title>
         <link href="./css/output.css" rel="stylesheet">
     </head>
-    <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <body class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 backdrop-blur">
         <div class="flex">
                             <!-- Sidebar -->
-            <aside class="w-64 bg-blue-900 dark:bg-gray-800  text-white min-h-screen p-6 transition-colors border-white border-1">
+            <aside class="w-64 bg-blue-900 dark:bg-gray-900/80 dark:text-gray-100 backdrop-blur text-white min-h-screen p-6 border-r border-white/10    dark:border-white/10 transition-colors">
                 <h2 class="text-2xl font-bold mb-8">MyBank</h2>
                 <ul class="flex flex-col font-semibold min-h-[87vh]">
-                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
+                    <li class="p-2 rounded-lg bg-white/20 hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="dashboard.html">Dashboard</a>
                     </li>
-                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
+                    <li class="p-2 rounded-lg hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="transfer.html">Transfer</a>
                     </li>
-                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
+                    <li class="p-2 rounded-lg hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="transactions.html">Transactions</a>
                     </li>
-                    <li class="hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
+                    <li class="p-2 rounded-lg hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="service_requests.html">Service Requests</a>
                     </li>
                     <div class="mt-auto flex justify-between items-center">
@@ -44,37 +44,44 @@
             </aside>
                         <!-- Main Content -->
             <div class="flex-1 p-10 bg-gray-100 dark:bg-gray-900 transition">
-                <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
+                <div clas="flex justify-between items-center mb-6 p-2 border-1">
+                    <h1 class="text-3xl font-bold">Dashboard</h1>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 p-2">Welcome Back</p>
+                </div>
+                
                             <!-- Account Info Div -->
                 <div class="grid grid-cols-3 gap-6">
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition">
-                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">Account Balance</h2>
-                        <p class="text-2xl font-bold text-green-600 dark:text-green-700">₹ <span id="balance">0</span></p>
+                    <div class="animate-[fadeIn_0.5s_ease-out] bg-gradient-to-bl from-blue-600 to-blue-900 text-white  dark:from-blue-600 dark:to-blue-900/80 backdrop-blur p-6 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                        <h2 class="text-sm opacity-80 font-semibold mb-2 dark:text-gray-200">💰 Account Balance</h2>
+                        <p class="text-3xl font-bold mt-2 text-green-500 dark:text-green-600">₹ <span id="balance">0</span></p>
                     </div>
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition">
-                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">Last Transaction</h2>
-                        <p id="last_transaction" class="text-gray-900 dark:text-gray-300">None</p>
+                    <div class="animate-[fadeIn_0.6s_ease-out] bg-gradient-to-br bg-white dark:from-gray-800 dark:to-gray-900 p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">📊 Last Transaction</h2>
+                        <p id="last_transaction" class="text-xl mt-2 text-gray-900 dark:text-gray-300">None</p>
                     </div>
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition">
-                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">Account Number</h2>
-                        <p id="account_info" class="text-gray-900 dark:text-gray-300">---</p>
+                    <div class="animate-[fadeIn_0.7s_ease-out] bg-gradient-to-br bg-white dark:from-gray-800 dark:to-gray-900 p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">💳 Account Number</h2>
+                        <p id="account_info" class="text-xl mt-2 text-gray-900 dark:text-gray-300">---</p>
                     </div>
                 </div>
                     <!-- Actions Div-->
-                <div class="mt-10 grid grid-cols-2 gap-6">
+                     <div class=" border-t border-gray-200 dark:border-gray-700 p-2 my-7">
+                        <h2 class="text-xl font-semibold mb-4 text-gray-600 dark:text-gray-300">Quick Actions</h2>
+                <div class="mt-5 grid grid-cols-2 gap-6">
+                   
                     <!-- Deposit Div-->
-                    <div class="bg-white p-6 rounded-lg shadow bg-gray-100 dark:bg-gray-800 transition">
-                        <h2 class="text-lg font-semibold mb-4">Deposit</h2>
-                        <input type="number" id="deposit_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600">
-                        <button onclick="deposit()" class="bg-green-500 dark:bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600 dark:hover:bg-green-800">Deposit</button>
+                    <div class="bg-white dark:bg-gray-800/80 backdrop-blur p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gray-100">
+                        <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">💰<span class="text-green-600 dark:text-green-400">Deposit</span></h2>
+                        <input type="number" id="deposit_amount" placeholder="Enter Amount" class="border p-3 rounded-lg w-full mb-4 bg-white dark:bg-gray-700 text-balck dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:scale-[1.01] outline-none transition">
+                        <button onclick="deposit()" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 dark:bg-green-700 cursor-pointer text-white px-4 py-2 active:scale-95 transition-all duration-200 dark:hover:bg-green-800">Deposit Money</button>
                     </div>
                     <!-- Withdraw Div-->
-                    <div class="bg-white p-6 rounded-lg shadow bg-gray-100 dark:bg-gray-800 transition">
-                        <h2 class="text-lg font-semibold mb-4">Withdraw</h2>
-                        <input type="number" id="withdraw_amount" placeholder="Enter Amount" class="border p-2 rounded w-full mb-4 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600">
-                        <button onclick="withdraw()" class="bg-red-500 dark:bg-red-700 text-white px-4 py-2 rounded hover:bg-red-600 dark:hover:bg-red-800">Withdraw</button>
+                    <div class="bg-white dark:bg-gray-800/80 backdrop-blur p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gray-100">
+                        <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">💸<span class="text-red-500 dark:text-red-400">Withdraw</span></h2>
+                        <input type="number" id="withdraw_amount" placeholder="Enter Amount" class="border p-3 rounded-lg w-full mb-4 bg-white dark:bg-gray-700 text-black dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-red-500 focus:scale-[1.01] outline-none transition">
+                        <button onclick="withdraw()" class="w-full bg-red-500 text-white cursor-pointer dark:bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-600 dark:hover:bg-red-800 active:scale-95 transition-all duration-200 shadow">Withdraw Money</button>
                     </div>
-                </div>
+                </div></div>
             </div>
         </div>
         <script src="./js/api.js"></script>
