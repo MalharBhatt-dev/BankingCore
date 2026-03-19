@@ -29,11 +29,9 @@
                     Open Account
                 </button>
             </a>
-            <a href="index.html">
-                <button class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-900">
+                <button onclick="openLoginModal()" class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-900">
                     Login
                 </button>
-            </a>
         </div>
     </section>
 
@@ -180,11 +178,29 @@
                         <path class="opacity-75" fill="white"
                             d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
                     </svg>
-                </button>.
+                </button>
+
+                <!--Demo Login-->
+                <div class="mt-4 border-t pt-4 text-center">
+                    <p class="text-sm text-gray-500 mb-2">Try Demo Accounts</p>
+                    <p class="text-xs text-gray-400 mb-2">No signup needed — explore instantly 🚀</p>
+                    <div class="flex gap-2">
+                        <button onclick="demoLogin('user')" class="flex-1 text-xs bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
+                            Demo User
+                        </button>
+                        <button onclick="demoLogin('employee')" class="flex-1 text-xs bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600">
+                            Demo Employee
+                        </button>
+                        <button onclick="demoLogin('admin')" class="flex-1 text-xs bg-red-600 text-white py-2 rounded-lg hover:bg-red-700">
+                            Demo Admin
+                        </button>
+                    </div>
+                </div>
 
             </form>
         </div>
     </div>
+    
     <script src="./js/login.js"></script>
 </body>
 </html>
