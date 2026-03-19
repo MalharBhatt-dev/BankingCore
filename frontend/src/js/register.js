@@ -32,3 +32,43 @@ async function registerAccount(){
         alert("Something went wrong");
     }
 }
+
+// Toggle PIN
+function togglePin() {
+    const pinInput = document.getElementById("pin");
+    const icon = document.getElementById("toggleIcon");
+
+    if (pinInput.type === "password") {
+        pinInput.type = "text";
+        icon.textContent = "🙈";
+    } else {
+        pinInput.type = "password";
+        icon.textContent = "👁️";
+    }
+}
+
+function toggleDarkMode() {
+    const html = document.documentElement;
+    html.classList.toggle("dark");
+
+    const btn = document.getElementById("themeBtn");
+
+    if (html.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        btn.textContent = "☀️";
+    } else {
+        localStorage.setItem("theme", "light");
+        btn.textContent = "🌙";
+    }
+}
+
+// Load saved theme
+window.onload = () => {
+    const theme = localStorage.getItem("theme");
+    const btn = document.getElementById("themeBtn");
+
+    if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+        btn.textContent = "☀️";
+    }
+};

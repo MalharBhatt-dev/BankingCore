@@ -11,11 +11,11 @@ class ServiceRequestRepository:
         self.conn = sqlite3.connect(DB_PATH,check_same_thread=False)
         self.conn.execute("PRAGMA foreign_key = ON")
     
-    def create_request(self,account_number,query_type,description):
+    def create_request(self,account_number,employee_id,query_type,description):
         created_at = datetime.now().isoformat()
 
         c= self.conn.cursor()
-        c.execute("""insert into service_requests (account_number , query_type,description,created_at) values (?, ?, ?, ?)""",(account_number,query_type,description,created_at))
+        c.execute("""insert into service_requests (account_number, query_type, description, created_at, employee_id) values (?, ?, ?, ?, ?)""",(account_number,query_type,description,created_at,employee_id))
     
     def get_requests_logs(self):
         c = self.conn.cursor()
@@ -29,9 +29,9 @@ class ServiceRequestRepository:
         rows = c.fetchall()
         return rows
     
-    def get_pending_requests(self):
+    def get_pending_requests(self,account_number):
         c= self.conn.cursor()
-        c.execute("""select * from service_requests where status = 'PENDING' order by created_at ASC""")
+        c.execute("""select * from service_requests where (status = 'PENDING' and employee_id = ?) order by created_at ASC""",(account_number,))
         rows = c.fetchall()
         return rows
     

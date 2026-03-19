@@ -223,10 +223,11 @@ def register_routes(app):
     # @role_required("employee")
     def create_request():
         data = request.get_json(silent=True) or {}
+        employee_id = data.get("employee_id")
         query_type = data.get("query_type")
         description = data.get("description")
 
-        request_service.create_request(g.account_number,query_type,description)
+        request_service.create_request(g.account_number,employee_id,query_type,description)
 
         return {"message":"Request created successsfully"},201
 
@@ -247,7 +248,7 @@ def register_routes(app):
     @login_required
     @role_required("employee")
     def pending_requests():
-        requests = request_service.get_pending_requests()
+        requests = request_service.get_pending_requests(g.account_number)
         return {"requests":requests}
 
     @app.route("/employee/requests/<int:request_id>/approve",methods=["POST"])

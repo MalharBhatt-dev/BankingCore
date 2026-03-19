@@ -6,50 +6,106 @@
         <title>Transactions</title>
         <link href="./css/output.css" rel="stylesheet">
     </head>
-    <body class="bg-gray-100">
+    <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <div class="flex">
                             <!-- Sidebar -->
-            <div class="w-64 bg-blue-900 text-white min-h-screen  p-6">
+             <aside class="w-64 bg-blue-900 dark:bg-gray-900/80 dark:text-gray-100 backdrop-blur text-white min-h-screen p-6 border-r border-white/10    dark:border-white/10 transition-colors">
                 <h2 class="text-2xl font-bold mb-8">MyBank</h2>
-                <ul class="space-y-4 font-semibold">
-                    <li class="hover:text-gray-300 cursor-pointer">
+                <ul class="flex flex-col font-semibold min-h-[87vh]">
+                    <li class="p-2 rounded-lg hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="dashboard.html">Dashboard</a>
                     </li>
-                    <li class="hover:text-gray-300 cursor-pointer">
+                    <li class=" p-2 rounded-lg hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="transfer.html">Transfer</a>
                     </li>
-                    <li class="hover:text-gray-300 cursor-pointer">
+                    <li class="p-2 rounded-lg bg-white/20  hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="transactions.html">Transactions</a>
                     </li>
-                    <li class="hover:text-gray-300 cursor-pointer">
+                    <li class="p-2 rounded-lg hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
                         <a href="service_requests.html">Service Requests</a>
                     </li>
-                    <li class="hover:text-gray-300 cursor-pointer">
-                        <button onclick="logout()">Logout</button>
-                    </li>
-                </ul>
-            </div>
-                            <!-- Main Content -->
-            <div class="flex-1 p-10">
-                <h1 class="text-3xl font-bold mb-8">Transaction History</h1>
-                <div class="max-h-[80vh] overflow-y-auto flex-1 bg-white shadow rounded-lg">
-                    <div class="p-6">
-                        <table class="min-w-full text-left border-collapse">
-                            <thead class="border-b">
-                                <tr class="border-b hover:bg-gray-100">
-                                    <th class="p-3 sticky top-0 bg-white z-10">Type</th>
-                                    <th class="p-3 sticky top-0 bg-white z-10">Amount</th>
-                                    <th class="p-3 sticky top-0 bg-white z-10">Balance After</th>
-                                    <th class="p-3 sticky top-0 bg-white z-10">Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="transaction_table" class="divide-y">
-                                <!-- JS will insert rows -->
-                            </tbody>
-                        </table>
+                    <div class="mt-auto flex justify-between items-center">
+                        <!-- Logout (Left) -->
+                        <li class="hover:text-red-500 dark:hover:text-red-500 border rounded-lg p-2">
+                            <button onclick="logout()" class="cursor-pointer">
+                                Logout
+                            </button>
+                        </li>
+
+                        <!-- Theme Toggle (Right) -->
+                        <li>
+                            <button onclick="toggleDarkMode()" id="themeBtn"
+                                class="cursor-pointer px-3 py-1 border rounded-lg dark:border-gray-600">
+                                🌙
+                            </button>
+                        </li>
                     </div>
+                </ul>
+            </aside>
+                            <!-- Main Content -->
+                             <div class="flex-1 p-10 bg-gray-100 dark:bg-gray-900 transition">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                <h1 class="animate-[fadeIn_0.5s_ease-out] text-3xl font-bold">Transaction History</h1>
+                <p class="animate-[fadeIn_0.6s_ease-out] text-sm text-gray-500 dark:gray-400">Track all your activity</p>
                 </div>
-            </div>
+                <!--Actions-->
+                <div class="flex gap-3">
+                    <!--Filter-->
+                    <select class="animate-[fadeIn_0.6s_ease-out]  px-3 py-2 rounded-lg border 
+                bg-white dark:bg-gray-800 
+                dark:border-gray-600 text-sm">
+                        <option>All</option>
+                        <option>Deposit</option>
+                        <option>Withdraw</option>
+                        <option>Transfer</option>
+                    </select>
+                    <input type="text" placeholder="Search..." class="animate-[fadeIn_0.7s_ease-out]  border rounded-lg px-3 py-2 text-sm text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 dark:border-gray-600">
+                </div>
+</div>
+    <div class="animate-[fadeIn_0.5s_ease-out]  bg-white/70 dark:bg-gray-800/70 backdrop-blur shadow-xl rounded-2xl border border-gray-200 dark:border-gray-700 max-h-[80vh] overflow-y-auto scrollbar-thin">
+
+        <div class="p-6">
+
+            <table class="min-w-full text-left border-collapse">
+
+                <!-- TABLE HEADER -->
+                <thead class="border-b dark:border-gray-700">
+
+                    <tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+
+                        <th class="p-3 sticky top-0 bg-white dark:bg-gray-800 z-10 text-left">
+                            Type
+                        </th>
+
+                        <th class="p-3 sticky top-0 bg-white dark:bg-gray-800 z-10 text-center">
+                            Amount
+                        </th>
+
+                        <th class="p-3 sticky top-0 bg-white dark:bg-gray-800 z-10 text-center">
+                            Balance After
+                        </th>
+
+                        <th class="p-3 sticky top-0 bg-white dark:bg-gray-800 z-10 text-center">
+                            Date
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <!-- TABLE BODY -->
+                <tbody id="transaction_table" 
+                       class="divide-y dark:divide-gray-700">
+
+                    <!-- JS inserts rows -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
         </div>
         <script src="./js/api.js"></script>
         <script src="./js/transactions.js"></script> 
