@@ -3,44 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banking Core</title>
+    <title>Banking Core | Fintech Saas</title>
     <link href="./css/output.css" rel="stylesheet">
 </head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+    
+    <!--========NavBar==========-->
+    <nav class="flex justify-between items-center px-8 py-4 bg-white dark:gray-800 shadow">
+        <h1 class="text-2xl font-bold text-blue dark:text-blue-400">BankingCore</h1>
+        <div class="space-x-4">
+                <button onclick="openLoginModal()" class="font-semibold hover:text-blue-600">Login</button>
+            <a href="register.html" class="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-700">Get Started</a>
+        </div>
+    </nav>
 
-<!--  LIGHT MODE BACKGROUND -->
-<body class="bg-gradient-to-br from-blue-50 via-blue-200 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-    <!-- Header -->
-    <section class="animate-[slideDown_0.5s_ease-out] w-full h-20 px-6 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900  dark:from-[#020617] dark:via-[#0a2540] dark:to-[#020617] backdrop-blur-md border border-b border-white/10 shadow-lg">
-        <header class="flex items-center justify-between h-full">
-            <!--Logo-->
-            <h1 class="text-xl font-bold text-white tracking-wide drop-shadow-[0_0_8px_rgba(59,130,246,0.6)] flex items-center gap-2">
-              💳<span class="opacity-90">Banking Core</span>
-            </h1>
-            <!--Right Side-->
-            <div class="flex items-center gap-4">
+    <!--=====Hero========-->
+    <section class="text-center py-20 px-6 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white">
+        <h1 class="text-lg mb-8 max-w-2xl mx-auto">Modern Banking Infrastructure 🚀</h1>
+        <p class="text-lg mb-8 max-w-2xl mx-auto">
+            Secure, scalable, and fasst banking system with real-time transactions, admin control, and service request management.
+        </p>
+        <div class="space-x-4">
             <a href="register.html">
-                <button class="rounded-full font-semibold text-sm text-white border border-white/30 px-4 py-2 hover:bg-white hover:text-blue-900 transition-all duration-300 hover:scale-105">
-                    Register Account
+                <button class="bg-white text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200">
+                    Open Account
                 </button>
             </a>
-
-            <!-- Theme Button -->
-            <button onclick="toggleDarkMode()" id="themeBtn"
-                class="text-white border border-white/30 px-3 py-1 rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-300 hover:rotate-12">
-                🌙
-            </button>
-            </div>
-        </header>
+            <a href="index.html">
+                <button class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-900">
+                    Login
+                </button>
+            </a>
+        </div>
     </section>
 
-    <!-- Login Section -->
-    <section class="flex items-center justify-center min-h-[calc(100vh-80px)]">
-        
-        <!--CARD -->
-        <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md p-8 rounded-2xl shadow-xl w-96 border border-white/40 dark:border-gray-700 animate-fadeIn transition">
-            <h2 class="text-3xl font-bold text-blue-900 dark:text-white mb-1">Welcome Back</h2>
+    <!--=======FEATURES==========-->
+    <section class="py-20 px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">
+            Powerful Features
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">💸 Instant Transfers</h3>
+                <p>Send Money securely between accounts with real-time updates.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">📊 Dashboard</h3>
+                <p>Track balance, transactions, and account activity in one place.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">🔐 Secure System</h3>
+                <p>JWT authentication, role-based access, and account protection.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">🧑‍💼 Admin Controls</h3>
+                <p>Manage accounts, monitor security events, and unlock users.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">📨 Service Requests</h3>
+                <p>Users can request PIN changes, name updates, and more.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">⚡ Fast API</h3>
+                <p>Built with Flask backend and optimized endpoints.</p>
+            </div>
+        </div>
+    </section>
+
+    <!--========== HOW IT WORKS =============-->
+    <section class="bg-gray-200 dark:bg-gray-800 py-20 px-8 text-center">
+        <h2 class="text-3xl font-bold mb-12">How It Works</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-2">1. Create Account</h3>
+                <p>Regiter and get your account instantly.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-2">2. Manage Money</h3>
+                <p>Deposit, withdraw, and transfer securely.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-2">3. Track Everything</h3>
+                <p>View transactions and account activity in real-time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!--======FOOTER=========-->
+    <footer class="bg-blue-900 text-white text-center py-6">
+        <p>© 2026 BankingCore SaaS | Built with ❤️ using Flask & Tailwind</p>
+    </footer>
+
+    <!--====LOGIN MODAL====-->
+    <div id="loginModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs hidden items-center justify-center z-50 animate-fadeIn transition">
+        <!--MODAL CARD-->
+        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl w-96 relative">
+            <!--CLOSE BUTTON-->
+            <button onclick="closeLoginModal()" class="absolute top-3 right-3 text-gray-500 hover:text-rad-500 text-xl">
+                ✖
+            </button>
+
+            <!--Title-->
+            <h2 class="text-2xl font-bold text-blue-900 dark:text-white mb-2">Welcome Back</h2>
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Login to your account</p>
 
+            <!--ROLE SELECT-->
+            <div class="flex gap-2 mb-4">
+                <button onclick="setRole('user')"  id="role_user" class="flex-1 py-2 rounded-lg bg-blue-900 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 hover:text-white text-white active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    User
+                </button>
+
+                <button onclick="setRole('employee')" id="role_employee" class="flex-1 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:text-white hover:bg-blue-700 dark:hover:bg-blue-800 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Employee</button>
+
+                <button onclick="setRole('admin')" id="role_admin" class="flex-1 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:text-white hover:bg-blue-700 dark:hover:bg-blue-800 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Admin</button>
+            </div>
+
+            <!--FORM-->
             <form class="flex flex-col gap-4 font-semibold" id="loginform" onsubmit="login(event)">
 
                 <!-- Account -->
@@ -58,6 +136,20 @@
                         class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         PIN Number
+                    </label>
+
+                    <button type="button" id="toggleIcon" onclick="togglePin()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-700">
+                        👁️
+                    </button>
+                </div>
+
+                <!-- Admin PIN -->
+                <div class="relative hidden" id="admin_key_box">
+                    <input type="password" id="admin_key" placeholder=" "
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        Admin Key
                     </label>
 
                     <button type="button" id="toggleIcon" onclick="togglePin()"
@@ -88,12 +180,11 @@
                         <path class="opacity-75" fill="white"
                             d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
                     </svg>
-                </button>
+                </button>.
 
             </form>
         </div>
-    </section>
-
-    <script src="js/login.js"></script>
+    </div>
+    <script src="./js/login.js"></script>
 </body>
 </html>

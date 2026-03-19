@@ -44,8 +44,3 @@ async function unlockAccount(){
         console.log("Unlock failed",error)
     }
 }
-
-function adminLogout(){
-    localStorage.clear();
-    window.location.href="admin.html";
-}
