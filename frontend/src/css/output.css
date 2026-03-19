@@ -468,23 +468,44 @@
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
+  .animate-\[fa\] {
+    animation: fa;
+  }
   .animate-\[fadeIn\] {
     animation: fadeIn;
   }
   .animate-\[fadeIn_0\.5s\] {
     animation: fadeIn 0.5s;
   }
+  .animate-\[fadeIn_0\.5s_ease-\] {
+    animation: fadeIn 0.5s ease-;
+  }
   .animate-\[fadeIn_0\.5s_ease-out\] {
     animation: fadeIn 0.5s ease-out;
   }
+  .animate-\[fadeIn_0\.5s_ease\] {
+    animation: fadeIn 0.5s ease;
+  }
+  .animate-\[fadeIn_0\.6s\] {
+    animation: fadeIn 0.6s;
+  }
   .animate-\[fadeIn_0\.6s_ease-out\] {
     animation: fadeIn 0.6s ease-out;
+  }
+  .animate-\[fadeIn_0\.6s_ease\] {
+    animation: fadeIn 0.6s ease;
+  }
+  .animate-\[fadeIn_0\.7s\] {
+    animation: fadeIn 0.7s;
   }
   .animate-\[fadeIn_0\.7s_ease-out\] {
     animation: fadeIn 0.7s ease-out;
   }
   .animate-\[fadeIn_0\.8s_ease-out\] {
     animation: fadeIn 0.8s ease-out;
+  }
+  .animate-\[fadeIn_0\] {
+    animation: fadeIn 0;
   }
   .animate-\[fadeIn_\] {
     animation: fadeIn ;

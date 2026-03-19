@@ -44,9 +44,9 @@
             </aside>
                         <!-- Main Content -->
             <div class="flex-1 p-10 bg-gray-100 dark:bg-gray-900 transition">
-                <div clas="flex justify-between items-center mb-6 p-2 border-1">
-                    <h1 class="text-3xl font-bold">Dashboard</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 p-2">Welcome Back</p>
+                <div clas="flex justify-between items-center mb-6 p-2 border-1 transition">
+                    <h1 class="animate-[fadeIn_0.5s_ease-out] text-3xl font-bold">Dashboard</h1>
+                    <p class="animate-[fadeIn_0.6s_ease-out] text-sm text-gray-500 dark:text-gray-400 p-2">Welcome Back</p>
                 </div>
                 
                             <!-- Account Info Div -->
@@ -65,18 +65,18 @@
                     </div>
                 </div>
                     <!-- Actions Div-->
-                     <div class=" border-t border-gray-200 dark:border-gray-700 p-2 my-7">
+                     <div class="animate-[fadeIn_0.5s_ease-out]  border-t border-gray-200 dark:border-gray-700 p-2 my-7">
                         <h2 class="text-xl font-semibold mb-4 text-gray-600 dark:text-gray-300">Quick Actions</h2>
                 <div class="mt-5 grid grid-cols-2 gap-6">
                    
                     <!-- Deposit Div-->
-                    <div class="bg-white dark:bg-gray-800/80 backdrop-blur p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gray-100">
+                    <div class="animate-[fadeIn_0.5s_ease-out] bg-white dark:bg-gray-800/80 backdrop-blur p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gray-100">
                         <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">💰<span class="text-green-600 dark:text-green-400">Deposit</span></h2>
                         <input type="number" id="deposit_amount" placeholder="Enter Amount" class="border p-3 rounded-lg w-full mb-4 bg-white dark:bg-gray-700 text-balck dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:scale-[1.01] outline-none transition">
                         <button onclick="deposit()" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 dark:bg-green-700 cursor-pointer text-white px-4 py-2 active:scale-95 transition-all duration-200 dark:hover:bg-green-800">Deposit Money</button>
                     </div>
                     <!-- Withdraw Div-->
-                    <div class="bg-white dark:bg-gray-800/80 backdrop-blur p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gray-100">
+                    <div class="animate-[fadeIn_0.7s_ease-out] bg-white dark:bg-gray-800/80 backdrop-blur p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gray-100">
                         <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">💸<span class="text-red-500 dark:text-red-400">Withdraw</span></h2>
                         <input type="number" id="withdraw_amount" placeholder="Enter Amount" class="border p-3 rounded-lg w-full mb-4 bg-white dark:bg-gray-700 text-black dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-red-500 focus:scale-[1.01] outline-none transition">
                         <button onclick="withdraw()" class="w-full bg-red-500 text-white cursor-pointer dark:bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-600 dark:hover:bg-red-800 active:scale-95 transition-all duration-200 shadow">Withdraw Money</button>
