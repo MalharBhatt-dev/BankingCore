@@ -47,17 +47,19 @@ async function loadSecurityEvents(){
     const table = document.getElementById("event_table");
     table.innerHTML = "";
     data.events.forEach(event => {
-          const row = `
-        <tr class="border-b hover:bg-gray-100">
-
-        <td class="p-3">${event.account_number}</td>
-
-        <td class="p-3">${event.event}</td>
-
-        <td class="p-3">₹ ${event.balance}</td>
-
-        <td class="p-3">${event.timestamp}</td>
-
+        const date = new Date(event.timestamp).toLocaleString("en-IN", {
+            day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
+        });
+        const evtTagClass = event.event.includes("LOCK") ? "bg-rose-100 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-500/20" : "bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20";
+        
+        const row = `
+        <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition duration-200">
+        <td class="p-3 px-6 text-center font-mono text-zinc-900 dark:text-zinc-100">#${event.account_number}</td>
+        <td class="p-3 px-6 text-center">
+            <span class="px-2.5 py-1 text-xs rounded-full border ${evtTagClass}">${event.event}</span>
+        </td>
+        <td class="p-3 px-6 text-center text-zinc-900 dark:text-zinc-100 font-semibold">₹ ${event.balance}</td>
+        <td class="p-3 px-6 text-center text-zinc-500 dark:text-zinc-400 text-xs">${date}</td>
         </tr>
         `;
         table.innerHTML += row;
@@ -71,28 +73,14 @@ async function loadLockedAccounts(){
     data.accounts.forEach(acc => {
 
         const row = `
-        <tr class="border-b hover:bg-gray-100">
-
-        <td class="p-3">${acc.account_number}</td>
-
-        <td class="p-3">${acc.name}</td>
-
-        <td class="p-3">${acc.failed_attempts}</td>
-
-        <td class="p-3 text-red-600 font-semibold">Locked</td>
-
-        <td class="p-3">
-
-            <button
-            onclick="openUnlockForm(${acc.account_number})"
-            class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">
-
-            Unlock
-
-            </button>
-
+        <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition duration-200">
+        <td class="p-3 px-6 text-center font-mono text-zinc-900 dark:text-zinc-100">#${acc.account_number}</td>
+        <td class="p-3 px-6 text-center font-medium text-zinc-900 dark:text-zinc-100">${acc.name}</td>
+        <td class="p-3 px-6 text-center text-zinc-500 dark:text-zinc-400">${acc.failed_attempts}</td>
+        <td class="p-3 px-6 text-center text-rose-600 dark:text-rose-400 font-semibold">Locked 🔒</td>
+        <td class="p-3 px-6 text-center">
+            <button onclick="openUnlockForm(${acc.account_number})" class="bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-100 hover:scale-105 active:scale-95 px-4 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all shadow-sm">Unlock</button>
         </td>
-
         </tr>
         `;
 
