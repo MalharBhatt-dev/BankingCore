@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banking Core | Fintech Saas</title>
-    <link href="./frontend/src/css/output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="./frontend/src/css/output.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
     
     <!--========NavBar==========-->
     <nav class="flex justify-between items-center px-8 py-4 bg-white dark:bg-gray-800 shadow">
-        <h1 class="text-2xl font-bold text-blue dark:text-blue-400">BankingCore</h1>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-blue-400">BankingCore</h1>
         <div class="space-x-4">
             <button onclick="openLoginModal()" class="font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-400">Login</button>
             <button onclick="openRegisterModal()" class="font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-400">Get Started</button>
+            <button onclick="toggleDarkMode()" id="themeBtn"
+                class="ml-4 text-white border border-white/30 px-3 py-1 rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-300 hover:rotate-12">
+                🌙
+            </button>
         </div>
     </nav>
 
@@ -35,7 +39,7 @@
     </section>
 
     <!--=======FEATURES==========-->
-    <section class="py-20 px-8">
+    <section class="bg-gray-300 dark:bg-gray-900 py-20 px-8">
         <h2 class="text-3xl font-bold text-center mb-12">
             Powerful Features
         </h2>
@@ -121,7 +125,7 @@
                 <!-- Account -->
                 <div class="relative">
                     <input type="number" id="account_number" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">  
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">  
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         Account Number
                     </label>
@@ -130,7 +134,7 @@
                 <!-- PIN -->
                 <div class="relative">
                     <input type="password" id="pin_number" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         PIN Number
                     </label>
@@ -144,7 +148,7 @@
                 <!-- Admin PIN -->
                 <div class="relative hidden" id="admin_key_box">
                     <input type="password" id="admin_key" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         Admin Key
                     </label>
@@ -157,7 +161,7 @@
 
                 <!-- Remember -->
                 <div class="flex items-center text-sm">
-                    <label class="flex items-center gap-2 dark:text-white">
+                    <label class="flex items-center gap-2 text-gray-900 dark:text-white">
                         <input type="checkbox" id="rememberMe" class="accent-blue-700">
                         Remember Me
                     </label>
@@ -174,8 +178,7 @@
 
                     <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="white"
-                            d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
+                        <path class="opacity-75" fill="white" d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
                     </svg>
                 </button>
 
@@ -216,7 +219,7 @@
                 <!--Account Holder Name-->
                 <div class="relative">
                     <input type="text" id="name" placeholder=" "
-                        class="peer w-full px-3 pt-5 pb-2 rounded-lg border bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">  
+                        class="peer w-full px-3 pt-5 pb-2 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">  
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         Full Name
                     </label>
@@ -224,7 +227,7 @@
                 <!--Pin number-->
                 <div class="relative">
                     <input type="password" id="pin" placeholder=" "
-                        class="peer w-full px-3 pt-5 pb-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">
+                        class="peer w-full px-3 pt-5 pb-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         PIN
                     </label>
@@ -237,13 +240,13 @@
                 <!--Initial Deposit-->
                 <div class="relative">
                     <input type="number" id="deposit" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">  
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">  
                     <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
                         Initial Deposit
                     </label>
                 </div>
                 <!-- Button -->
-                <button type="button" onclick="openRegisterModal()" class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 active:scale-95  transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button type="button" onclick="registerAccount()" class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 active:scale-95  transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                     <span id="btnText">Create Account</span>
                     <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
@@ -256,5 +259,6 @@
     </div>
     <script src="./frontend/src/js/login.js"></script>
     <script src="./frontend/src/js/register.js"></script>
+    
 </body>
 </html>

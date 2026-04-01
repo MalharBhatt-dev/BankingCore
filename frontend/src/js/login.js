@@ -84,9 +84,9 @@ async function login(event) {
     event.preventDefault();
     const errorMsg = document.getElementById("errorMsg");
     
-    loginBtn.disabled = true;
-    btnText.textContent = "Logging in...";
-    spinner.classList.remove("hidden");
+    document.getElementById("loginBtn").disabled = true;
+    document.getElementById("btnText").textContent = "Logging in...";
+    document.getElementById("spinner").classList.remove("hidden");
 
     const account_number = document.getElementById("account_number").value;
     const pin = document.getElementById("pin_number").value;
@@ -261,6 +261,7 @@ function toggleDarkMode() {
     const html = document.documentElement;
     const btn = document.getElementById("themeBtn");
 
+    html.classList.toggle("light");
     html.classList.toggle("dark");
 
     const isDark = html.classList.contains("dark");
