@@ -215,10 +215,18 @@ def register_routes(app):
     # @role_required("employee")
     def create_request():
         data = request.get_json(silent=True) or {}
-        employee_id = data.get("employee_id")
-        query_type = data.get("query_type")
+
+        employee_id = data.get("employee_id","1004")
+        query_type = data.get("query_type") or data.get("request_type")
         description = data.get("description")
 
+        #validate 
+        if not query_type:
+            return {"error":"Query type required"},400
+        
+        if not description:
+            return {"error":"Description required"},400
+        
         request_service.create_request(g.account_number,employee_id,query_type,description)
 
         return {"message":"Request created successsfully"},201
