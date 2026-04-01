@@ -94,14 +94,6 @@ def register_routes(app):
         return {"account_number":account_number,
                 "transactions":result},200
     
-    # @app.route("/accounts/<int:account_number>/unlock",methods=["POST"])
-    # @login_required
-    # @role_required("admin")
-    # def unlock_account(account_number):
-    #     data = request.get_json(silent=True) or {}
-    #     provided_key = str(data.get("admin_key"))
-    #     account_status = service.unlock_account(account_number,provided_key)
-    #     return {"account_number":account_number,"message":account_status}
 
     @app.route("/admin/unlock",methods=["POST"])
     @login_required
