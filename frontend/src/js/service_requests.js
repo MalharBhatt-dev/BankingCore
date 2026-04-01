@@ -1,10 +1,24 @@
-document.addEventListener("DOMContentLoaded",loadRequests);
+document.addEventListener("DOMContentLoaded"
+    ,() => {
+        const theme = localStorage.getItem("theme");
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");document.getElementById("themeBtn").textContent = "☀️";
+        }
+     loadRequests();
+    });
 
 async function createRequest(){
 
+    const selectedEmployee = document.querySelector('input[name="employee"]:checked');
+    let employee_id = null
+    employee_id = selectedEmployee ? selectedEmployee.value : null;
     const query_type = document.getElementById("query_type").value;
     const description = document.getElementById("description").value;
 
+    if(!employee_id){
+        alert("Please select employee");
+        return;
+    }
     if(!query_type){
         alert("Please select request type");
         return;
@@ -16,6 +30,7 @@ async function createRequest(){
             "/requests",
             "POST",
             {
+                employee_id:employee_id,
                 query_type: query_type,
                 description: description
             }
@@ -35,38 +50,61 @@ async function loadRequests(){
     try{
 
         const data = await apiRequest("/requests/my");
-
+console.log(data);
+if(!data.requests || data.requests.length === 0){
+    table.innerHTML = `<tr>
+    <td colspan="6" class="text-center py-10 text-gray-500">NO Requests found 📭
+    </td>
+    </tr>`;
+    return;
+}
         const table = document.getElementById("request_table");
 
         table.innerHTML="";
-
+        let rows = "";
         data.requests.forEach(req => {
 
-           const row = `
-<tr class="border-b">
+           rows += `
+<tr class="border-b hover:bg-gray-100 dark:hover:bg-gray-700">
 
-<td class="p-3">${req.query_type}</td>
+<td class="p-3 text-left">${req.query_type}</td>
 
-<td class="p-3">${req.description}</td>
+<td class="p-3 text-center">${req.description}</td>
 
-<td class="p-3">${req.status}</td>
+<td class="p-3 text-center">
+<span class="px-2 py-1 text-xs rounded-full ${req.status == "APPROVED" ? "bg-green-100 text-green-600":
+    req.status=="PENDING"? "bg-yellow-100 text-yellow-600" : "bg-red-100 text-red-500"
+}">${req.status}</span>
+</td>
 
-<td class="p-3">
+<td class="p-3 text-center text-sm text-gray-500">
+${new Date(req.created_at).toLocaleString("en-IN",{
+    day:"2-digit",
+    month:"short",
+    year:"numeric",
+    hour:"2-digit",
+    minute:"2-digit"
+})}
+</td>
 
+<td class="p-3 text-center">${req.employee_id}</td>
+
+<td class="p-3 text-center">
 ${req.status === "APPROVED" ?
 `<button onclick="openRequestForm(${req.id}, '${req.query_type}')"
 class="bg-blue-900 text-white px-3 py-1 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
 Submit
-</button>` : ""}
-
+</button>` : `<button onclick="openRequestForm(${req.id}, '${req.query_type}')"
+class="bg-gray-200 dark:bg-gray-600 text-gray-500 text-white px-3 py-1 rounded-lg  cursor-not-allowed transition" disabled>
+Submit
+</button>`}
 </td>
 
 </tr>
 `;
 
-            table.innerHTML += row;
-
-        });
+});
+table.innerHTML = rows;
 
     }
     catch(error){
@@ -94,14 +132,16 @@ switch(queryType){
 case "CHANGE_PIN":
 
 fields.innerHTML = `
+<div class="flex flex-col gap-3">
 <label class="font-semibold">New PIN</label>
 <input type="password" id="new_pin"
-class="border p-2 rounded w-full" placeholder="Enter new PIN number">
+class="border p-2 rounded w-full dark:bg-gray-700 dark:border-gray-600" placeholder="Enter new PIN number">
 <button
 onclick="submitRequest('CHANGE_PIN')"
-class="mt-4 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
+class="mt-2 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700">
 Submit
 </button>
+</div>
 `;
 
 break;
@@ -109,9 +149,9 @@ break;
 case "CHANGE_ACCOUNT_NAME":
 
 fields.innerHTML = `
-<label class="font-semibold>New Account Name</label>
+<label class="font-semibold">New Account Name</label>
 <input type="text" id="new_name"
-class="border p-2 rounded w-full" placeholder="Enter new PIN number" placeholder="Enter the Account Holder Name">
+class="border p-2 rounded w-full" placeholder="Enter the Account Holder Name">
 <button
 onclick="submitRequest('CHANGE_ACCOUNT_NAME')"
 class="mt-4 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700 cursor-pointer transition">
@@ -202,8 +242,8 @@ const data = await apiRequest(
 payload
 );
 alert(data.message);
-result = updateAccount(query_type,payload);
-if (result["message"] == True){
+const result =await updateAccount(query_type,payload);
+if (result  && result.success){
     const complete_data = await apiRequest(`/requests/${currentRequestId}/complete`,"GET");
     alert(complete_data.message);
 }
@@ -217,55 +257,42 @@ console.error("Submission failed:",error);
 
 }
 
-async function updateAccount(query_type,payload){
-if(query_type == 'CHANGE_ACCOUNT_NAME'){
-    try {
-        const update_data = await apiRequest(
-            `/update/account_holder_name`,"POST",payload
-            
-        );
-        alert(update_data.message);
-    }
-    catch(error){
-        console.log("Updation Failed:",error);
-    }
-}
-else if(query_type == 'CHANGE_PIN'){
-    try {
-        const update_data = await apiRequest(
-            `/update/pin_number`,"POST",payload
-            
-        );
-        alert(update_data.message);
-    }
-    catch(error){
-        console.log("Updation Failed:",error);
-    }
-}
-//NOTE : //h future request query implementation :
-// else if(query_type == 'UPDATE_CONTACT'){
-//     try {
-//         const update_data = await apiRequest(
-//             `/update/contact`,"POST",payload
-            
-//         );
-//         alert(update_data.message);
-//     }
-//     catch(error){
-//         console.log("Updation Failed:",error);
-//     }
-// }
-// else if(query_type == 'CLOSE_ACCOUNT'){
-//     try {
-//         const update_data = await apiRequest(
-//             `/update/account_close`,"POST",payload
-            
-//         );
-//         alert(update_data.message);
-//     }
-//     catch(error){
-//         console.log("Updation Failed:",error);
-//     }
-// }
+async function updateAccount(query_type, payload){
 
+    try {
+        let endpoint = "";
+
+        if(query_type === 'CHANGE_ACCOUNT_NAME'){
+            endpoint = "/update/account_holder_name";
+        }
+        else if(query_type === 'CHANGE_PIN'){
+            endpoint = "/update/pin_number";
+        }
+        else{
+            return null;
+        }
+
+        const update_data = await apiRequest(endpoint, "POST", payload);
+        alert(update_data.message);
+
+        return update_data; // ✅ IMPORTANT
+
+    } catch(error){
+        console.log("Updation Failed:", error);
+        return null;
+    }
+}
+
+function toggleDarkMode() {
+    const html = document.documentElement;
+    html.classList.toggle("dark");
+
+    // Save preference
+    if (html.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        document.getElementById("themeBtn").textContent = "☀️";
+    } else {
+        localStorage.setItem("theme", "light");
+        document.getElementById("themeBtn").textContent = "🌙";
+    }
 }
