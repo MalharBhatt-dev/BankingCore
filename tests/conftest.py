@@ -59,7 +59,7 @@ def admin_token(client):
     res = client.post("/accounts", json={
         "name": "Admin",
         "pin": "1234",
-        "initial_deposit": 0
+        "initial_deposit": 1000
     })
 
     data = res.get_json()
