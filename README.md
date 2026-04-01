@@ -113,7 +113,7 @@ FLASK_DEBUG=true
 ### 5️⃣ Run Backend Server
 
 ```bash
-python run.py
+python app.py
 ```
 
 Server runs at:
