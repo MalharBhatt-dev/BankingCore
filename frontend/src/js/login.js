@@ -48,6 +48,7 @@ function openLoginModal(){
 
 function closeLoginModal(){
     document.getElementById("loginModal").classList.add("hidden");
+    document.getElementById("loginModal").classList.remove("flex");
 }
 
 let currentRole = "user";
@@ -56,17 +57,17 @@ function setRole(role){
     currentRole = role;
 
     //Reset button styles
-    document.getElementById("role_user").classList.remove("bg-blue-900","text-white");
-    document.getElementById("role_employee").classList.remove("bg-blue-900","text-white");
-    document.getElementById("role_admin").classList.remove("bg-blue-900","text-white");
+    document.getElementById("role_user").classList.remove("bg-blue-900","text-white","dark:bg-blue-700");
+    document.getElementById("role_employee").classList.remove("bg-blue-900","text-white","dark:bg-blue-700");
+    document.getElementById("role_admin").classList.remove("bg-blue-900","text-white","dark:bg-blue-700");
 
-    document.getElementById("role_user").classList.add("bg-gray-200");
-    document.getElementById("role_employee").classList.add("bg-gray-200");
-    document.getElementById("role_admin").classList.add("bg-gray-200");
+    document.getElementById("role_user").classList.add("bg-gray-200","dark:bg-gray-700");
+    document.getElementById("role_employee").classList.add("bg-gray-200","dark:bg-gray-700");
+    document.getElementById("role_admin").classList.add("bg-gray-200","dark:bg-gray-700");
 
     //Activate Selected
-    document.getElementById("role_"+role).classList.remove("bg-gray-200");
-    document.getElementById("role_"+ role).classList.add("bg-blue-900","text-white");
+    document.getElementById("role_"+role).classList.remove("bg-gray-200","dark:bg-gray-700");
+    document.getElementById("role_"+ role).classList.add("bg-blue-900","text-white","dark:bg-blue-700");
 
     //Show/hide Admin key
     const adminKey = document.getElementById("admin_key_box");
@@ -218,7 +219,7 @@ async function demoLogin(role){
                         } else if(role === "employee"){
                             window.location.href = "employee_dashboard.html";
                         } else {
-                            window.location.href = "dashboard.html";
+                            window.location.href = "../frontend/src/dashboard.html";
                         }
                     },500); 
                 }
