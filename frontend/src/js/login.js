@@ -256,16 +256,3 @@ function togglePin() {
     }
 }
 
-// Toggle Theme
-function toggleDarkMode() {
-    const html = document.documentElement;
-    const btn = document.getElementById("themeBtn");
-
-    html.classList.toggle("light");
-    html.classList.toggle("dark");
-
-    const isDark = html.classList.contains("dark");
-
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    btn.textContent = isDark ? "☀️" : "🌙";
-}
