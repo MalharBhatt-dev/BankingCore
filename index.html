@@ -1,264 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banking Core | Fintech Saas</title>
+    <title>Banking Core | Fintech SaaS</title>
+
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="./frontend/src/css/output.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-    
+
+<body
+    class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased selection:bg-blue-500 selection:text-white transition-colors duration-300">
+
     <!--========NavBar==========-->
-    <nav class="flex justify-between items-center px-8 py-4 bg-white dark:bg-gray-800 shadow">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-blue-400">BankingCore</h1>
-        <div class="space-x-4">
-            <button onclick="openLoginModal()" class="font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-400">Login</button>
-            <button onclick="openRegisterModal()" class="font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-400">Get Started</button>
-            <button onclick="toggleDarkMode()" id="themeBtn"
-                class="ml-4 text-white border border-white/30 px-3 py-1 rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-300 hover:rotate-12">
-                🌙
-            </button>
+    <nav
+        class="fixed top-0 w-full z-40 transition-all duration-300 bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer">
+                <div
+                    class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                        </path>
+                    </svg>
+                </div>
+                <h1 class="text-xl font-extrabold tracking-tight text-gray-900 dark:text-white">BankingCore</h1>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <button onclick="openLoginModal()"
+                    class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors px-2 sm:px-4">Sign
+                    In</button>
+                <button onclick="openRegisterModal()"
+                    class="text-sm font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 px-5 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all shadow-md">Get
+                    Started</button>
+                <button onclick="toggleDarkMode()" id="themeBtn"
+                    class="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-all">
+                    🌙
+                </button>
+            </div>
         </div>
     </nav>
 
     <!--=====Hero========-->
-    <section class="text-center py-20 px-6 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white dark:from-blue-950 dark:via-blue-900 dark:to-blue-950">
-        <h1 class="text-lg mb-8 max-w-2xl mx-auto">Modern Banking Infrastructure 🚀</h1>
-        <p class="text-lg mb-8 max-w-2xl mx-auto">
-            Secure, scalable, and fasst banking system with real-time transactions, admin control, and service request management.
+    <section
+        class="relative pt-40 pb-20 lg:pt-52 lg:pb-32 px-6 flex flex-col items-center text-center overflow-hidden min-h-[90vh] justify-center bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+        <!-- Background accents -->
+        <div class="absolute top-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div
+                class="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-blue-400/10 dark:bg-blue-600/10 blur-[100px]">
+            </div>
+            <div
+                class="absolute top-40 -left-20 w-[400px] h-[400px] rounded-full bg-cyan-400/10 dark:bg-cyan-600/10 blur-[100px]">
+            </div>
+        </div>
+
+        <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-blue-700 dark:text-cyan-400 text-sm font-semibold mb-8 shadow-sm relative z-10">
+            <span class="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
+            v2.0 Beta is Live
+        </div>
+
+        <h1
+            class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl leading-[1.1] text-gray-900 dark:text-white relative z-10">
+            Banking infrastructure <br class="hidden sm:block" /> built for the <span class="text-gradient">modern
+                era.</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl leading-relaxed relative z-10">
+            Secure, scalable, and blazingly fast. Manage transactions, control access, and handle service requests
+            seamlessly with our intuitive platform.
         </p>
-        <div class="space-x-4">
-            <button onclick="openRegisterModal()" class="bg-white text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200">
-                Open Account
+
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto z-10">
+            <button onclick="openRegisterModal()"
+                class="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold text-lg shadow-lg shadow-blue-500/25 dark:shadow-blue-900/20 hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                Open Free Account
             </button>
-            <button onclick="openLoginModal()" class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-900">
-                Login
+            <button onclick="openLoginModal()"
+                class="px-8 py-4 rounded-full bg-white dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 font-semibold text-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:-translate-y-0.5 transition-all shadow-sm">
+                Sign In
             </button>
         </div>
     </section>
 
     <!--=======FEATURES==========-->
-    <section class="bg-gray-300 dark:bg-gray-900 py-20 px-8">
-        <h2 class="text-3xl font-bold text-center mb-12">
-            Powerful Features
-        </h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
-                <h3 class="text-xl font-bold mb-2">💸 Instant Transfers</h3>
-                <p>Send Money securely between accounts with real-time updates.</p>
+    <section class="py-24 px-6 relative border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto z-10 relative">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold tracking-widest text-blue-600 dark:text-cyan-400 uppercase mb-3">Everything
+                    You Need</h2>
+                <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">Powerful Capabilities</h3>
             </div>
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
-                <h3 class="text-xl font-bold mb-2">📊 Dashboard</h3>
-                <p>Track balance, transactions, and account activity in one place.</p>
-            </div>
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
-                <h3 class="text-xl font-bold mb-2">🔐 Secure System</h3>
-                <p>JWT authentication, role-based access, and account protection.</p>
-            </div>
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
-                <h3 class="text-xl font-bold mb-2">🧑‍💼 Admin Controls</h3>
-                <p>Manage accounts, monitor security events, and unlock users.</p>
-            </div>
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
-                <h3 class="text-xl font-bold mb-2">📨 Service Requests</h3>
-                <p>Users can request PIN changes, name updates, and more.</p>
-            </div>
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
-                <h3 class="text-xl font-bold mb-2">⚡ Fast API</h3>
-                <p>Built with Flask backend and optimized endpoints.</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Cards -->
+                <div
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-6 text-2xl border border-blue-100 dark:border-blue-800/50">
+                        💸</div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Instant Transfers</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Send money securely between
+                        accounts anywhere in the world with real-time settlement and notifications.</p>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-6 text-2xl border border-cyan-100 dark:border-cyan-800/50">
+                        📊</div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Smart Dashboard</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Keep track of your balance,
+                        latest transactions, and account activity all in one beautifully designed place.</p>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 text-2xl border border-emerald-100 dark:border-emerald-800/50">
+                        🔐</div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Bank-Grade Security</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Built with JWT authentication,
+                        role-based access control, and advanced account protection layers.</p>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center mb-6 text-2xl border border-orange-100 dark:border-orange-800/50">
+                        🧑‍💼</div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Admin Controls</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Comprehensive portal to manage
+                        accounts, monitor security events, audit logs, and assist users instantly.</p>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-6 text-2xl border border-purple-100 dark:border-purple-800/50">
+                        📨</div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Service Requests</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Seamlessly request PIN changes,
+                        personal detail updates, and support directly within the application.</p>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-6 text-2xl border border-rose-100 dark:border-rose-800/50">
+                        ⚡</div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Lightning Fast API</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">A robust backend written in
+                        Flask designed for sub-millisecond response times and high concurrency.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!--========== HOW IT WORKS =============-->
-    <section class="bg-gray-200 dark:bg-gray-800 py-20 px-8 text-center">
-        <h2 class="text-3xl font-bold mb-12">How It Works</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-xl font-bold mb-2">1. Create Account</h3>
-                <p>Regiter and get your account instantly.</p>
-            </div>
-            <div>
-                <h3 class="text-xl font-bold mb-2">2. Manage Money</h3>
-                <p>Deposit, withdraw, and transfer securely.</p>
-            </div>
-            <div>
-                <h3 class="text-xl font-bold mb-2">3. Track Everything</h3>
-                <p>View transactions and account activity in real-time.</p>
+    <section class="py-24 px-6 relative border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-16 text-gray-900 dark:text-white">Get Started in Minutes
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-12 relative">
+                <!-- Connecting Line -->
+                <div
+                    class="hidden md:block absolute top-[30px] left-[15%] right-[15%] h-0.5 bg-gray-200 dark:bg-gray-800 -z-10">
+                </div>
+
+                <div class="relative group">
+                    <div
+                        class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-900 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xl font-extrabold mx-auto mb-6 shadow-md border border-gray-200 dark:border-gray-700 group-hover:-translate-y-1 transition-all duration-300 dark:shadow-black/30">
+                        1</div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Create Account</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">Register online and get verified instantly to
+                        start acting.</p>
+                </div>
+                <div class="relative group">
+                    <div
+                        class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-900 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xl font-extrabold mx-auto mb-6 shadow-md border border-gray-200 dark:border-gray-700 group-hover:-translate-y-1 transition-all duration-300 dark:shadow-black/30">
+                        2</div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Manage Wealth</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">Deposit funds securely and transfer them
+                        wherever needed.</p>
+                </div>
+                <div class="relative group">
+                    <div
+                        class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-900 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xl font-extrabold mx-auto mb-6 shadow-md border border-gray-200 dark:border-gray-700 group-hover:-translate-y-1 transition-all duration-300 dark:shadow-black/30">
+                        3</div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Track Progress</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">Monitor activity with detailed statements in
+                        real-time.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!--======FOOTER=========-->
-    <footer class="bg-blue-900 text-white text-center py-6">
-        <p>© 2026 BankingCore SaaS | Built with ❤️ using Flask & Tailwind</p>
+    <footer class="bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 py-10 px-6 text-center">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <svg class="w-5 h-5 text-blue-600 dark:text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                </path>
+            </svg>
+            <h1 class="text-lg font-bold text-gray-900 dark:text-white tracking-tight">BankingCore</h1>
+        </div>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mb-2 font-medium">Built with precision using Flask & Tailwind
+            CSS.</p>
+        <p class="text-gray-400 dark:text-gray-600 text-xs">© 2026 Fintech SaaS Platform. All rights reserved.</p>
     </footer>
 
     <!--====LOGIN MODAL====-->
-    <div id="loginModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs hidden items-center justify-center z-50 animate-fadeIn transition">
-        <!--MODAL CARD-->
-        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl w-96 relative">
-            <!--CLOSE BUTTON-->
-            <button onclick="closeLoginModal()" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl">
-                ✖
+    <div id="loginModal"
+        class="fixed inset-0 bg-gray-900/60 dark:bg-gray-950/80 backdrop-blur-xl hidden items-center justify-center z-50 transition-opacity p-4">
+        <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-[2rem] shadow-2xl w-full max-w-md relative border border-gray-200 dark:border-gray-700 animate-[fadeIn_0.3s_ease-out] dark:shadow-black/50">
+            <button onclick="closeLoginModal()"
+                class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors">
+                ✕
             </button>
 
-            <!--Title-->
-            <h2 class="text-2xl font-bold text-blue-900 dark:text-white mb-2">Welcome Back</h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Login to your account</p>
-
-            <!--ROLE SELECT-->
-            <div class="flex gap-2 mb-4">
-                <button onclick="setRole('user')"  id="role_user" class="flex-1 py-2 rounded-lg bg-blue-900 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 hover:text-white text-white active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
-                    User
-                </button>
-
-                <button onclick="setRole('employee')" id="role_employee" class="flex-1 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:text-white hover:bg-blue-700 dark:hover:bg-blue-800 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Employee</button>
-
-                <button onclick="setRole('admin')" id="role_admin" class="flex-1 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:text-white hover:bg-blue-700 dark:hover:bg-blue-800 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Admin</button>
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Welcome Back</h2>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Sign in to your dashboard</p>
             </div>
 
-            <!--FORM-->
-            <form class="flex flex-col gap-4 font-semibold" id="loginform" onsubmit="login(event)">
+            <!-- Role Selector. Note: The exact classes are modified by login.js -->
+            <!-- We will let login.js run its classes, but we will wrap the buttons or add basic ones so they don't break JS -->
+            <!-- The JS sets these: "bg-blue-900 text-white dark:bg-blue-700"  vs "bg-gray-200 dark:bg-gray-700" -->
+            <div class="flex p-1 mb-8 bg-gray-100 dark:bg-gray-800 rounded-2xl gap-1">
+                <button onclick="setRole('user')" id="role_user"
+                    class="flex-1 py-2.5 text-sm font-semibold rounded-xl bg-blue-900 text-white dark:bg-blue-700 shadow-sm transition-all duration-200">User</button>
+                <button onclick="setRole('employee')" id="role_employee"
+                    class="flex-1 py-2.5 text-sm font-semibold rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 transition-all duration-200">Employee</button>
+                <button onclick="setRole('admin')" id="role_admin"
+                    class="flex-1 py-2.5 text-sm font-semibold rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 transition-all duration-200">Admin</button>
+            </div>
 
-                <!-- Account -->
-                <div class="relative">
+            <form class="flex flex-col gap-5" id="loginform" onsubmit="login(event)">
+                <div class="relative group">
                     <input type="number" id="account_number" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">  
-                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                    <label
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
                         Account Number
                     </label>
                 </div>
 
-                <!-- PIN -->
-                <div class="relative">
+                <div class="relative group">
                     <input type="password" id="pin_number" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
-                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                    <label
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
                         PIN Number
                     </label>
-
                     <button type="button" id="toggleIcon" onclick="togglePin()"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-700">
+                        class="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl">
                         👁️
                     </button>
                 </div>
 
-                <!-- Admin PIN -->
-                <div class="relative hidden" id="admin_key_box">
+                <div class="relative hidden group" id="admin_key_box">
                     <input type="password" id="admin_key" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
-                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                    <label
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
                         Admin Key
                     </label>
-
-                    <button type="button" id="toggleIcon" onclick="togglePin()"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-700">
-                        👁️
-                    </button>
                 </div>
 
-                <!-- Remember -->
-                <div class="flex items-center text-sm">
-                    <label class="flex items-center gap-2 text-gray-900 dark:text-white">
-                        <input type="checkbox" id="rememberMe" class="accent-blue-700">
-                        Remember Me
+                <div class="flex justify-between items-center text-sm px-1 my-1">
+                    <label
+                        class="flex items-center gap-2 cursor-pointer text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                        <input type="checkbox" id="rememberMe"
+                            class="w-4 h-4 rounded text-blue-600 border-gray-300 dark:border-gray-600 focus:ring-blue-500 cursor-pointer bg-white dark:bg-gray-800">
+                        <span class="font-medium">Remember me</span>
                     </label>
                 </div>
 
-                <!-- Error -->
-                <p id="errorMsg" class="text-red-500 text-sm hidden"></p>
+                <p id="errorMsg"
+                    class="hidden text-red-500 dark:text-red-400 text-sm font-semibold bg-red-50 dark:bg-red-900/30 p-3 rounded-xl border border-red-100 dark:border-red-900/50 text-center">
+                </p>
 
-                <!-- Button -->
                 <button type="submit" id="loginBtn"
-                    class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-
-                    <span id="btnText">Login</span>
-
+                    class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-2">
+                    <span id="btnText">Sign In →</span>
                     <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="white" d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
                     </svg>
                 </button>
 
-                <!--Demo Login-->
-                <div class="mt-4 border-t pt-4 text-center">
-                    <p class="text-sm text-gray-500 mb-2">Try Demo Accounts</p>
-                    <p class="text-xs text-gray-400 mb-2">No signup needed — explore instantly 🚀</p>
+                <!-- Demo Login Area -->
+                <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <p
+                        class="text-xs text-center text-gray-400 dark:text-gray-500 mb-3 font-semibold uppercase tracking-widest">
+                        Demo Accounts</p>
                     <div class="flex gap-2">
-                        <button onclick="demoLogin('user')" class="flex-1 text-xs bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
-                            Demo User
-                        </button>
-                        <button onclick="demoLogin('employee')" class="flex-1 text-xs bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition">
-                            Demo Employee
-                        </button>
-                        <button onclick="demoLogin('admin')" class="flex-1 text-xs bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition">
-                            Demo Admin
-                        </button>
+                        <button type="button" onclick="demoLogin('user')"
+                            class="flex-1 py-2 text-xs font-bold rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-600">User</button>
+                        <button type="button" onclick="demoLogin('employee')"
+                            class="flex-1 py-2 text-xs font-bold rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-600">Employee</button>
+                        <button type="button" onclick="demoLogin('admin')"
+                            class="flex-1 py-2 text-xs font-bold rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-600">Admin</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
-     <!-- =========Register Modal========== -->
-    <div id="registerModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs hidden items-center justify-center z-50 animate-fadeIn transition">
-        <!--===Modal Card====-->
-        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl w-96 relative">
-            <!--Close button-->
-            <button onclick="closeRegisterModal()" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl">✖</button>
 
-            <!--Title-->
-            <h2 class="text-2xl font-bold text-blue-900 dark:text-white mb-4">Welcome</h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Create your account</p>
+    <!-- =========Register Modal========== -->
+    <div id="registerModal"
+        class="fixed inset-0 bg-gray-900/60 dark:bg-gray-950/80 backdrop-blur-xl hidden items-center justify-center z-50 transition-opacity p-4">
+        <div
+            class="bg-white dark:bg-gray-900 p-8 rounded-[2rem] shadow-2xl w-full max-w-md relative border border-gray-200 dark:border-gray-700 animate-[fadeIn_0.3s_ease-out] dark:shadow-black/50">
+            <button onclick="closeRegisterModal()"
+                class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors">
+                ✕
+            </button>
 
-            <!--From-->
-            <form class="flex flex-col gap-4 font-semibold" id="regiterform">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Join Today</h2>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Create your new account instantly</p>
+            </div>
 
-                <!--Account Holder Name-->
-                <div class="relative">
+            <form class="flex flex-col gap-5" id="regiterform">
+                <div class="relative group">
                     <input type="text" id="name" placeholder=" "
-                        class="peer w-full px-3 pt-5 pb-2 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">  
-                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
-                        Full Name
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                    <label
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
+                        Full Legal Name
                     </label>
-                    </div>
-                <!--Pin number-->
-                <div class="relative">
-                    <input type="password" id="pin" placeholder=" "
-                        class="peer w-full px-3 pt-5 pb-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">
-                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
-                        PIN
-                    </label>
+                </div>
 
+                <div class="relative group">
+                    <input type="password" id="pin" placeholder=" "
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                    <label
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
+                        Create 4-Digit PIN
+                    </label>
                     <button type="button" id="toggleIcon" onclick="togglePin()"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-700">
+                        class="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl">
                         👁️
                     </button>
                 </div>
-                <!--Initial Deposit-->
-                <div class="relative">
+
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <span class="text-gray-500 dark:text-gray-400 font-bold">₹</span>
+                    </div>
                     <input type="number" id="deposit" placeholder=" "
-                        class="peer w-full p-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">  
-                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl pl-10 pr-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                    <label
+                        class="absolute left-10 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
                         Initial Deposit
                     </label>
                 </div>
-                <!-- Button -->
-                <button type="button" onclick="registerAccount()" class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 active:scale-95  transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                    <span id="btnText">Create Account</span>
+
+                <button type="button" onclick="registerAccount()"
+                    class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-4">
+                    <span id="btnText">Open Account →</span>
                     <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="white"
-                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
                     </svg>
                 </button>
             </form>
         </div>
     </div>
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+    </style>
     <script src="./frontend/src/js/login.js"></script>
     <script src="./frontend/src/js/register.js"></script>
-    
 </body>
+
 </html>
