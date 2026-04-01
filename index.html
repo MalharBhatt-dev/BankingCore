@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Core | Fintech Saas</title>
+    <link href="./frontend/src/css/output.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+    
+    <!--========NavBar==========-->
+    <nav class="flex justify-between items-center px-8 py-4 bg-white dark:bg-gray-800 shadow">
+        <h1 class="text-2xl font-bold text-blue dark:text-blue-400">BankingCore</h1>
+        <div class="space-x-4">
+            <button onclick="openLoginModal()" class="font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-400">Login</button>
+            <button onclick="openRegisterModal()" class="font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-400">Get Started</button>
+        </div>
+    </nav>
+
+    <!--=====Hero========-->
+    <section class="text-center py-20 px-6 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white dark:from-blue-950 dark:via-blue-900 dark:to-blue-950">
+        <h1 class="text-lg mb-8 max-w-2xl mx-auto">Modern Banking Infrastructure 🚀</h1>
+        <p class="text-lg mb-8 max-w-2xl mx-auto">
+            Secure, scalable, and fasst banking system with real-time transactions, admin control, and service request management.
+        </p>
+        <div class="space-x-4">
+            <button onclick="openRegisterModal()" class="bg-white text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200">
+                Open Account
+            </button>
+            <button onclick="openLoginModal()" class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-900">
+                Login
+            </button>
+        </div>
+    </section>
+
+    <!--=======FEATURES==========-->
+    <section class="py-20 px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">
+            Powerful Features
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">💸 Instant Transfers</h3>
+                <p>Send Money securely between accounts with real-time updates.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">📊 Dashboard</h3>
+                <p>Track balance, transactions, and account activity in one place.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">🔐 Secure System</h3>
+                <p>JWT authentication, role-based access, and account protection.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">🧑‍💼 Admin Controls</h3>
+                <p>Manage accounts, monitor security events, and unlock users.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">📨 Service Requests</h3>
+                <p>Users can request PIN changes, name updates, and more.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
+                <h3 class="text-xl font-bold mb-2">⚡ Fast API</h3>
+                <p>Built with Flask backend and optimized endpoints.</p>
+            </div>
+        </div>
+    </section>
+
+    <!--========== HOW IT WORKS =============-->
+    <section class="bg-gray-200 dark:bg-gray-800 py-20 px-8 text-center">
+        <h2 class="text-3xl font-bold mb-12">How It Works</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-2">1. Create Account</h3>
+                <p>Regiter and get your account instantly.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-2">2. Manage Money</h3>
+                <p>Deposit, withdraw, and transfer securely.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-2">3. Track Everything</h3>
+                <p>View transactions and account activity in real-time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!--======FOOTER=========-->
+    <footer class="bg-blue-900 text-white text-center py-6">
+        <p>© 2026 BankingCore SaaS | Built with ❤️ using Flask & Tailwind</p>
+    </footer>
+
+    <!--====LOGIN MODAL====-->
+    <div id="loginModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs hidden items-center justify-center z-50 animate-fadeIn transition">
+        <!--MODAL CARD-->
+        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl w-96 relative">
+            <!--CLOSE BUTTON-->
+            <button onclick="closeLoginModal()" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl">
+                ✖
+            </button>
+
+            <!--Title-->
+            <h2 class="text-2xl font-bold text-blue-900 dark:text-white mb-2">Welcome Back</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Login to your account</p>
+
+            <!--ROLE SELECT-->
+            <div class="flex gap-2 mb-4">
+                <button onclick="setRole('user')"  id="role_user" class="flex-1 py-2 rounded-lg bg-blue-900 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 hover:text-white text-white active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    User
+                </button>
+
+                <button onclick="setRole('employee')" id="role_employee" class="flex-1 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:text-white hover:bg-blue-700 dark:hover:bg-blue-800 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Employee</button>
+
+                <button onclick="setRole('admin')" id="role_admin" class="flex-1 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:text-white hover:bg-blue-700 dark:hover:bg-blue-800 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Admin</button>
+            </div>
+
+            <!--FORM-->
+            <form class="flex flex-col gap-4 font-semibold" id="loginform" onsubmit="login(event)">
+
+                <!-- Account -->
+                <div class="relative">
+                    <input type="number" id="account_number" placeholder=" "
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">  
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        Account Number
+                    </label>
+                </div>
+
+                <!-- PIN -->
+                <div class="relative">
+                    <input type="password" id="pin_number" placeholder=" "
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        PIN Number
+                    </label>
+
+                    <button type="button" id="toggleIcon" onclick="togglePin()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-700">
+                        👁️
+                    </button>
+                </div>
+
+                <!-- Admin PIN -->
+                <div class="relative hidden" id="admin_key_box">
+                    <input type="password" id="admin_key" placeholder=" "
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none">
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        Admin Key
+                    </label>
+
+                    <button type="button" id="toggleIcon" onclick="togglePin()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-700">
+                        👁️
+                    </button>
+                </div>
+
+                <!-- Remember -->
+                <div class="flex items-center text-sm">
+                    <label class="flex items-center gap-2 dark:text-white">
+                        <input type="checkbox" id="rememberMe" class="accent-blue-700">
+                        Remember Me
+                    </label>
+                </div>
+
+                <!-- Error -->
+                <p id="errorMsg" class="text-red-500 text-sm hidden"></p>
+
+                <!-- Button -->
+                <button type="submit" id="loginBtn"
+                    class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+
+                    <span id="btnText">Login</span>
+
+                    <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="white"
+                            d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
+                    </svg>
+                </button>
+
+                <!--Demo Login-->
+                <div class="mt-4 border-t pt-4 text-center">
+                    <p class="text-sm text-gray-500 mb-2">Try Demo Accounts</p>
+                    <p class="text-xs text-gray-400 mb-2">No signup needed — explore instantly 🚀</p>
+                    <div class="flex gap-2">
+                        <button onclick="demoLogin('user')" class="flex-1 text-xs bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+                            Demo User
+                        </button>
+                        <button onclick="demoLogin('employee')" class="flex-1 text-xs bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition">
+                            Demo Employee
+                        </button>
+                        <button onclick="demoLogin('admin')" class="flex-1 text-xs bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition">
+                            Demo Admin
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+     <!-- =========Register Modal========== -->
+    <div id="registerModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs hidden items-center justify-center z-50 animate-fadeIn transition">
+        <!--===Modal Card====-->
+        <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl w-96 relative">
+            <!--Close button-->
+            <button onclick="closeRegisterModal()" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl">✖</button>
+
+            <!--Title-->
+            <h2 class="text-2xl font-bold text-blue-900 dark:text-white mb-4">Welcome</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Create your account</p>
+
+            <!--From-->
+            <form class="flex flex-col gap-4 font-semibold" id="regiterform">
+
+                <!--Account Holder Name-->
+                <div class="relative">
+                    <input type="text" id="name" placeholder=" "
+                        class="peer w-full px-3 pt-5 pb-2 rounded-lg border bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">  
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        Full Name
+                    </label>
+                    </div>
+                <!--Pin number-->
+                <div class="relative">
+                    <input type="password" id="pin" placeholder=" "
+                        class="peer w-full px-3 pt-5 pb-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        PIN
+                    </label>
+
+                    <button type="button" id="toggleIcon" onclick="togglePin()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-700">
+                        👁️
+                    </button>
+                </div>
+                <!--Initial Deposit-->
+                <div class="relative">
+                    <input type="number" id="deposit" placeholder=" "
+                        class="peer w-full p-2 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600 border rounded-lg px-3 pt-5 pb-2 focus:ring-2 focus:ring-blue-500 outline-none transition">  
+                    <label class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">
+                        Initial Deposit
+                    </label>
+                </div>
+                <!-- Button -->
+                <button type="button" onclick="openRegisterModal()" class="bg-blue-800 dark:bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-700 active:scale-95  transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span id="btnText">Create Account</span>
+                    <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="white"
+                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./frontend/src/js/login.js"></script>
+    <script src="./frontend/src/js/register.js"></script>
+</body>
+</html>

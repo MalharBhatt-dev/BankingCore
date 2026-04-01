@@ -1,4 +1,20 @@
-const API_BASE = "http://127.0.0.1:5000";
+
+window.onclick = function(e){
+    const modal = document.getElementById("registerModal");
+    if(e.target == modal){
+        closeRegisterModal();
+    }
+}
+
+function openRegisterModal(){
+    document.getElementById("registerModal").classList.remove("hidden");
+    document.getElementById("registerModal").classList.add("flex");
+}
+
+function closeRegisterModal(){
+    document.getElementById("registerModal").classList.add("hidden");
+    document.getElementById("registerModal").classList.remove("flex");
+}
 
 async function registerAccount(){
     console.log("Register button clicked");
