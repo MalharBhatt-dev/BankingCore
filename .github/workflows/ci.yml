@@ -1,0 +1,3 @@
+env:
+ SECRET_KEY: ${{ secrets.SECRET_KEY }}
+ ADMIN_KEY: ${{ secrets.ADMIN_KEY}}
