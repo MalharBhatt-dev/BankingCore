@@ -55,12 +55,13 @@ def init_db():
     c.execute("PRAGMA table_info(accounts)")
     columns = [row[1] for row in c.fetchall()]
 
-    if "role" not in columns:
-        c.execute("ALTER TABLE accounts ADD COLUMN role TEXT DEFAULT 'user' ")
+    # if "role" not in columns:
+    #     c.execute("ALTER TABLE accounts ADD COLUMN role TEXT DEFAULT 'user' ")
 
-    if "employee_id" not in columns:
-        c.execute("ALTER TABLE service_requests ADD COLUMN employee_id TEXT DEFAULT '1004' ")
+    # if "employee_id" not in columns:
+    #     c.execute("ALTER TABLE service_requests ADD COLUMN employee_id TEXT DEFAULT '1004' ")
         
-    c.execute("update accounts set role ='admin' where account_number = 1003")
+    # c.execute("update accounts set role ='admin' where account_number = 1003")
+    
     conn.commit()
     conn.close()
