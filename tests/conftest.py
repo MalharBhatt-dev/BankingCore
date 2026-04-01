@@ -10,6 +10,10 @@ from app.config import TestConfig
 @pytest.fixture
 def app():
     app = create_app(TestConfig)
+
+    from database.__init__ import init_db
+    with app.app_context():
+        init_db()
     return app
 
 @pytest.fixture
