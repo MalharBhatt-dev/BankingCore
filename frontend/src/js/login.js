@@ -215,11 +215,11 @@ async function demoLogin(role){
                     `;
                     setTimeout(()=>{
                         if(role === "admin"){
-                            window.location.href = "./frontend/src/admin_dashboard.html";
+                            window.location.href = "bankingcore/frontend/src/admin_dashboard.html";
                         } else if(role === "employee"){
-                            window.location.href = "./frontend/src/employee_dashboard.html";
+                            window.location.href = "bankingcore/frontend/src/employee_dashboard.html";
                         } else {
-                            window.location.href = "./frontend/src/dashboard.html";
+                            window.location.href = "bankingcore/frontend/src/dashboard.html";
                         }
                     },500); 
                 }
