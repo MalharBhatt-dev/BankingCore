@@ -44,15 +44,16 @@ CREATE TABLE IF NOT EXISTS accounts (
     """)
 
     c.execute("""
-    CREATE TABLE IF NOT EXISTS service_requests (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        account_number INTEGER NOT NULL,
-        request_type TEXT NOT NULL,
-        status TEXT DEFAULT 'pending',
-        created_at TEXT NOT NULL,
-        employee_id TEXT DEFAULT '1004'
-    )
-    """)
+CREATE TABLE IF NOT EXISTS service_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    account_number INTEGER NOT NULL,
+    query_type TEXT NOT NULL,   -- ✅ FIXED
+    description TEXT,
+    status TEXT DEFAULT 'pending',
+    created_at TEXT NOT NULL,
+    employee_id TEXT DEFAULT '1004'
+)
+""")
 
     c.execute("PRAGMA table_info(accounts)")
     columns = [row[1] for row in c.fetchall()]
