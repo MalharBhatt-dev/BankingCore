@@ -23,11 +23,8 @@ def app():
 def client(app):
     return app.test_client()
 
-
-# ✅ FIXED auth_token
 @pytest.fixture
-def auth_token(client):
-    # create account
+def user_data(client):
     res = client.post("/accounts", json={
         "name": "Test User",
         "pin": "1234",
@@ -35,21 +32,23 @@ def auth_token(client):
     })
 
     data = res.get_json()
-    assert res.status_code == 201, f"Account creation failed: {data}"
+    return data["account_number"], "1234"
 
-    account_number = data["account_number"]   # ✅ dynamic
+@pytest.fixture
+def account_number(user_data):
+    return user_data[0]
 
-    # login with SAME PIN
+
+@pytest.fixture
+def auth_token(client, user_data):
+    account_number, pin = user_data
+
     res = client.post("/auth/login", json={
         "account_number": account_number,
-        "pin": "1234"   # ✅ FIXED
+        "pin": pin
     })
 
-    data = res.get_json()
-    assert res.status_code == 200, f"Login failed: {data}"
-    assert "access_token" in data, "No access token returned"
-
-    return data["access_token"]
+    return res.get_json()["access_token"]
 
 
 # ✅ FIXED admin_token
