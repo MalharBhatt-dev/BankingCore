@@ -19,3 +19,12 @@ venv/
 
 #dockerfile
 *.dockerignore
+
+#pytestcache
+.pytest_cache/
+
+#vscode
+.vscode/
+
+#tempcode runner
+tempCodeRunnerFile.py
