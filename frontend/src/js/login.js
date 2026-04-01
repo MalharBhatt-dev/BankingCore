@@ -126,11 +126,11 @@ async function login(event) {
                     `;
                     setTimeout(()=>{
                         if(role === "admin"){
-                            window.location.href = "admin_dashboard.html";
+                            window.location.href = "./frontend/src/admin_dashboard.html";
                         } else if(role === "employee"){
-                            window.location.href = "employee_dashboard.html";
+                            window.location.href = "./frontend/src/employee_dashboard.html";
                         } else {
-                            window.location.href = "dashboard.html";
+                            window.location.href = "./frontend/src/dashboard.html";
                         }
                     },500); 
                 }
