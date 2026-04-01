@@ -13,32 +13,19 @@ async function loadRequests(){
         data.requests.forEach(req => {
 
             const row = `
-            <tr class="border-b hover:bg-gray-100">
-
-            <td class="p-3">${req.id}</td>
-
-            <td class="p-3">${req.account_number}</td>
-
-            <td class="p-3">${req.query_type}</td>
-
-            <td class="p-3">${req.description}</td>
-
-            <td class="p-3 flex gap-2">
-
-            <button
-            onclick="approveRequest(${req.id})"
-            class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">
-            Approve
-            </button>
-
-            <button
-            onclick="rejectRequest(${req.id})"
-            class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
-            Reject
-            </button>
-
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition duration-200">
+            <td class="p-3 px-6 text-center text-slate-900 dark:text-white font-medium">#${req.id}</td>
+            <td class="p-3 px-6 text-center text-slate-600 dark:text-slate-300 font-mono">${req.account_number}</td>
+            <td class="p-3 px-6 text-center">
+                <span class="px-2.5 py-1 text-xs rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">${req.query_type}</span>
             </td>
-
+            <td class="p-3 px-6 text-left max-w-xs truncate" title="${req.description}">${req.description}</td>
+            <td class="p-3 px-6 text-center">
+                <div class="flex items-center justify-center gap-2">
+                    <button onclick="approveRequest(${req.id})" class="bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:scale-105 active:scale-95 dark:bg-emerald-900/30 dark:text-emerald-400 dark:hover:bg-emerald-900/50 border border-emerald-200 dark:border-emerald-800 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all">Approve</button>
+                    <button onclick="rejectRequest(${req.id})" class="bg-red-50 text-red-600 hover:bg-red-100 hover:scale-105 active:scale-95 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 border border-red-200 dark:border-red-800 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all">Reject</button>
+                </div>
+            </td>
             </tr>
             `;
 
