@@ -1,90 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bank Dashboard</title>
-        <link href="./css/output.css" rel="stylesheet">
-    </head>
-    <body class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-[#0a2540] dark:to-[#020617] text-gray-900 dark:text-gray-100">
-        <div class="flex">
-                            <!-- Sidebar -->
-            <aside class="w-64 bg-gradient-to-r from-blue-800 to-blue-900 dark:from-[#020617] dark:to-[#0a2540] dark:text-gray-100 backdrop-blur text-white min-h-screen p-6 border-r border-white/10    dark:border-white/10 transition-colors">
-                <h2 class="text-2xl font-bold mb-8">MyBank</h2>
-                <ul class="flex flex-col font-semibold min-h-[87vh]">
-                    <li class="p-2 rounded-lg bg-white/20 hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
-                        <a href="dashboard.html">Dashboard</a>
-                    </li>
-                    <li class="p-2 rounded-lg hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
-                        <a href="transfer.html">Transfer</a>
-                    </li>
-                    <li class="p-2 rounded-lg hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
-                        <a href="transactions.html">Transactions</a>
-                    </li>
-                    <li class="p-2 rounded-lg hover:bg-white/10 hover:text-gray-300 dark:hover:text-gray-400 p-1 m-1 cursor-pointer">
-                        <a href="service_requests.html">Service Requests</a>
-                    </li>
-                    <div class="mt-auto flex justify-between items-center">
-                        <!-- Logout (Left) -->
-                        <li class="hover:text-red-500 dark:hover:text-red-500 border rounded-lg p-2">
-                            <button onclick="logout()" class="cursor-pointer">
-                                Logout
-                            </button>
-                        </li>
 
-                        <!-- Theme Toggle (Right) -->
-                        <li>
-                            <button onclick="toggleDarkMode()" id="themeBtn"
-                                class="cursor-pointer px-3 py-1 border rounded-lg dark:border-gray-600">
-                                🌙
-                            </button>
-                        </li>
-                    </div>
-                </ul>
-            </aside>
-                        <!-- Main Content -->
-            <div class="flex-1 p-10 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-[#0a2540] dark:to-[#020617] text-gray-900 dark:text-gray-100 transition">
-                <div clas="flex justify-between items-center mb-6 p-2 border-1 transition">
-                    <h1 class="animate-[fadeIn_0.5s_ease-out] text-3xl font-bold">Dashboard</h1>
-                    <p class="animate-[fadeIn_0.6s_ease-out] text-sm text-gray-500 dark:text-gray-400 p-2">Welcome Back</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Dashboard | BankingCore</title>
+
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="./css/output.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.98) translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased selection:bg-blue-500 selection:text-white transition-colors duration-300 min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside
+        class="w-72 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col transition-colors z-20 shadow-sm relative">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                        </path>
+                    </svg>
                 </div>
-                
-                            <!-- Account Info Div -->
-                <div class="grid grid-cols-3 gap-6">
-                    <div class="animate-[fadeIn_0.5s_ease-out] bg-gradient-to-bl from-blue-600 to-blue-900 text-white  dark:from-blue-600 dark:to-blue-900/80 backdrop-blur p-6 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition duration-300">
-                        <h2 class="text-sm opacity-80 font-semibold mb-2 dark:text-gray-200">💰 Account Balance</h2>
-                        <p class="text-3xl font-bold mt-2 text-green-500 dark:text-green-600">₹ <span id="balance">0</span></p>
-                    </div>
-                    <div class="animate-[fadeIn_0.6s_ease-out] bg-gradient-to-br dark:from-[#0a2540] dark:to-[#020617] p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300">
-                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">📊 Last Transaction</h2>
-                        <p id="last_transaction" class="text-xl mt-2 text-gray-900 dark:text-gray-300">None</p>
-                    </div>
-                    <div class="animate-[fadeIn_0.7s_ease-out] bg-gradient-to-br bg-white dark:from-[#020617] dark:to-[#0a2540] p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300">
-                        <h2 class="text-lg font-semibold mb-2 dark:text-gray-200">💳 Account Number</h2>
-                        <p id="account_info" class="text-xl mt-2 text-gray-900 dark:text-gray-300">---</p>
-                    </div>
-                </div>
-                    <!-- Actions Div-->
-                     <div class="animate-[fadeIn_0.5s_ease-out]  border-t border-gray-200 dark:border-gray-700 p-2 my-7">
-                        <h2 class="text-xl font-semibold mb-4 text-gray-600 dark:text-gray-300">Quick Actions</h2>
-                <div class="mt-5 grid grid-cols-2 gap-6">
-                   
-                    <!-- Deposit Div-->
-                    <div class="animate-[fadeIn_0.5s_ease-out] bg-white dark:bg-gray-800/80 backdrop-blur p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gray-100">
-                        <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">💰<span class="text-green-600 dark:text-green-400">Deposit</span></h2>
-                        <input type="number" id="deposit_amount" placeholder="Enter Amount" class="border p-3 rounded-lg w-full mb-4 bg-white dark:bg-gray-700 text-balck dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:scale-[1.01] outline-none transition">
-                        <button onclick="deposit()" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 dark:bg-green-700 cursor-pointer text-white px-4 py-2 active:scale-95 transition-all duration-200 dark:hover:bg-green-800">Deposit Money</button>
-                    </div>
-                    <!-- Withdraw Div-->
-                    <div class="animate-[fadeIn_0.7s_ease-out] bg-white dark:bg-gray-800/80 backdrop-blur p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gray-100">
-                        <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">💸<span class="text-red-500 dark:text-red-400">Withdraw</span></h2>
-                        <input type="number" id="withdraw_amount" placeholder="Enter Amount" class="border p-3 rounded-lg w-full mb-4 bg-white dark:bg-gray-700 text-black dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-red-500 focus:scale-[1.01] outline-none transition">
-                        <button onclick="withdraw()" class="w-full bg-red-500 text-white cursor-pointer dark:bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-600 dark:hover:bg-red-800 active:scale-95 transition-all duration-200 shadow">Withdraw Money</button>
-                    </div>
-                </div></div>
+                <h2 class="text-xl font-extrabold tracking-tight text-gray-900 dark:text-white">BankingCore</h2>
             </div>
         </div>
-        <script src="./js/api.js"></script>
-        <script src="./js/dashboard.js"></script>
-    </body>
+
+        <nav class="flex-1 p-4 overflow-y-auto">
+            <ul class="space-y-1.5 font-medium">
+                <li>
+                    <a href="dashboard.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md shadow-blue-500/20 transition-all duration-200">
+                        <svg class="w-5 h-5 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                            </path>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="transfer.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                        Transfer
+                    </a>
+                </li>
+                <li>
+                    <a href="transactions.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                        Transactions
+                    </a>
+                </li>
+                <li>
+                    <a href="service_requests.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                        Service Requests
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="p-4 border-t border-gray-200 dark:border-gray-800 space-y-2">
+            <button onclick="toggleDarkMode()"
+                class="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 transition-all cursor-pointer">
+                <span class="font-medium text-sm">Theme</span>
+                <span class="text-lg"  id="themeBtn">🌙</span>
+            </button>
+            <button onclick="logout()"
+                class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/20 font-medium transition-all active:scale-[0.98] cursor-pointer">
+                Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 transition-colors relative z-10">
+        <!-- Optional top blurred background accent -->
+        <div class="absolute top-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div
+                class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-300/10 dark:bg-blue-600/5 blur-[120px]">
+            </div>
+            <div
+                class="absolute top-60 left-20 w-[400px] h-[400px] rounded-full bg-cyan-300/10 dark:bg-cyan-600/5 blur-[120px]">
+            </div>
+        </div>
+
+        <div class="flex-1 p-8 lg:p-12 overflow-y-auto relative z-10">
+            <!-- Header -->
+            <header class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 animate-fade-in">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-2">
+                        Dashboard</h1>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base font-medium">Welcome back, here's
+                        your account overview.</p>
+                </div>
+            </header>
+
+            <!-- Account Info Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                <!-- Balance Card -->
+                <div class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-cyan-500 text-white p-6 rounded-3xl shadow-lg shadow-blue-500/30 dark:shadow-blue-900/20 hover:-translate-y-1 transition-all duration-300 animate-fade-in"
+                    style="animation-delay: 0.1s;">
+                    <div class="absolute top-0 right-0 p-4 opacity-20">
+                        <svg class="w-24 h-24 rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="relative z-10 flex flex-col h-full justify-between gap-4">
+                        <p class="text-white/80 font-medium text-sm tracking-wide uppercase">Available Balance</p>
+                        <h2 class="text-4xl lg:text-5xl font-extrabold drop-shadow-sm flex items-start gap-1">
+                            <span class="text-2xl mt-1.5 opacity-80">₹</span><span id="balance">0.00</span>
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Last Transaction -->
+                <div class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-6 rounded-3xl shadow-sm hover:shadow-xl dark:shadow-black/30 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between animate-fade-in"
+                    style="animation-delay: 0.2s;">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-700 flex items-center justify-center text-gray-400">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-gray-500 dark:text-gray-400 font-medium text-sm tracking-wide uppercase">Last
+                            Transaction</h3>
+                    </div>
+                    <p id="last_transaction" class="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mt-1">
+                        None</p>
+                </div>
+
+                <!-- Account Number -->
+                <div class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-6 rounded-3xl shadow-sm hover:shadow-xl dark:shadow-black/30 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between animate-fade-in"
+                    style="animation-delay: 0.3s;">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-700 flex items-center justify-center text-gray-400">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-gray-500 dark:text-gray-400 font-medium text-sm tracking-wide uppercase">Account
+                            Number</h3>
+                    </div>
+                    <p id="account_info"
+                        class="text-xl lg:text-2xl font-bold tracking-widest font-mono text-gray-900 dark:text-white mt-1">
+                        ---</p>
+                </div>
+            </div>
+
+            <!-- Quick Actions Section -->
+            <div class="animate-fade-in" style="animation-delay: 0.4s;">
+                <div class="flex items-center gap-3 mb-6">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Quick Actions</h2>
+                    <div class="h-px flex-1 bg-gray-200 dark:bg-gray-800"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Deposit -->
+                    <div
+                        class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-6 rounded-3xl shadow-sm hover:shadow-xl dark:shadow-black/30 transition-all duration-300">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl border border-emerald-100 dark:border-emerald-800/50">
+                                💰
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Deposit Funds</h3>
+                        </div>
+
+                        <div class="relative group mb-5">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <span class="text-gray-500 dark:text-gray-400 font-bold">₹</span>
+                            </div>
+                            <input type="number" id="deposit_amount" placeholder=" "
+                                class="peer w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl pl-9 pr-4 pt-6 pb-2 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all font-medium">
+                            <label
+                                class="absolute left-9 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-emerald-500">
+                                Amount
+                            </label>
+                        </div>
+
+                        <button onclick="deposit()"
+                            class="w-full bg-emerald-500 text-white py-3.5 rounded-xl font-bold hover:bg-emerald-600 active:scale-[0.98] transition-all duration-200 shadow-md shadow-emerald-500/20 flex items-center justify-center gap-2 cursor-pointer">
+                            Complete Deposit →
+                        </button>
+                    </div>
+
+                    <!-- Withdraw -->
+                    <div
+                        class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-6 rounded-3xl shadow-sm hover:shadow-xl dark:shadow-black/30 transition-all duration-300">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xl border border-rose-100 dark:border-rose-800/50">
+                                💸
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Withdraw Funds</h3>
+                        </div>
+
+                        <div class="relative group mb-5">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <span class="text-gray-500 dark:text-gray-400 font-bold">₹</span>
+                            </div>
+                            <input type="number" id="withdraw_amount" placeholder=" "
+                                class="peer w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl pl-9 pr-4 pt-6 pb-2 focus:ring-2 focus:ring-rose-500 focus:border-transparent outline-none transition-all font-medium">
+                            <label
+                                class="absolute left-9 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-rose-500">
+                                Amount
+                            </label>
+                        </div>
+
+                        <button onclick="withdraw()"
+                            class="w-full bg-rose-500 text-white py-3.5 rounded-xl font-bold hover:bg-rose-600 active:scale-[0.98] transition-all duration-200 shadow-md shadow-rose-500/20 flex items-center justify-center gap-2 cursor-pointer">
+                            Complete Withdrawal →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/dashboard.js"></script>
+</body>
+
 </html>
