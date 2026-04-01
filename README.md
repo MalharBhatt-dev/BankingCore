@@ -1,302 +1,128 @@
-# 🏦 Banking Core System
+<div align="center">
+  
+# 🏦 BankingCore System
 
-A **Full-Stack Banking Application** built using **Flask (Backend)** and **Vanilla JS + Tailwind CSS (Frontend)**.
-This project simulates a real-world banking system with **secure authentication, role-based access, transactions, and service request workflows**.
+**A monolithic, full-stack banking ecosystem simulating core financial operations natively through Flask & Vanilla JavaScript.**
 
----
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org/)
+[![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![SQLite](https://img.shields.io/badge/SQLite-000000?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![JSON Web Tokens](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)](https://jwt.io/)
+[![Authentication](https://img.shields.io/badge/Auth-RBAC-4CAF50?style=for-the-badge&logo=letsencrypt&logoColor=white)]()
+<br>
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-## 🚀 Features
-
-### 👤 User Features
-
-* Account Registration
-* Secure Login (JWT आधारित)
-* View Balance & Account Info
-* Deposit & Withdraw Money
-* Transfer Funds between Accounts
-* Transaction History
-* Service Requests (Change PIN, Update Name)
-
-### 🧑‍💼 Employee Features
-
-* View Pending Service Requests
-* Approve / Reject Requests
-* Process Customer Changes
-
-### 🛡️ Admin Features
-
-* Dashboard with Banking Statistics
-* View Security Events
-* Lock/Unlock Accounts
-* Monitor System Activity
+</div>
 
 ---
 
-## 🧱 Tech Stack
+## 📖 Overview
 
-### Backend
+**BankingCore** is a comprehensive, tier-based financial management platform developed to simulate real-world enterprise banking workflows. Built using a robust **Python/Flask** backend REST API and a lightning-fast static frontend powered by **Tailwind CSS v4** and native JavaScript. 
 
-* Python (Flask)
-* REST APIs
-* JWT Authentication
-* Flask-Limiter (Rate Limiting)
-* Flask-Talisman (Security Headers)
-* Logging (Rotating File Handler)
-
-### Frontend
-
-* HTML + Tailwind CSS
-* Vanilla JavaScript
-* LocalStorage / SessionStorage
+This project aims to showcase production-ready engineering patterns, featuring **Role-Based Access Control (RBAC)**, comprehensive **JWT-based authentication workflows**, robust **service request lifecycle management**, and a highly-polished, responsive user interface utilizing modern design principles like glassmorphism and automatic dark-mode handling.
 
 ---
 
-## 📂 Project Structure
+## ✨ System Architecture & Core Features
 
-```
-BankingCore/
-│
-├── app/                          # Core Flask Application
-│   ├── __init__.py               # App factory (create_app, DI, logging, security)
-│   ├── config.py                 # Environment configuration (SECRET_KEY, ADMIN_KEY)
-│   ├── routes.py                 # All API endpoints (accounts, auth, admin, requests)
-│   ├── errors.py                 # Global error handlers
-│   ├── auth.py                   # JWT handling, decorators (login_required, role_required)
-│   ├── extensions.py             # Extensions (Limiter, etc.)
-│
-├── repository/                   # Data Access Layer (DAL)
-│   ├── account_repository.py     # Account DB operations
-│   ├── service_request_repository.py  # Service request DB operations
-│
-├── services/                     # Business Logic Layer
-│   ├── banking_services.py       # Core banking logic (deposit, withdraw, transfer)
-│   ├── service_request_service.py # Request lifecycle (approve, reject, submit)
-│
-├── models/ (optional / implicit) # DB Models (if using ORM)
-│   ├── account.py
-│   ├── transaction.py
-│   ├── service_request.py
-│
-├── static/ or frontend/          # Frontend (HTML + JS + Tailwind)
-│
-│   ├── html/
-│   │   ├── register.html         # Account creation UI
-│   │   ├── dashboard.html        # User dashboard
-│   │   ├── transfer.html         # Money transfer UI
-│   │   ├── transactions.html     # Transaction history
-│   │   ├── service_requests.html # User request management
-│   │   │
-│   │   ├── employee.html         # Employee login
-│   │   ├── employee_dashboard.html  # Employee request panel
-│   │   │
-│   │   ├── admin.html            # Admin login
-│   │   ├── admin_dashboard.html  # Admin analytics dashboard
-│   │   ├── admin_unlock_account.html # Unlock accounts UI
-│
-│   ├── js/
-│   │   ├── api.js                # Common API handler (fetch wrapper + JWT)
-│   │   ├── login.js              # Login modal + role handling
-│   │   ├── register.js           # Account registration logic
-│   │   ├── dashboard.js          # User dashboard logic
-│   │   ├── transfer.js           # Transfer logic
-│   │   ├── transactions.js       # Transactions rendering
-│   │   ├── service_requests.js   # Request lifecycle (user side)
-│   │   │
-│   │   ├── employee.js           # Employee login
-│   │   ├── employee_dashboard.js # Approve/reject requests
-│   │   │
-│   │   ├── admin.js              # Admin login + unlock
-│   │   ├── admin_dashboard.js    # Admin analytics & security events
-│
-│   ├── css/
-│       └── output.css            # Tailwind compiled CSS
-│
-├── logs/                         # Application logs
-│   └── banking_core.log
-│
-├── .env                          # Environment variables
-├── index.html            # Landing page + Login modal
-├── requirements.txt              # Python dependencies
-├── app.py / wsgi.py              # Entry point to start server
-├── README.md                     # Project documentation
-```
+BankingCore supports three distinct hierarchical roles, each with specialized interfaces and API restrictions.
+
+### 👤 1. Customer Portal 
+Designed around a sleek, modern consumer UI heavily focused on user experience and accessibility.
+* **Wallet Management:** Real-time dashboards displaying account balances and comprehensive transactional history dynamically fetched via REST.
+* **Secure Transfers:** Peer-to-peer account transferring logic with strict server-side validation to prevent self-transfers or overdrafts.
+* **Service Request Engine:** Customers can initiate asynchronous requests (e.g., PIN reset, KYC update). These requests are tracked via a life-cycle state machine (`PENDING`, `APPROVED`, etc.).
+
+### 👔 2. Employee Workstation (BankOps)
+A specialized enterprise-grade slate/indigo themed dashboard engineered for high-throughput data processing.
+* **Request Processing Pipeline:** Employees act as the intermediary abstraction layer. They asynchronously fetch pools of pending customer requests and make `Approve` or `Reject` network calls based on internal logic.
+* **State Management:** Secure transition of database ledgers based on employee input without granting employees direct account access.
+
+### 🛡️ 3. Admin Security Command (AdminCore)
+A critical tier designed with a minimalist zinc/violet aesthetic, meant for system overseers enforcing platform security.
+* **Active Threat Monitoring:** Procedurally generated database hooks log account locks and brute-force attempts in real-time.
+* **Override Controls:** Admins operate safely behind a secondary Authorization token layer ("Admin Key") to forcefully unlock customer accounts flagged by the platform's security algorithms.
+* **System Ledgers:** Complete oversight read-access of all transactional volume and active service requests.
 
 ---
 
-## ⚙️ Setup Instructions
+## 🛠️ Technology Stack & Engineering Decisions
 
-### 1️⃣ Clone Repository
+### Backend Infrastructure (Flask ecosystem)
+- **Framework:** `Flask` — Chosen for its lightweight footprint and granular control over the HTTP request/response cycle.
+- **Security:** `Flask-Talisman` (CSP and HSTS Headers), `Flask-Limiter` (IP-based rate throttling against brute force attempts).
+- **Authentication:** Custom encoded JSON Web Tokens (`PyJWT`) utilizing short-lived access tokens mapped against refresh tokens.
+- **Layered Architecture:** strict separation of concerns utilizing Controllers (`routes.py`), Services (`banking_services.py`), and Repositories (`account_repository.py`).
 
+### Frontend Architecture
+- **Rendering:** Static `HTML5` strictly decoupled from backend rendering engines for potential CDN distribution.
+- **Styling:** `Tailwind CSS v4` integrated via browser-script for rapid, responsive UI composition. Features dark/light mode synchronization utilizing localStorage. 
+- **Application Logic:** Vanilla Modern `JavaScript` fetching REST APIs asynchronously. No heavy frontend frameworks used, keeping bundle size minimal and showcasing core DOM-manipulation skills.
+
+---
+
+## 🛡️ Key Security Implementations
+
+As a financial simulate, security was heavily prioritized:
+1. **Multi-layer Rate Limiting:** All authentication and high-risk endpoints (Transfers, Admin actions) are clamped by `Flask-Limiter` to mitigate timing attacks and credential stuffing.
+2. **Account Sandboxing:** Repeated failed login attempts intrinsically lock accounts. Only an authenticated Admin entity with a secondary cryptographic key can revert this state.
+3. **Stateless Auth:** Entirely JWT-driven. The backend retains no stateful sessions, removing vectors for session-hijacking while horizontally scaling effortlessly. 
+4. **Input Sanitization:** Controller layers strictly validate JSON payloads before parsing them to the Service business layer.
+
+---
+
+## 🚀 Quick Start / Local Deployment
+
+### 1. Clone & Environment Activation
 ```bash
 git clone https://github.com/MalharBhatt-dev/BankingCore.git
 cd BankingCore
-```
-
-### 2️⃣ Create Virtual Environment
-
-```bash
 python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
+
+# Windows
+venv\Scripts\activate
+# Mac/Linux
+source venv/bin/activate
 ```
 
-### 3️⃣ Install Dependencies
-
+### 2. Dependency Resolution
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Setup Environment Variables
-
-Create a `.env` file:
-
+### 3. Environment Variable Configuration
+Create a `.env` file in the root directory to supply critical config properties:
 ```env
-SECRET_KEY=your_secret_key
-ADMIN_KEY=your_admin_key
+SECRET_KEY=generate_a_secure_random_string
+ADMIN_KEY=your_secure_admin_override_key
 FLASK_DEBUG=true
 ```
 
-👉 Required because config validates them at startup 
-
----
-
-### 5️⃣ Run Backend Server
-
+### 4. Bootstrapping
+Launch the localized Flask server framework:
 ```bash
 python app.py
 ```
+> The API will listen on `http://127.0.0.1:5000`
 
-Server runs at:
-
-```
-http://127.0.0.1:5000
-```
+### 5. Client Interaction
+No build step is required for the frontend. Simply open `index.html` in your modern browser of choice to interact with the system lifecycle.
 
 ---
 
-### 6️⃣ Run Frontend
+## 📈 Future Roadmap
 
-Just open:
-
-```
-index.html
-```
-
-Frontend communicates with backend via:
-
-```js
-const API_BASE = "http://127.0.0.1:5000";
-```
-
-
+- Migrating data persistence layer to **PostgreSQL** supported by `SQLAlchemy` ORM.
+- Implement **WebSockets** for live push-notifications regarding Transfer resolutions.
+- Containerization sequence via **Docker** & **docker-compose** for one-click microservice deployments.
+- Construct unit/integration coverage via `pytest`.
 
 ---
 
-## 🔐 Authentication Flow
-
-* Login returns:
-
-  * Access Token
-  * Refresh Token
-* Stored in browser storage
-* Used in API requests via Authorization header
-
----
-
-## 📡 API Overview
-
-### Account APIs
-
-* `POST /accounts` → Create Account
-* `GET /accounts/{id}` → Get Balance
-* `POST /deposit`
-* `POST /withdraw`
-* `POST /transfer`
-
-### Auth APIs
-
-* `POST /auth/login`
-* `POST /auth/refresh`
-* `POST /auth/logout`
-
-### Admin APIs
-
-* `/admin/stats`
-* `/admin/events`
-* `/admin/unlock`
-
-### Service Requests
-
-* `POST /requests`
-* `GET /requests/my`
-* Employee Approval Flow
-
----
-
-## 🔄 Service Request Flow
-
-1. User creates request
-2. Employee reviews (Approve/Reject)
-3. User submits required data
-4. System updates account
-5. Request marked completed
-
----
-
-## 🛡️ Security Features
-
-* JWT Authentication
-* Role-Based Access Control
-* Rate Limiting (Login, Transfer)
-* CSP Headers (via Talisman)
-* Token Blacklisting (Logout)
-
----
-
-## 📊 Admin Dashboard Includes
-
-* Total Bank Balance
-* Total Accounts
-* Locked Accounts
-* Security Events Log
-
----
-
-## 🔥 Future Enhancements
-
-* KYC Update Feature
-* Contact Update
-* Account Closure Flow
-* Notifications System
-* Docker Deployment
-* CI/CD Pipeline
-
----
-
-## 📸 Screens (Optional)
-
-*Add screenshots here*
-
----
-
-## 🤝 Contributing
-
-Pull requests are welcome. For major changes, open an issue first.
-
----
-
-## 📄 License
-
-This project is for learning and demonstration purposes.
-
----
-
-## 👨‍💻 Author
-
-**Malhar Bhatt**
-GitHub: https://github.com/MalharBhatt-dev
-
----
-
-## ⭐ Support
-
-If you like this project, give it a ⭐ on GitHub!
+<div align="center">
+  <b>Developed by <a href="https://github.com/MalharBhatt-dev">Malhar Bhatt</a></b><br>
+  <i>Built to demonstrate passion for structured software engineering, design principles, and backend topology.</i>
+</div>
