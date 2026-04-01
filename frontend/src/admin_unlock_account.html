@@ -20,8 +20,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.98) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+            from {
+                opacity: 0;
+                transform: scale(0.98) translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         .animate-fade-in {
@@ -33,28 +40,38 @@
             width: 6px;
             height: 6px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-track {
             background: transparent;
         }
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #d4d4d8; /* zinc-300 */
+            background-color: #d4d4d8;
+            /* zinc-300 */
             border-radius: 20px;
         }
+
         .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #3f3f46; /* zinc-700 */
+            background-color: #3f3f46;
+            /* zinc-700 */
         }
     </style>
 </head>
 
-<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 antialiased selection:bg-violet-500 selection:text-white transition-colors duration-300 h-screen overflow-hidden flex">
+<body
+    class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 antialiased selection:bg-violet-500 selection:text-white transition-colors duration-300 h-screen overflow-hidden flex">
 
     <!-- Sidebar -->
-    <aside class="w-72 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col transition-colors z-20 shadow-sm relative h-full">
+    <aside
+        class="w-72 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col transition-colors z-20 shadow-sm relative h-full">
         <div class="p-6 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-violet-600 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/20 text-white font-bold">
+                <div
+                    class="w-8 h-8 rounded-xl bg-gradient-to-tr from-violet-600 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/20 text-white font-bold">
                     <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                        </path>
                     </svg>
                 </div>
                 <h2 class="text-xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100">AdminCore</h2>
@@ -67,7 +84,9 @@
                     <a href="admin_dashboard.html"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
                         <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                            </path>
                         </svg>
                         Dashboard Overview
                     </a>
@@ -76,7 +95,9 @@
                     <a href="admin_unlock_account.html"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-md shadow-violet-500/20 transition-all duration-200">
                         <svg class="w-5 h-5 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                            </path>
                         </svg>
                         Management
                     </a>
@@ -85,7 +106,9 @@
                     <a href="admin_request_logs.html"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
                         <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
                         </svg>
                         Request Logs
                     </a>
@@ -110,8 +133,12 @@
     <main class="flex-1 flex flex-col min-w-0 transition-colors relative z-10 h-full overflow-hidden">
         <!-- Abstract Background Shapes matching Admin Theme -->
         <div class="absolute top-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-            <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-violet-400/10 dark:bg-violet-900/20 blur-[120px]"></div>
-            <div class="absolute top-60 left-20 w-[400px] h-[400px] rounded-full bg-fuchsia-400/10 dark:bg-fuchsia-900/20 blur-[120px]"></div>
+            <div
+                class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-violet-400/10 dark:bg-violet-900/20 blur-[120px]">
+            </div>
+            <div
+                class="absolute top-60 left-20 w-[400px] h-[400px] rounded-full bg-fuchsia-400/10 dark:bg-fuchsia-900/20 blur-[120px]">
+            </div>
         </div>
 
         <div class="flex-1 p-6 lg:p-10 overflow-y-auto relative z-10 flex flex-col h-full custom-scrollbar">
@@ -120,116 +147,155 @@
                 <div>
                     <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-zinc-900 dark:text-white">
                         Admin Management</h1>
-                    <p class="text-zinc-500 dark:text-zinc-400 text-sm md:text-base font-medium">Unlock accounts and manage security features.</p>
+                    <p class="text-zinc-500 dark:text-zinc-400 text-sm md:text-base font-medium">Unlock accounts and
+                        manage security features.</p>
                 </div>
-                
-                <div class="flex items-center gap-2 text-sm font-medium text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-4 py-2 rounded-xl shadow-sm">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+
+                <div
+                    class="flex items-center gap-2 text-sm font-medium text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-4 py-2 rounded-xl shadow-sm">
+                    <span
+                        class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
                     Admin Active
                 </div>
             </header>
 
             <!-- KPI Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in shrink-0 mb-8" style="animation-delay: 0.1s;">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in shrink-0 mb-8"
+                style="animation-delay: 0.1s;">
                 <!-- Total Bank Balance -->
-                <div class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Total Bank Balance</h2>
+                <div
+                    class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Total
+                        Bank Balance</h2>
                     <p class="text-2xl font-black text-zinc-900 dark:text-zinc-100">
                         ₹ <span id="total_balance">0</span>
                     </p>
                 </div>
                 <!-- Total Accounts -->
-                <div class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Total Accounts</h2>
+                <div
+                    class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Total
+                        Accounts</h2>
                     <p class="text-2xl font-black text-violet-600 dark:text-violet-400">
                         <span id="total_accounts">0</span>
                     </p>
                 </div>
                 <!-- Total Locked Accounts -->
-                <div class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Locked Accounts</h2>
+                <div
+                    class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Locked
+                        Accounts</h2>
                     <p class="text-2xl font-black text-rose-600 dark:text-rose-500">
                         <span id="locked_accounts">0</span>
                     </p>
                 </div>
                 <!-- Last Security Event -->
-                <div class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Last Security Event</h2>
-                    <p id="last_lock_event" class="text-zinc-800 dark:text-zinc-200 font-semibold text-sm whitespace-pre-line leading-relaxed">
+                <div
+                    class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Last
+                        Security Event</h2>
+                    <p id="last_lock_event"
+                        class="text-zinc-800 dark:text-zinc-200 font-semibold text-sm whitespace-pre-line leading-relaxed">
                         None
                     </p>
                 </div>
             </div>
 
             <!-- Security Events Table -->
-            <div id="accounts_table" class="flex-1 bg-white dark:bg-zinc-900/60 dark:backdrop-blur-lg border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-sm overflow-hidden animate-fade-in flex flex-col min-h-0" style="animation-delay: 0.2s;">
-                <div class="px-6 py-5 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 flex justify-between items-center">
+            <div id="accounts_table"
+                class="flex-1 bg-white dark:bg-zinc-900/60 dark:backdrop-blur-lg border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-sm overflow-hidden animate-fade-in flex flex-col min-h-0"
+                style="animation-delay: 0.2s;">
+                <div
+                    class="px-6 py-5 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 flex justify-between items-center">
                     <h3 class="font-bold text-lg text-zinc-900 dark:text-zinc-100">Locked Accounts Database</h3>
                 </div>
 
                 <div class="overflow-x-auto overflow-y-auto flex-1 custom-scrollbar">
                     <table class="w-full whitespace-nowrap text-left border-collapse">
                         <!-- TABLE HEADER -->
-                        <thead class="bg-white/80 dark:bg-zinc-900/80 backdrop-blur border-b border-zinc-200 dark:border-zinc-800 sticky top-0 z-10">
+                        <thead
+                            class="bg-white/80 dark:bg-zinc-900/80 backdrop-blur border-b border-zinc-200 dark:border-zinc-800 sticky top-0 z-10">
                             <tr>
-                                <th class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">Account Number</th>
-                                <th class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">Name</th>
-                                <th class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">Attempts</th>
-                                <th class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">Status</th>
-                                <th class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">Actions</th>
+                                <th
+                                    class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
+                                    Account Number</th>
+                                <th
+                                    class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
+                                    Name</th>
+                                <th
+                                    class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
+                                    Attempts</th>
+                                <th
+                                    class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
+                                    Status</th>
+                                <th
+                                    class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
+                                    Actions</th>
                             </tr>
                         </thead>
                         <!-- TABLE BODY -->
-                        <tbody id="locked_accounts_table" class="divide-y divide-zinc-200 dark:divide-zinc-800 bg-transparent text-sm text-zinc-800 dark:text-zinc-200">   
+                        <tbody id="locked_accounts_table"
+                            class="divide-y divide-zinc-200 dark:divide-zinc-800 bg-transparent text-sm text-zinc-800 dark:text-zinc-200">
                             <!-- JS will insert rows -->
                         </tbody>
                     </table>
                 </div>
-            </div> 
+            </div>
 
             <!--Unlock Form-->
-            <div id="unlock_form_container" class="animate-fade-in hidden flex flex-col items-center justify-center flex-1 min-h-0 relative z-10 w-full mb-8">
-                
-                <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl rounded-3xl p-8 lg:p-10 w-full max-w-md relative overflow-hidden">
-                    
+            <div id="unlock_form_container"
+                class="animate-fade-in hidden flex flex-col items-center justify-center flex-1 min-h-0 relative z-10 w-full mb-8">
+
+                <div
+                    class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl rounded-3xl p-8 lg:p-10 w-full max-w-md relative overflow-hidden">
+
                     <!-- Decorative blur behind form -->
                     <div class="absolute -top-10 -right-10 w-32 h-32 bg-fuchsia-500/20 blur-3xl"></div>
                     <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-violet-500/20 blur-3xl"></div>
 
                     <div class="relative z-10">
                         <div class="flex items-center gap-3 mb-6">
-                            <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700">
-                                <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z">
+                                    </path>
                                 </svg>
                             </div>
                             <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Auth Unlock</h2>
                         </div>
-                        
+
                         <form class="flex flex-col gap-5">
                             <div class="space-y-2">
-                                <label class="text-sm font-semibold text-zinc-700 dark:text-zinc-300">Account Number</label>
-                                <input type="number" id="account_number" 
-                                class="w-full bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 border border-zinc-300 dark:border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm opacity-70 cursor-not-allowed font-mono" placeholder="Enter Account Number" readonly>
+                                <label class="text-sm font-semibold text-zinc-700 dark:text-zinc-300">Account
+                                    Number</label>
+                                <input type="number" id="account_number"
+                                    class="w-full bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 border border-zinc-300 dark:border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm opacity-70 cursor-not-allowed font-mono"
+                                    placeholder="Enter Account Number" readonly>
                             </div>
 
                             <div class="space-y-2">
                                 <label class="text-sm font-semibold text-zinc-700 dark:text-zinc-300">Admin Key</label>
-                                <input type="password" id="admin_key" 
-                                class="w-full bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 border border-zinc-300 dark:border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm transition-all font-mono tracking-widest" placeholder="••••••••">
+                                <input type="password" id="admin_key"
+                                    class="w-full bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 border border-zinc-300 dark:border-zinc-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm transition-all font-mono tracking-widest"
+                                    placeholder="••••••••">
                             </div>
 
-                            <button type="button" onclick="unlockAccount()" 
-                            class="w-full bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white py-3.5 rounded-xl font-bold hover:shadow-lg hover:shadow-violet-500/30 active:scale-[0.98] transition-all duration-200 mt-2">
+                            <button type="button" onclick="unlockAccount()"
+                                class="w-full bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white py-3.5 rounded-xl font-bold hover:shadow-lg hover:shadow-violet-500/30 active:scale-[0.98] transition-all duration-200 mt-2">
                                 Submit Override
                             </button>
-                            
-                            <button type="button" onclick="document.getElementById('unlock_form_container').classList.add('hidden'); document.getElementById('accounts_table').classList.remove('hidden');" class="text-xs text-center mt-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-medium cursor-pointer">
+
+                            <button type="button"
+                                onclick="document.getElementById('unlock_form_container').classList.add('hidden'); document.getElementById('accounts_table').classList.remove('hidden');"
+                                class="text-xs text-center mt-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-medium cursor-pointer">
                                 Cancel & Return to Database
                             </button>
                         </form>
                     </div>
-                </div> 
+                </div>
 
             </div>
 
@@ -237,23 +303,6 @@
     </main>
 
     <script src="./js/api.js"></script>
-    <script>
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle("dark");
-            if (document.documentElement.classList.contains("dark")) {
-                localStorage.setItem("theme", "dark");
-            } else {
-                localStorage.setItem("theme", "light");
-            }
-        }
-        (function () {
-            const theme = localStorage.getItem("theme");
-            if (theme === "dark") {
-                document.documentElement.classList.add("dark");
-            }
-        })();
-    </script>
-    <script src="./js/admin.js"></script>
     <script src="./js/admin_dashboard.js"></script>
 </body>
 

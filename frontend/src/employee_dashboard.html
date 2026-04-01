@@ -184,22 +184,6 @@
     </main>
 
     <script src="./js/api.js"></script>
-    <script>
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle("dark");
-            if (document.documentElement.classList.contains("dark")) {
-                localStorage.setItem("theme", "dark");
-            } else {
-                localStorage.setItem("theme", "light");
-            }
-        }
-        (function () {
-            const theme = localStorage.getItem("theme");
-            if (theme === "dark") {
-                document.documentElement.classList.add("dark");
-            }
-        })();
-    </script>
     <script src="./js/employee_dashboard.js"></script>
 </body>
 

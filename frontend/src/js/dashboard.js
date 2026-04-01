@@ -5,14 +5,14 @@
     }
 })();
 
-document.addEventListener("DOMContentLoaded", async function(){
-    
-    if(!getRefreshToken()){
-        window.location.href="index.html";
+document.addEventListener("DOMContentLoaded", async function () {
+
+    if (!getRefreshToken()) {
+        window.location.href = "index.html";
         return;
     }
-    if(!getAccountNumber()){
-        window.location.href="index.html";
+    if (!getAccountNumber()) {
+        window.location.href = "index.html";
         return;
     }
     await loadLastTransaction();
@@ -20,45 +20,45 @@ document.addEventListener("DOMContentLoaded", async function(){
     await loadBalance();
 });
 
-async function loadAccountNumber(){
+async function loadAccountNumber() {
     const account = getAccountNumber();
     document.getElementById("account_info").innerText = account;
 
 }
 
 
-async function loadBalance(){
+async function loadBalance() {
     const account = getAccountNumber();
     const data = await apiRequest(`/accounts/${account}`);
     document.getElementById("balance").innerText = data.balance;
     document.getElementById("balance_top").innerText = data.balance;
 }
 
-async function deposit(){
+async function deposit() {
     const amount = document.getElementById("deposit_amount").value;
     const account = getAccountNumber();
-    const data = await apiRequest(`/accounts/${account}/deposit`,"POST",{
+    const data = await apiRequest(`/accounts/${account}/deposit`, "POST", {
         amount: amount
     });
     alert(data.message);
     loadBalance();
 }
 
-async function withdraw(){
+async function withdraw() {
     const amount = document.getElementById("withdraw_amount").value;
     const account = getAccountNumber();
-    const data = await apiRequest(`/accounts/${account}/withdraw`,"POST",{
+    const data = await apiRequest(`/accounts/${account}/withdraw`, "POST", {
         amount: amount
     });
     alert(data.message);
     loadBalance();
 }
 
-async function loadLastTransaction(){
+async function loadLastTransaction() {
     const account = getAccountNumber();
     const data = await apiRequest(`/accounts/${account}/transactions`);
     const element = document.getElementById("last_transaction");
-    if(!data.transactions || data.transactions.length === 0){
+    if (!data.transactions || data.transactions.length === 0) {
         element.innerHTML = `
         <span class="text-gray-500">No transactions yet 📭</span>`;
         return;
@@ -66,33 +66,33 @@ async function loadLastTransaction(){
 
     const last = data.transactions[0];
     console.log(last);
-    
+
     let color = "";
     let bg = "";
     let icon = "";
-    
-    if(last.transaction_type.includes("DEPOSIT")){
+
+    if (last.transaction_type.includes("DEPOSIT")) {
         color = "text-green-600";
-        bg="bg-green-100";
+        bg = "bg-green-100";
         icon = "💰";
     }
-    else if(last.transaction_type.includes("WITHDRAW")){
-        color="text-red-500";
-        bg="bg-red-100";
+    else if (last.transaction_type.includes("WITHDRAW")) {
+        color = "text-red-500";
+        bg = "bg-red-100";
         icon = "💸";
     }
-    else{
-        color="text-blue-500";
+    else {
+        color = "text-blue-500";
         bg = "bg-blue-100";
         icon = "🔄";
     }
 
-    const date = new Date(last.timestamp).toLocaleString("en-IN",{
-        hour:"2-digit",
-        minute:"2-digit",
-        day:"2-digit",
-        month:"short",
-        year:"numeric"
+    const date = new Date(last.timestamp).toLocaleString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
     });
 
     element.innerHTML = `
@@ -118,19 +118,4 @@ async function loadLastTransaction(){
     </div>
     </div> 
     `;
-}
-
-function toggleDarkMode() {
-    const html = document.documentElement;
-    const btn = document.getElementById("themeBtn");
-
-    html.classList.toggle("dark");
-
-    if (html.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-        if (btn) btn.textContent = "☀️";
-    } else {
-        localStorage.setItem("theme", "light");
-        if (btn) btn.textContent = "🌙";
-    }
 }

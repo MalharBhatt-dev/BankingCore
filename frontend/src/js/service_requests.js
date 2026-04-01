@@ -282,17 +282,3 @@ async function updateAccount(query_type, payload){
         return null;
     }
 }
-
-function toggleDarkMode() {
-    const html = document.documentElement;
-    html.classList.toggle("dark");
-
-    // Save preference
-    if (html.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-        document.getElementById("themeBtn").textContent = "☀️";
-    } else {
-        localStorage.setItem("theme", "light");
-        document.getElementById("themeBtn").textContent = "🌙";
-    }
-}
