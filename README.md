@@ -56,20 +56,69 @@ This project simulates a real-world banking system with **secure authentication,
 ```
 BankingCore/
 │
-├── app/
-│   ├── routes.py              # API Routes
-│   ├── config.py              # Environment Config
-│   ├── __init__.py            # App Factory
+├── app/                          # Core Flask Application
+│   ├── __init__.py               # App factory (create_app, DI, logging, security)
+│   ├── config.py                 # Environment configuration (SECRET_KEY, ADMIN_KEY)
+│   ├── routes.py                 # All API endpoints (accounts, auth, admin, requests)
+│   ├── errors.py                 # Global error handlers
+│   ├── auth.py                   # JWT handling, decorators (login_required, role_required)
+│   ├── extensions.py             # Extensions (Limiter, etc.)
 │
-├── repository/               # Database Layer
-├── services/                 # Business Logic Layer
+├── repository/                   # Data Access Layer (DAL)
+│   ├── account_repository.py     # Account DB operations
+│   ├── service_request_repository.py  # Service request DB operations
 │
-├── templates / static
-│   ├── html files            # UI Pages
-│   ├── js files              # Frontend Logic
+├── services/                     # Business Logic Layer
+│   ├── banking_services.py       # Core banking logic (deposit, withdraw, transfer)
+│   ├── service_request_service.py # Request lifecycle (approve, reject, submit)
 │
-├── logs/                     # Application Logs
-└── requirements.txt
+├── models/ (optional / implicit) # DB Models (if using ORM)
+│   ├── account.py
+│   ├── transaction.py
+│   ├── service_request.py
+│
+├── static/ or frontend/          # Frontend (HTML + JS + Tailwind)
+│
+│   ├── html/
+│   │   ├── register.html         # Account creation UI
+│   │   ├── dashboard.html        # User dashboard
+│   │   ├── transfer.html         # Money transfer UI
+│   │   ├── transactions.html     # Transaction history
+│   │   ├── service_requests.html # User request management
+│   │   │
+│   │   ├── employee.html         # Employee login
+│   │   ├── employee_dashboard.html  # Employee request panel
+│   │   │
+│   │   ├── admin.html            # Admin login
+│   │   ├── admin_dashboard.html  # Admin analytics dashboard
+│   │   ├── admin_unlock_account.html # Unlock accounts UI
+│
+│   ├── js/
+│   │   ├── api.js                # Common API handler (fetch wrapper + JWT)
+│   │   ├── login.js              # Login modal + role handling
+│   │   ├── register.js           # Account registration logic
+│   │   ├── dashboard.js          # User dashboard logic
+│   │   ├── transfer.js           # Transfer logic
+│   │   ├── transactions.js       # Transactions rendering
+│   │   ├── service_requests.js   # Request lifecycle (user side)
+│   │   │
+│   │   ├── employee.js           # Employee login
+│   │   ├── employee_dashboard.js # Approve/reject requests
+│   │   │
+│   │   ├── admin.js              # Admin login + unlock
+│   │   ├── admin_dashboard.js    # Admin analytics & security events
+│
+│   ├── css/
+│       └── output.css            # Tailwind compiled CSS
+│
+├── logs/                         # Application logs
+│   └── banking_core.log
+│
+├── .env                          # Environment variables
+├── index.html            # Landing page + Login modal
+├── requirements.txt              # Python dependencies
+├── app.py / wsgi.py              # Entry point to start server
+├── README.md                     # Project documentation
 ```
 
 ---
