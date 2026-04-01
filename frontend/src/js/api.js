@@ -92,5 +92,5 @@ async function logout(){
         await fetch(API_BASE+"/auth/logout",{method:"POST",headers:{"Authorization":"Bearer "+refreshToken}});
     }
     localStorage.clear();
-    window.location.href="index.html";
+    window.location.href="../../index.html";
 }
