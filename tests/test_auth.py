@@ -25,10 +25,10 @@ def test_login_fail(client):
 
     assert res.status_code == 401
 
-def test_refresh_token(client):
+def test_refresh_token(client,account_number):
     res = client.post("/auth/login",json={
-        "account_number":1002,
-        "pin":"2345"
+        "account_number":account_number,
+        "pin":"1234"
     })
 
     data = res.get_json()
