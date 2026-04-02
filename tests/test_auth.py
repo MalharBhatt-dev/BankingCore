@@ -74,3 +74,15 @@ def test_logout_with_access_token(client, create_user, login_user):
 def test_protected_route_no_token(client):
     res=client.get("/admin/stats")
     assert res.status_code==400
+
+def test_refresh_no_bearer_prefix(client):
+    res = client.post("/auth/refresh", headers={
+        "Authorization": "InvalidToken"
+    })
+    assert res.status_code == 401
+
+def test_logout_no_bearer_prefix(client):
+    res = client.post("/auth/logout", headers={
+        "Authorization": "InvalidToken"
+    })
+    assert res.status_code == 401

@@ -188,3 +188,8 @@ def test_banking_service_edge_cases(app):
     with pytest.raises(Exception):
         request_service.create_request(acc, acc, "", "desc")
 
+def test_create_account_missing_fields(client):
+    res = client.post("/accounts", json={
+        "name": "Test"
+    })
+    assert res.status_code in [400, 500]
