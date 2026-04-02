@@ -5,18 +5,18 @@ from repository.account_repository import AccountRepository
 from repository.service_request_repository import ServiceRequestRepository
 from services.banking_services import BankingServices
 from services.service_request_service import ServiceRequestService
-from app.extensions import limiter
+from app.extensions import limiter,db
 from app.config import Config
 import os
 import logging
 from logging.handlers import RotatingFileHandler
-
 def create_app(config_class=Config):
     app = Flask(__name__,static_folder="static",template_folder="template")
+   
     CORS(app)
     limiter.init_app(app)
     app.config.from_object(config_class)
-
+    db.init_app(app)
     #dependency injection
     repo = AccountRepository()
     service = BankingServices(repo,app.config["ADMIN_KEY"],app.logger)
@@ -28,9 +28,6 @@ def create_app(config_class=Config):
     app.config["request_service"] = request_service
 
     #loggin setup
-    
-
-
     formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
 
     if not app.logger.handlers:
@@ -61,5 +58,3 @@ def create_app(config_class=Config):
     register_error_handlers(app)
 
     return app
-
-

@@ -21,7 +21,7 @@ class Config:
     if uri and uri.startswith("postgres://"):
         uri=uri.replace("postgres://","postgresql://",1)
 
-    SQLALCHEMY_DATABASE_URI = uri
+    SQLALCHEMY_DATABASE_URI = uri or "sqlite:///local.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     DEBUG = os.getenv("FLASK_DEBUG","0") == "1"
