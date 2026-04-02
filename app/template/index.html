@@ -12,30 +12,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        .text-gradient {
-            background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body
-    class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased selection:bg-blue-500 selection:text-white transition-colors duration-300">
+    class="bg-gray-50 dark:bg-[#050a15] text-gray-900 dark:text-gray-100 antialiased selection:bg-cyan-500 selection:text-white transition-colors duration-500">
 
     <!--========NavBar==========-->
     <nav
-        class="fixed top-0 w-full z-40 transition-all duration-300 bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800">
+        class="fixed top-0 w-full z-40 transition-all duration-300 glass-nav border-b border-gray-200 dark:border-gray-800/50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer">
+            <div class="flex items-center gap-3 cursor-pointer group">
                 <div
-                    class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    class="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary to-accent flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:rotate-12 transition-transform duration-300">
                     <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z">
@@ -46,10 +36,10 @@
             </div>
             <div class="flex items-center gap-2 sm:gap-4">
                 <button onclick="openLoginModal()"
-                    class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors px-2 sm:px-4">Sign
+                    class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-cyan-500 transition-colors px-2 sm:px-4">Sign
                     In</button>
                 <button onclick="openRegisterModal()"
-                    class="text-sm font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 px-5 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all shadow-md">Get
+                    class="text-sm font-medium bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-5 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all shadow-md btn-glow dark:glass">Get
                     Started</button>
                 <button onclick="toggleDarkMode()" id="themeBtn"
                     class="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-all">
@@ -60,51 +50,147 @@
     </nav>
 
     <!--=====Hero========-->
-    <section
-        class="relative pt-40 pb-20 lg:pt-52 lg:pb-32 px-6 flex flex-col items-center text-center overflow-hidden min-h-[90vh] justify-center bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
-        <!-- Background accents -->
-        <div class="absolute top-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-            <div
-                class="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-blue-400/10 dark:bg-blue-600/10 blur-[100px]">
-            </div>
-            <div
-                class="absolute top-40 -left-20 w-[400px] h-[400px] rounded-full bg-cyan-400/10 dark:bg-cyan-600/10 blur-[100px]">
-            </div>
+    <section class="relative pt-40 pb-20 lg:pt-52 lg:pb-32 px-6 overflow-hidden min-h-[90vh] flex items-center bg-transparent z-10 transition-colors duration-500">
+        <!-- Animated Background Mesh -->
+        <div class="bg-mesh">
+            <div class="mesh-blob blob-1"></div>
+            <div class="mesh-blob blob-2"></div>
+            <div class="mesh-blob blob-3"></div>
+            <div class="grid-overlay"></div>
         </div>
 
-        <div
-            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-blue-700 dark:text-cyan-400 text-sm font-semibold mb-8 shadow-sm relative z-10">
-            <span class="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
-            v2.0 Beta is Live
-        </div>
+        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left Info -->
+            <div class="flex flex-col items-start text-left z-10 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-gray-200 dark:border-gray-700/50 text-blue-700 dark:text-cyan-400 text-sm font-semibold mb-8 shadow-sm">
+                    <span class="flex h-2 w-2 rounded-full pulse-animate bg-cyan-400"></span>
+                    v2.0 Beta is Live
+                </div>
 
-        <h1
-            class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl leading-[1.1] text-gray-900 dark:text-white relative z-10">
-            Banking infrastructure <br class="hidden sm:block" /> built for the <span class="text-gradient">modern
-                era.</span>
-        </h1>
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl leading-[1.1] text-gray-900 dark:text-white">
+                    Banking infrastructure <br class="hidden xl:block" /> built for the <span class="text-gradient">modern era.</span>
+                </h1>
 
-        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl leading-relaxed relative z-10">
-            Secure, scalable, and blazingly fast. Manage transactions, control access, and handle service requests
-            seamlessly with our intuitive platform.
-        </p>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-xl leading-relaxed">
+                    Secure, scalable, and blazingly fast. Manage transactions, control access, and handle service requests seamlessly with our intuitive platform.
+                </p>
 
-        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto z-10">
-            <button onclick="openRegisterModal()"
-                class="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold text-lg shadow-lg shadow-blue-500/25 dark:shadow-blue-900/20 hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                Open Free Account
-            </button>
-            <button onclick="openLoginModal()"
-                class="px-8 py-4 rounded-full bg-white dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 font-semibold text-lg hover:bg-gray-50 dark:hover:bg-gray-800 hover:-translate-y-0.5 transition-all shadow-sm">
-                Sign In
-            </button>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    <button onclick="openRegisterModal()"
+                        class="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold text-lg shadow-lg shadow-cyan-500/25 transition-all w-full sm:w-auto btn-glow">
+                        Open Free Account
+                    </button>
+                    <button onclick="openLoginModal()"
+                        class="px-8 py-4 rounded-full glass text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-white/10 font-semibold text-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-all shadow-sm w-full sm:w-auto focus:ring-2 focus:ring-accent">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right 3D Mockup -->
+            <div class="hidden lg:block relative h-[600px] w-full mockup-container cursor-crosshair reveal" style="transition-delay: 200ms;">
+                <div class="mockup-3d absolute inset-0 w-full h-full flex items-center justify-center">
+                    
+                    <!-- Main Dashboard Background Card -->
+                    <div class="absolute w-[500px] h-[380px] glass rounded-3xl border border-gray-200/50 dark:border-white/10 shadow-2xl bg-white/40 dark:bg-[#0B1F3A]/40 backdrop-blur-3xl overflow-hidden flex flex-col p-6 layer-1">
+                        <!-- Top Bar Mock -->
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="w-32 h-6 bg-gray-200 dark:bg-gray-700/50 rounded-md shimmer"></div>
+                            <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700/50 border border-white/20">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="avatar" class="w-full h-full rounded-full">
+                            </div>
+                        </div>
+                        
+                        <!-- Account Summary Card -->
+                        <div class="w-full h-32 bg-white/60 dark:bg-white/10 rounded-2xl border border-gray-200 dark:border-white/20 p-5 mb-4 shadow-sm flex flex-col justify-between relative overflow-hidden layer-2 hover:scale-[1.02] transition-transform">
+                             <div class="absolute -right-10 -top-10 w-32 h-32 bg-cyan-400/20 rounded-full blur-2xl"></div>
+                             <p class="text-sm font-medium text-gray-500 dark:text-gray-300">Total Balance</p>
+                             <div class="dynamic-balance w-40 h-8 rounded-lg shimmer"></div>
+                             <div class="flex items-center gap-2 mt-2">
+                                 <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-900/30 px-2 py-0.5 rounded-full">+2.4%</span>
+                                 <span class="text-xs text-gray-500 dark:text-gray-400">vs last month</span>
+                             </div>
+                        </div>
+
+                        <!-- Quick Actions & Graph -->
+                        <div class="flex gap-4 mb-4 h-24">
+                             <!-- Actions -->
+                             <div class="flex-1 rounded-2xl glass p-4 flex justify-between items-center shadow-sm layer-3 hover:scale-[1.02] border border-gray-200 dark:border-white/5 transition-transform">
+                                 <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                                     <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-cyan-400 transition-transform group-hover:scale-110">💸</div>
+                                     <span class="text-[10px] font-bold dark:text-gray-300 text-gray-700">Send</span>
+                                 </div>
+                                 <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                                     <div class="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-600 dark:text-emerald-400 transition-transform group-hover:scale-110">⬇️</div>
+                                     <span class="text-[10px] font-bold dark:text-gray-300 text-gray-700">Receive</span>
+                                 </div>
+                                 <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                                     <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center text-purple-600 dark:text-purple-400 transition-transform group-hover:scale-110">💳</div>
+                                     <span class="text-[10px] font-bold dark:text-gray-300 text-gray-700">Pay</span>
+                                 </div>
+                             </div>
+                             <!-- Mini Chart -->
+                             <div class="w-32 rounded-2xl glass p-3 flex items-end justify-between gap-1.5 shadow-sm layer-3 hover:scale-[1.02] border border-gray-200 dark:border-white/5 transition-transform pb-4">
+                                 <div class="w-full bg-cyan-400/50 rounded-t-sm h-[40%] hover:h-[45%] transition-all"></div>
+                                 <div class="w-full bg-cyan-400/80 rounded-t-sm h-[70%] hover:h-[75%] transition-all"></div>
+                                 <div class="w-full bg-cyan-400 rounded-t-sm h-[90%] relative group cursor-pointer hover:h-[95%] transition-all">
+                                    <div class="absolute -top-1 w-full h-1 bg-white shadow-[0_0_5px_#22D3EE] group-hover:shadow-[0_0_10px_#22D3EE]"></div>
+                                 </div>
+                                 <div class="w-full bg-cyan-400/30 rounded-t-sm h-[50%] hover:h-[55%] transition-all"></div>
+                             </div>
+                        </div>
+
+                        <!-- Transactions List -->
+                        <div class="flex-1 rounded-3xl flex flex-col gap-2 p-1 overflow-hidden layer-2 relative z-20">
+                            <div class="flex justify-between items-center mb-1">
+                                <h4 class="text-xs font-bold text-gray-800 dark:text-white">Recent Transactions</h4>
+                                <span class="text-[10px] text-cyan-500 font-semibold cursor-pointer hover:underline">View All</span>
+                            </div>
+                            <div class="w-full bg-white dark:bg-gray-800/80 p-2.5 rounded-xl flex items-center justify-between shadow-sm border border-gray-100 dark:border-white/5 hover:-translate-y-0.5 transition-transform backdrop-blur-md">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900/30 flex items-center justify-center text-rose-500 text-xs">☕</div>
+                                    <div>
+                                        <p class="text-xs font-bold text-gray-900 dark:text-white">Starbucks</p>
+                                        <p class="text-[10px] text-gray-500">Today, 9:24 AM</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-bold text-gray-900 dark:text-white">-$5.40</span>
+                            </div>
+                            <div class="w-full bg-white dark:bg-gray-800/80 p-2.5 rounded-xl flex items-center justify-between shadow-sm border border-gray-100 dark:border-white/5 hover:-translate-y-0.5 transition-transform backdrop-blur-md">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-500 text-xs">💼</div>
+                                    <div>
+                                        <p class="text-xs font-bold text-gray-900 dark:text-white">Salary Deposit</p>
+                                        <p class="text-[10px] text-gray-500">Yesterday</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">+$4,250.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Notification -->
+                    <div class="absolute -right-12 top-20 w-48 bg-white dark:glass p-3 rounded-2xl shadow-xl border border-gray-100 dark:border-white/10 flex gap-2 items-start layer-4 pulse-animate hover:-translate-y-1 transition-transform">
+                        <div class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white mt-0.5 shadow-lg shadow-emerald-500/20">
+                            <svg class="w-4 h-4 block success-checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-900 dark:text-white">Transfer Success</p>
+                            <p class="text-[10px] text-gray-500 dark:text-gray-400">Jane received $200.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!--=======FEATURES==========-->
-    <section class="py-24 px-6 relative border-t border-gray-200 dark:border-gray-800">
+    <section class="py-24 px-6 relative border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 transition-colors duration-500">
         <div class="max-w-7xl mx-auto z-10 relative">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 reveal">
                 <h2 class="text-sm font-bold tracking-widest text-blue-600 dark:text-cyan-400 uppercase mb-3">Everything
                     You Need</h2>
                 <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">Powerful Capabilities</h3>
@@ -113,7 +199,7 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 <!-- Cards -->
                 <div
-                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl feature-card reveal">
                     <div
                         class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-6 text-2xl border border-blue-100 dark:border-blue-800/50">
                         💸</div>
@@ -122,7 +208,7 @@
                         accounts anywhere in the world with real-time settlement and notifications.</p>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl feature-card reveal" style="transition-delay: 100ms;">
                     <div
                         class="w-12 h-12 rounded-2xl bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-6 text-2xl border border-cyan-100 dark:border-cyan-800/50">
                         📊</div>
@@ -131,7 +217,7 @@
                         latest transactions, and account activity all in one beautifully designed place.</p>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl feature-card reveal" style="transition-delay: 200ms;">
                     <div
                         class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 text-2xl border border-emerald-100 dark:border-emerald-800/50">
                         🔐</div>
@@ -140,7 +226,7 @@
                         role-based access control, and advanced account protection layers.</p>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl feature-card reveal" style="transition-delay: 300ms;">
                     <div
                         class="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center mb-6 text-2xl border border-orange-100 dark:border-orange-800/50">
                         🧑‍💼</div>
@@ -149,7 +235,7 @@
                         accounts, monitor security events, audit logs, and assist users instantly.</p>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl feature-card reveal" style="transition-delay: 400ms;">
                     <div
                         class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-6 text-2xl border border-purple-100 dark:border-purple-800/50">
                         📨</div>
@@ -158,7 +244,7 @@
                         personal detail updates, and support directly within the application.</p>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 shadow-md hover:shadow-xl dark:shadow-black/30">
+                    class="bg-white dark:bg-gray-800/60 dark:backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-8 rounded-3xl feature-card reveal" style="transition-delay: 500ms;">
                     <div
                         class="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-6 text-2xl border border-rose-100 dark:border-rose-800/50">
                         ⚡</div>
@@ -171,8 +257,8 @@
     </section>
 
     <!--========== HOW IT WORKS =============-->
-    <section class="py-24 px-6 relative border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
-        <div class="max-w-5xl mx-auto text-center">
+    <section class="py-24 px-6 relative border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 transition-colors duration-500">
+        <div class="max-w-5xl mx-auto text-center reveal">
             <h2 class="text-3xl md:text-4xl font-extrabold mb-16 text-gray-900 dark:text-white">Get Started in Minutes
             </h2>
 
@@ -184,7 +270,7 @@
 
                 <div class="relative group">
                     <div
-                        class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-900 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xl font-extrabold mx-auto mb-6 shadow-md border border-gray-200 dark:border-gray-700 group-hover:-translate-y-1 transition-all duration-300 dark:shadow-black/30">
+                        class="w-16 h-16 rounded-full bg-white dark:bg-gray-900 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xl font-extrabold mx-auto mb-6 shadow-md border border-gray-200 dark:border-gray-700 group-hover:-translate-y-1 transition-all duration-300 dark:shadow-black/30">
                         1</div>
                     <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Create Account</h3>
                     <p class="text-gray-500 dark:text-gray-400 text-sm">Register online and get verified instantly to
@@ -192,7 +278,7 @@
                 </div>
                 <div class="relative group">
                     <div
-                        class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-900 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xl font-extrabold mx-auto mb-6 shadow-md border border-gray-200 dark:border-gray-700 group-hover:-translate-y-1 transition-all duration-300 dark:shadow-black/30">
+                        class="w-16 h-16 rounded-full bg-white dark:bg-gray-900 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xl font-extrabold mx-auto mb-6 shadow-md border border-gray-200 dark:border-gray-700 group-hover:-translate-y-1 transition-all duration-300 dark:shadow-black/30">
                         2</div>
                     <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Manage Wealth</h3>
                     <p class="text-gray-500 dark:text-gray-400 text-sm">Deposit funds securely and transfer them
@@ -200,7 +286,7 @@
                 </div>
                 <div class="relative group">
                     <div
-                        class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-900 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xl font-extrabold mx-auto mb-6 shadow-md border border-gray-200 dark:border-gray-700 group-hover:-translate-y-1 transition-all duration-300 dark:shadow-black/30">
+                        class="w-16 h-16 rounded-full bg-white dark:bg-gray-900 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xl font-extrabold mx-auto mb-6 shadow-md border border-gray-200 dark:border-gray-700 group-hover:-translate-y-1 transition-all duration-300 dark:shadow-black/30">
                         3</div>
                     <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">Track Progress</h3>
                     <p class="text-gray-500 dark:text-gray-400 text-sm">Monitor activity with detailed statements in
@@ -211,7 +297,7 @@
     </section>
 
     <!--======FOOTER=========-->
-    <footer class="bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 py-10 px-6 text-center">
+    <footer class="bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 py-10 px-6 text-center transition-colors duration-500">
         <div class="flex items-center justify-center gap-2 mb-4">
             <svg class="w-5 h-5 text-blue-600 dark:text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -231,7 +317,7 @@
         <div
             class="bg-white dark:bg-gray-900 p-8 rounded-[2rem] shadow-2xl w-full max-w-md relative border border-gray-200 dark:border-gray-700 animate-[fadeIn_0.3s_ease-out] dark:shadow-black/50">
             <button onclick="closeLoginModal()"
-                class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors">
+                class="close-modal absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors">
                 ✕
             </button>
 
@@ -240,9 +326,6 @@
                 <p class="text-gray-500 dark:text-gray-400 text-sm">Sign in to your dashboard</p>
             </div>
 
-            <!-- Role Selector. Note: The exact classes are modified by login.js -->
-            <!-- We will let login.js run its classes, but we will wrap the buttons or add basic ones so they don't break JS -->
-            <!-- The JS sets these: "bg-blue-900 text-white dark:bg-blue-700"  vs "bg-gray-200 dark:bg-gray-700" -->
             <div class="flex p-1 mb-8 bg-gray-100 dark:bg-gray-800 rounded-2xl gap-1">
                 <button onclick="setRole('user')" id="role_user"
                     class="flex-1 py-2.5 text-sm font-semibold rounded-xl bg-blue-900 text-white dark:bg-blue-700 shadow-sm transition-all duration-200">User</button>
@@ -255,18 +338,18 @@
             <form class="flex flex-col gap-5" id="loginform" onsubmit="login(event)">
                 <div class="relative group">
                     <input type="number" id="account_number" placeholder=" "
-                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all font-medium">
                     <label
-                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-cyan-500">
                         Account Number
                     </label>
                 </div>
 
                 <div class="relative group">
                     <input type="password" id="pin_number" placeholder=" "
-                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all font-medium">
                     <label
-                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-cyan-500">
                         PIN Number
                     </label>
                     <button type="button" id="toggleIcon" onclick="togglePin()"
@@ -277,9 +360,9 @@
 
                 <div class="relative hidden group" id="admin_key_box">
                     <input type="password" id="admin_key" placeholder=" "
-                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all font-medium">
                     <label
-                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-cyan-500">
                         Admin Key
                     </label>
                 </div>
@@ -288,7 +371,7 @@
                     <label
                         class="flex items-center gap-2 cursor-pointer text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                         <input type="checkbox" id="rememberMe"
-                            class="w-4 h-4 rounded text-blue-600 border-gray-300 dark:border-gray-600 focus:ring-blue-500 cursor-pointer bg-white dark:bg-gray-800">
+                            class="w-4 h-4 rounded text-blue-600 border-gray-300 dark:border-gray-600 focus:ring-cyan-500 cursor-pointer bg-white dark:bg-gray-800">
                         <span class="font-medium">Remember me</span>
                     </label>
                 </div>
@@ -298,7 +381,7 @@
                 </p>
 
                 <button type="submit" id="loginBtn"
-                    class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-2">
+                    class="btn-glow w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-2">
                     <span id="btnText">Sign In →</span>
                     <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
@@ -331,7 +414,7 @@
         <div
             class="bg-white dark:bg-gray-900 p-8 rounded-[2rem] shadow-2xl w-full max-w-md relative border border-gray-200 dark:border-gray-700 animate-[fadeIn_0.3s_ease-out] dark:shadow-black/50">
             <button onclick="closeRegisterModal()"
-                class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors">
+                class="close-modal absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors">
                 ✕
             </button>
 
@@ -343,18 +426,18 @@
             <form class="flex flex-col gap-5" id="regiterform">
                 <div class="relative group">
                     <input type="text" id="name" placeholder=" "
-                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all font-medium">
                     <label
-                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-cyan-500">
                         Full Legal Name
                     </label>
                 </div>
 
                 <div class="relative group">
                     <input type="password" id="pin" placeholder=" "
-                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all font-medium">
                     <label
-                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
+                        class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-cyan-500">
                         Create 4-Digit PIN
                     </label>
                     <button type="button" id="toggleIcon" onclick="togglePin()"
@@ -368,15 +451,15 @@
                         <span class="text-gray-500 dark:text-gray-400 font-bold">₹</span>
                     </div>
                     <input type="number" id="deposit" placeholder=" "
-                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl pl-10 pr-5 pt-7 pb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-medium">
+                        class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl pl-10 pr-5 pt-7 pb-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all font-medium">
                     <label
-                        class="absolute left-10 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-blue-500 dark:peer-focus:text-cyan-400">
+                        class="absolute left-10 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-cyan-500">
                         Initial Deposit
                     </label>
                 </div>
 
                 <button type="button" onclick="registerAccount()"
-                    class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-4">
+                    class="btn-glow w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-4">
                     <span id="btnText">Open Account →</span>
                     <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
@@ -388,22 +471,11 @@
         </div>
     </div>
 
-    <style>
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-    </style>
+    <!-- Scripts -->
     <script src="{{ url_for('static',filename='js/api.js') }}"></script>
     <script src="{{ url_for('static',filename='js/login.js') }}"></script>
     <script src="{{ url_for('static',filename='js/register.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/script.js') }}"></script>
 </body>
 
 </html>

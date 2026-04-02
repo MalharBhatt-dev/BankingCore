@@ -1,0 +1,223 @@
+/* Custom Fintech Colors & Animations */
+:root {
+  --primary: #0B1F3A;
+  --secondary: #1E3A8A;
+  --accent: #22D3EE;
+  --success: #10B981;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+  background: rgba(11, 31, 58, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.dark .glass-nav {
+  background: rgba(11, 31, 58, 0.6);
+}
+
+/* Gradient Mesh Background */
+.bg-mesh {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0B1F3A 0%, #050a15 100%);
+}
+.light-mode .bg-mesh {
+    background: linear-gradient(180deg, #e0f2fe 0%, #ffffff 100%);
+}
+
+.mesh-blob {
+  position: absolute;
+  filter: blur(90px);
+  opacity: 0.6;
+  animation: floatBlobs 20s infinite alternate;
+  border-radius: 50%;
+}
+.dark .mesh-blob { opacity: 0.4; }
+
+.blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--secondary) 0%, transparent 70%); animation-delay: 0s; }
+.blob-2 { top: 40%; right: -20%; width: 40vw; height: 40vw; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); animation-delay: -5s; }
+.blob-3 { bottom: -20%; left: 20%; width: 60vw; height: 60vw; background: radial-gradient(circle, #4c1d95 0%, transparent 70%); animation-delay: -10s; }
+
+.light-mode .blob-1 { background: radial-gradient(circle, #bfdbfe 0%, transparent 70%); opacity: 0.8; }
+.light-mode .blob-2 { background: radial-gradient(circle, #a5f3fc 0%, transparent 70%); opacity: 0.8; }
+.light-mode .blob-3 { background: radial-gradient(circle, #ddd6fe 0%, transparent 70%); opacity: 0.8; }
+
+@keyframes floatBlobs {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(5%, 10%) scale(1.1); }
+  66% { transform: translate(-5%, -5%) scale(0.9); }
+  100% { transform: translate(10%, -10%) scale(1); }
+}
+
+/* Fintech Grid */
+.grid-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+  z-index: -1;
+  pointer-events: none;
+}
+.light-mode .grid-overlay {
+   background-image: 
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+}
+
+/* 3D Dashboard Mockup */
+.mockup-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.mockup-3d {
+  transform: rotateX(15deg) rotateY(-20deg) rotateZ(5deg);
+  transition: transform 0.3s ease-out;
+}
+
+.mockup-layer {
+  position: absolute;
+  transition: transform 0.3s ease-out;
+}
+
+.layer-1 { transform: translateZ(20px); }
+.layer-2 { transform: translateZ(40px); }
+.layer-3 { transform: translateZ(60px); }
+.layer-4 { transform: translateZ(80px); }
+
+/* Buttons & Inputs */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 150%; height: 150%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+.btn-glow:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: 0s;
+}
+
+.feature-card {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.dark .feature-card:hover {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Checkmark Animation */
+.success-checkmark {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawCheck 1s forwards cubic-bezier(0.65, 0, 0.45, 1) 0.5s;
+}
+@keyframes drawCheck {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Skeleton Loading Shimmer */
+.shimmer {
+  background: #f6f7f8;
+  background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-repeat: no-repeat;
+  background-size: 800px 100%; 
+  animation-duration: 2s;
+  animation-fill-mode: forwards; 
+  animation-iteration-count: infinite;
+  animation-name: placeholderShimmer;
+  animation-timing-function: linear;
+}
+.dark .shimmer {
+  background: #1f2937;
+  background-image: linear-gradient(to right, #1f2937 0%, #374151 20%, #1f2937 40%, #1f2937 100%);
+}
+
+@keyframes placeholderShimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(34, 211, 238, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+}
+.pulse-animate {
+  animation: pulseGlow 2.5s infinite;
+}
+
+/* Scroll Fade In */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Input Focus Glow */
+input:focus {
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.2);
+}
+.dark input:focus {
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.3);
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+  }
+}
