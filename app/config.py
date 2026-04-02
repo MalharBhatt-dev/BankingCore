@@ -17,6 +17,13 @@ class Config:
     if not ADMIN_KEY:
         raise ValueError("ADMIN_KEY environment variable is not set")
     
+    uri= os.getenv("DATABASE_URL")
+    if uri and uri.startswith("postgres://"):
+        uri=uri.replace("postgres://","postgresql://",1)
+
+    SQLALCHEMY_DATABASE_URI = uri
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
     DEBUG = os.getenv("FLASK_DEBUG","0") == "1"
     
     LOG_FILE = os.path.join(BASE_DIR, "logs", "banking_core.log")
