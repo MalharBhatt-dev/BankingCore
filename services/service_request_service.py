@@ -52,13 +52,13 @@ class ServiceRequestService:
         result = []
         for r in rows:
             result.append({
-                "id": r[0],
-                "account_number": r[1],
-                "query_type": r[2],
-                "description": r[3],
-                "status": r[4],
-                "created_at": r[5],
-                "employee_id":r[9]
+                "id": r[0] if len(r) > 0 else None,
+                "account_number": r[1] if len(r) > 1 else None,
+                "query_type": r[2] if len(r) > 2 else None,
+                "description": r[3] if len(r) > 3 else None,
+                "status": r[4] if len(r) > 4 else None,
+                "created_at": r[5] if len(r) > 5 else None,
+                "employee_id":r[9] if len(r) > 9 else None
             })
         return result
 
