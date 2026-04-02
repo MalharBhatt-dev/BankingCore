@@ -1,21 +1,8 @@
-def test_login_success(client):
-    res = client.post("/accounts",json={
-        "name":"user",
-        "pin":"1234",
-        "account_type":"SAVINGS",
-        "initial_deposit":1000
-    })
+def test_login_success(client,create_user,login_user):
+    acc = create_user()
+    res = login_user(acc)
 
-    data = res.get_json()
-    account_number = data["account_number"]
-
-    res=client.post("/auth/login",json={
-        "account_number":account_number,
-        "pin":"1234"
-    })
-
-    assert res.status_code == 200
-    assert "access_token" in res.get_json()
+    assert "access_token" in res
 
 def test_login_fail(client):
     res = client.post("/auth/login",json={
@@ -25,9 +12,20 @@ def test_login_fail(client):
 
     assert res.status_code == 401
 
-def test_refresh_token(client,account_number):
+def test_login_invalid_pin(client,create_user):
+    acc = create_user()
+
     res = client.post("/auth/login",json={
-        "account_number":account_number,
+        "account_number":acc,
+        "pin":"wrong"
+    })
+
+    assert res.status_code == 401
+
+def test_refresh_token(client,create_user):
+    acc = create_user()
+    res = client.post("/auth/login",json={
+        "account_number":acc,
         "pin":"1234"
     })
 
@@ -39,3 +37,17 @@ def test_refresh_token(client,account_number):
     })
 
     assert res2.status_code == 200
+
+def test_refresh_invalid_token(client):
+    res = client.post("/auth/refresh",headers={
+        "Authorization":f"Bearer invalidtoken"
+    })
+
+    assert res.status_code == 401
+
+def test_login_rate_limiter(client):
+    for _ in range(6):
+        client.post("/auth/login",json={
+            "account_number":9999,
+            "pin":"wrong"
+        })
