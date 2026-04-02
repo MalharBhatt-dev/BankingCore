@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = "";
 
 function getAccountNumber(){
     return localStorage.getItem("account_number");
@@ -92,7 +92,7 @@ async function logout(){
         await fetch(API_BASE+"/auth/logout",{method:"POST",headers:{"Authorization":"Bearer "+refreshToken}});
     }
     localStorage.clear();
-    window.location.href="../../index.html";
+    window.location.href="/pages/index.html";
 }
 
 // Toggle Theme

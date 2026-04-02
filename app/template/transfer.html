@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="./css/output.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
 
     <style>
         body {
@@ -298,9 +298,9 @@
         </div>
     </main>
 
-    <script src="./js/api.js"></script>
-    <script src="./js/transfer.js"></script>
-    <script src="./js/dashboard.js"></script>
+    <script src="{{ url_for('static',filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/transfer.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/dashboard.js') }}"></script>
 </body>
 
 </html>

@@ -39,7 +39,8 @@ async function registerAccount(){
         if(response.status === 201){
             // alert("Account created successfully!\nAccount Number: " + data.account_number);
             console.log("redirecting to the login page.");
-            window.location.href = "index.html";
+            window.location.href = "/pages/index.html";
+            openLoginModal();
         }else{
             alert(data.error || "Registration failed");
         }

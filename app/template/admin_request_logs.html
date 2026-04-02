@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | BankingCore</title>
+    <title>Request Logs | AdminCore</title>
 
     <!-- Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,8 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="./css/output.css" rel="stylesheet">
-
+<link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -81,9 +80,9 @@
         <nav class="flex-1 p-4 overflow-y-auto custom-scrollbar">
             <ul class="space-y-1.5 font-medium">
                 <li>
-                    <a href="admin_dashboard.html"
-                        class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-md shadow-violet-500/20 transition-all duration-200">
-                        <svg class="w-5 h-5 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <a href="/pages/admin_dashboard.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                        <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
                             </path>
@@ -92,7 +91,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="admin_unlock_account.html"
+                    <a href="/pages/admin_unlock_account.html"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
                         <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -103,9 +102,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="admin_request_logs.html"
-                        class="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-                        <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <a href="/pages/admin_request_logs.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-md shadow-violet-500/20 transition-all duration-200">
+                        <svg class="w-5 h-5 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                             </path>
@@ -123,7 +122,7 @@
                 <span class="text-lg" id="themeBtn">🌙</span>
             </button>
             <button onclick="logout()"
-                class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-900/10 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/20 font-medium transition-all active:scale-[0.98] cursor-pointer">
+                class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/20 font-medium transition-all active:scale-[0.98] cursor-pointer">
                 Logout
             </button>
         </div>
@@ -141,14 +140,14 @@
             </div>
         </div>
 
-        <div class="flex-1 p-6 lg:p-10 overflow-y-auto relative z-10 flex flex-col h-full custom-scrollbar">
+        <div class="flex-1 p-6 lg:p-10 overflow-hidden relative z-10 flex flex-col h-full auto-rows-min">
             <!-- Header -->
             <header class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 animate-fade-in shrink-0">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-zinc-900 dark:text-white">
-                        Admin Dashboard</h1>
-                    <p class="text-zinc-500 dark:text-zinc-400 text-sm md:text-base font-medium">System overview and
-                        core statistics.</p>
+                        Request Logs</h1>
+                    <p class="text-zinc-500 dark:text-zinc-400 text-sm md:text-base font-medium">System ledger of all
+                        inbound user service queries.</p>
                 </div>
 
                 <div
@@ -159,59 +158,14 @@
                 </div>
             </header>
 
-            <!-- KPI Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in shrink-0 mb-8"
-                style="animation-delay: 0.1s;">
-                <!-- Total Bank Balance -->
-                <div
-                    class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Total
-                        Bank Balance</h2>
-                    <p class="text-2xl font-black text-zinc-900 dark:text-zinc-100">
-                        ₹ <span id="total_balance">0</span>
-                    </p>
-                </div>
-                <!-- Total Accounts -->
-                <div
-                    class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Total
-                        Accounts</h2>
-                    <p class="text-2xl font-black text-violet-600 dark:text-violet-400">
-                        <span id="total_accounts">0</span>
-                    </p>
-                </div>
-                <!-- Total Locked Accounts -->
-                <div
-                    class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Locked
-                        Accounts</h2>
-                    <p class="text-2xl font-black text-rose-600 dark:text-rose-500">
-                        <span id="locked_accounts">0</span>
-                    </p>
-                </div>
-                <!-- Last Security Event -->
-                <div
-                    class="bg-white dark:bg-zinc-900/80 p-6 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-center">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">Last
-                        Security Event</h2>
-                    <p id="last_lock_event"
-                        class="text-zinc-800 dark:text-zinc-200 font-semibold text-sm whitespace-pre-line leading-relaxed">
-                        None
-                    </p>
-                </div>
-            </div>
-
-            <!-- Table Container -->
+            <!-- Security Events Table -->
             <div class="flex-1 bg-white dark:bg-zinc-900/60 dark:backdrop-blur-lg border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-sm overflow-hidden animate-fade-in flex flex-col min-h-0"
-                style="animation-delay: 0.2s;">
-
-                <!-- Table Header Top Bar -->
+                style="animation-delay: 0.1s;">
                 <div
                     class="px-6 py-5 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 flex justify-between items-center">
-                    <h3 class="font-bold text-lg text-zinc-900 dark:text-zinc-100">Security Events Log</h3>
+                    <h3 class="font-bold text-lg text-zinc-900 dark:text-zinc-100">Service Request History</h3>
                 </div>
 
-                <!-- Table Content -->
                 <div class="overflow-x-auto overflow-y-auto flex-1 custom-scrollbar">
                     <table class="w-full whitespace-nowrap text-left border-collapse">
                         <!-- TABLE HEADER -->
@@ -220,33 +174,31 @@
                             <tr>
                                 <th
                                     class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
+                                    ID</th>
+                                <th
+                                    class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
                                     Account Number</th>
                                 <th
                                     class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
-                                    Event</th>
+                                    Submission Element</th>
                                 <th
                                     class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
-                                    Balance</th>
-                                <th
-                                    class="py-4 px-6 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider text-center">
-                                    Date</th>
+                                    Submitted At</th>
                             </tr>
                         </thead>
-
                         <!-- TABLE BODY -->
-                        <tbody id="event_table"
+                        <tbody id="request_logs_table"
                             class="divide-y divide-zinc-200 dark:divide-zinc-800 bg-transparent text-sm text-zinc-800 dark:text-zinc-200">
-                            <!-- JS inserts rows -->
+                            <!-- JS will insert rows -->
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </div>
     </main>
 
-    <script src="./js/api.js"></script>
-    <script src="./js/admin_dashboard.js"></script>
+    <script src="{{ url_for('static',filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/admin_request_logs.js') }}"></script>
 </body>
 
 </html>

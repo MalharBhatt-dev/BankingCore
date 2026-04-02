@@ -11,8 +11,8 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 
-def create_app(config_class):
-    app = Flask(__name__)
+def create_app(config_class=Config):
+    app = Flask(__name__,static_folder="static",template_folder="template")
     CORS(app)
     limiter.init_app(app)
     app.config.from_object(config_class)

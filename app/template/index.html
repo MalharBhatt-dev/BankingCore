@@ -12,8 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="./frontend/src/css/output.css" rel="stylesheet">
-
+<link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -402,9 +401,9 @@
             }
         }
     </style>
-    <script src="./frontend/src/js/api.js"></script>
-    <script src="./frontend/src/js/login.js"></script>
-    <script src="./frontend/src/js/register.js"></script>
+    <script src="{{ url_for('static',filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/login.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/register.js') }}"></script>
 </body>
 
 </html>

@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded",function(){
         `;
         setTimeout(()=>{
         if(role === "admin"){
-            window.location.href = "./frontend/src/admin_dashboard.html";
+            window.location.href = "/pages/admin_dashboard.html";
         } else if(role === "employee"){
-            window.location.href = "./frontend/src/employee_dashboard.html";
+            window.location.href = "/pages/employee_dashboard.html";
         } else {
-            window.location.href = "./frontend/src/dashboard.html";
+            window.location.href = "/pages/dashboard.html";
         }
     },500); 
     }
@@ -94,7 +94,7 @@ async function login(event) {
     const rememberMe = document.getElementById("rememberMe").checked;
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/auth/login", {
+        const response = await fetch("/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -126,11 +126,11 @@ async function login(event) {
                     `;
                     setTimeout(()=>{
                         if(role === "admin"){
-                            window.location.href = "./frontend/src/admin_dashboard.html";
+                            window.location.href = "/pages/admin_dashboard.html";
                         } else if(role === "employee"){
-                            window.location.href = "./frontend/src/employee_dashboard.html";
+                            window.location.href = "/pages/employee_dashboard.html";
                         } else {
-                            window.location.href = "./frontend/src/dashboard.html";
+                            window.location.href = "/pages/dashboard.html";
                         }
                     },500); 
                 }
@@ -184,7 +184,7 @@ async function demoLogin(role){
     }
 
     try{
-        const response =  await fetch("http://127.0.0.1:5000/auth/login",{
+        const response =  await fetch("/auth/login",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify({
@@ -215,11 +215,11 @@ async function demoLogin(role){
                     `;
                     setTimeout(()=>{
                         if(role === "admin"){
-                            window.location.href = "./frontend/src/admin_dashboard.html";
+                            window.location.href = "/pages/admin_dashboard.html";
                         } else if(role === "employee"){
-                            window.location.href = "./frontend/src/employee_dashboard.html";
+                            window.location.href = "/pages/employee_dashboard.html";
                         } else {
-                            window.location.href = "./frontend/src/dashboard.html";
+                            window.location.href = "/pages/dashboard.html";
                         }
                     },500); 
                 }

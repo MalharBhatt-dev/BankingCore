@@ -4,10 +4,6 @@ from app.auth import generate_access_token,generate_refresh_token,login_required
 def register_routes(app):
     service = app.config["service"]
     request_service = app.config["request_service"]
-
-    @app.route("/")
-    def home():
-        return {"message":"Banking API is running."}
     
     @app.route("/accounts", methods=["POST"])
     def create_account():
@@ -319,3 +315,12 @@ def register_routes(app):
     #     service.account_close(g.account_number)
     #     return{"message":"Account is closed successdfully"}
     
+    from flask import render_template
+
+    @app.route("/")
+    def home():
+        return render_template("index.html")
+
+    @app.route("/pages/<path:path>")
+    def serve_page(path):
+        return render_template(path)
