@@ -9,17 +9,18 @@ warnings.filterwarnings("ignore")
 
 from app import create_app
 from app.config import TestConfig
-from database import init_db
+from app.extensions import db   
 
-
-@pytest.fixture
+@pytest.fixture(scope="session")
 def app():
-    app = create_app(TestConfig)
+    app = create_app("app.config.TestConfig")
     app.config.update({
         "TESTING":True
     })
     with app.app_context():
-        init_db()
+        db.create_all()
+        # yield app
+        # db.drop_all()
     return app
 
 @pytest.fixture
@@ -66,3 +67,14 @@ def auth_headers(create_user,login_user):
     acc = create_user()
     auth_token= login_user(acc)["access_token"]
     return {"Authorization":f"Bearer {auth_token}"}
+
+from app.extensions import limiter
+@pytest.fixture(autouse=True)
+def disable_rate_limit():
+    limiter.enabled = False
+
+@pytest.fixture(autouse=True)
+def cleanup(app):
+    yield
+    with app.app_context():
+        db.session.remove()

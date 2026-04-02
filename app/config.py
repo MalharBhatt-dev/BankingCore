@@ -34,4 +34,6 @@ class Config:
 class TestConfig(Config):
     TESTING = True
     LOG_TO_FILE = False
-    DATABASE = ":memory:"
+    RATELIMIT_ENABLED = False
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
