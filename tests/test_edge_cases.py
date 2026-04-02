@@ -160,33 +160,34 @@ def test_employee_reject_request(app, client, create_user, login_user):
         assert res.status_code == 200
 
 def test_banking_service_edge_cases(app):
-    service = app.config["service"]
-    request_service = app.config["request_service"]
-    
-    from exceptions.invalid_account_name_exception import InvalidAccountNameException
-    from exceptions.invalid_pin_exception import InvalidPINException
-    from exceptions.invalid_amount_exception import InvalidAmountException
-    import pytest
-    
-    with pytest.raises(InvalidAccountNameException):
-        service.create_account("", "1234", 100)
+    with app.app_context():
+        service = app.config["service"]
+        request_service = app.config["request_service"]
         
-    with pytest.raises(InvalidAccountNameException):
-        service.create_account("123", "1234", 100)
+        from exceptions.invalid_account_name_exception import InvalidAccountNameException
+        from exceptions.invalid_pin_exception import InvalidPINException
+        from exceptions.invalid_amount_exception import InvalidAmountException
+        import pytest
         
-    with pytest.raises(InvalidPINException):
-        service.create_account("Name", "", 100)
+        with pytest.raises(InvalidAccountNameException):
+            service.create_account("", "1234", 100)
+            
+        with pytest.raises(InvalidAccountNameException):
+            service.create_account("123", "1234", 100)
+            
+        with pytest.raises(InvalidPINException):
+            service.create_account("Name", "", 100)
+            
+        with pytest.raises(InvalidPINException):
+            service.create_account("Name", "12", 100)
+            
+        with pytest.raises(InvalidAmountException):
+            service.create_account("Name", "1234", -10)
         
-    with pytest.raises(InvalidPINException):
-        service.create_account("Name", "12", 100)
+        acc = service.create_account("Name", "1234", 100)
         
-    with pytest.raises(InvalidAmountException):
-        service.create_account("Name", "1234", -10)
-        
-    acc = service.create_account("Name", "1234", 100)
-    
-    with pytest.raises(Exception):
-        request_service.create_request(acc, acc, "", "desc")
+        with pytest.raises(Exception):
+            request_service.create_request(acc, acc, "", "desc")
 
 def test_create_account_missing_fields(client):
     res = client.post("/accounts", json={
