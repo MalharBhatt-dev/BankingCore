@@ -86,3 +86,14 @@ def test_logout_no_bearer_prefix(client):
         "Authorization": "InvalidToken"
     })
     assert res.status_code == 401
+
+def test_login_missing_fields(client):
+    res = client.post("/auth/login", json={})
+    assert res.status_code in [400, 401]
+
+def test_login_invalid_format(client):
+    res = client.post("/auth/login", json={
+        "account_number": None,
+        "pin": None
+    })
+    assert res.status_code in [400, 401]
