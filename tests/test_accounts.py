@@ -1,3 +1,10 @@
+import warnings
+warnings.filterwarnings("ignore")
+
+def test_home(client):
+    res = client.get("/")
+    assert res.status_code == 200
+
 def test_create_account(client):
     res = client.post("/accounts",json={
         "name":"Test",
@@ -5,8 +12,11 @@ def test_create_account(client):
         "account_type":"SAVINGS",
         "initial_deposit":1000
     })
-
     assert res.status_code == 201
+
+def test_empty_payload(client):
+    res=client.post("/accounts",json={})
+    assert res.status_code in [400,500]
 
 def test_get_balance(client,login_user,create_user):
     acc=create_user()
@@ -14,7 +24,6 @@ def test_get_balance(client,login_user,create_user):
     res = client.get(f"/accounts/{acc}",headers={
         "Authorization":f"Bearer {auth_token}"
     })
-
     assert res.status_code == 200
     assert "balance" in res.get_json()
 
@@ -28,11 +37,23 @@ def test_deposit(client,create_user,login_user):
     res = client.post(f"/accounts/{acc}/deposit",json={"amount":200},headers={"Authorization":f"Bearer {auth_token}"})
     assert res.status_code == 200
 
+def test_large_deposit(client,create_user,login_user):
+    acc=create_user()
+    auth_token=login_user(acc)["access_token"]
+    res=client.post(f"/accounts/{acc}/deposit",json={"amount":9999999999},headers={"Authorization":f"Bearer {auth_token}"})
+    assert res.status_code == 200
+
 def test_deposit_negative_value(client,create_user,login_user):
     acc=create_user()
     auth_token=login_user(acc)["access_token"]    
     res = client.post(f"/accounts/{acc}/deposit",json={"amount":-100},headers={"Authorization":f"Bearer {auth_token}"})
     assert res.status_code in [400,500]
+
+def test_deposit_missing_amount(client, create_user, login_user):
+    acc = create_user()
+    token = login_user(acc)["access_token"]
+    res = client.post(f"/accounts/{acc}/deposit",json={},headers={"Authorization": f"Bearer {token}"})
+    assert res.status_code in [400, 500]
 
 def test_withdraw(client,create_user,login_user):
     acc=create_user()
@@ -45,6 +66,12 @@ def test_withdraw_insufficient_balance(client,create_user,login_user):
     auth_token=login_user(acc)["access_token"]
     res = client.post(f"/accounts/{acc}/withdraw",json={"amount":9999999},headers={"Authorization":f"Bearer {auth_token}"})
     assert res.status_code != 200
+
+def test_withdraw_missing_amount(client, create_user, login_user):
+    acc = create_user()
+    token = login_user(acc)["access_token"]
+    res = client.post(f"/accounts/{acc}/withdraw",json={},headers={"Authorization": f"Bearer {token}"})
+    assert res.status_code in [400, 500]
 
 def test_account_access_violation(client,create_user,login_user):
     acc1=create_user()

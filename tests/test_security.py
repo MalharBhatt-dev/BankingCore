@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 def test_missing_token(client):
     res=client.get("/accounts/1001")
     assert res.status_code == 400

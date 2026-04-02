@@ -4,6 +4,9 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+import warnings
+warnings.filterwarnings("ignore")
+
 from app import create_app
 from app.config import TestConfig
 from database import init_db
@@ -36,6 +39,19 @@ def create_user(client):
     return _create
 
 @pytest.fixture
+def create_admin_user(client):
+    def _create(name="AdminTest",pin="1234",deposit="1000"):
+        res=client.post("/accounts",json={
+            "name":name,
+            "pin":pin,
+            "initial_deposit":deposit,
+            "account_type":"SAVINGS",
+            "role":"admin"
+        })
+        return res.get_json()["account_number"]
+    return _create
+
+@pytest.fixture
 def login_user(client):
     def _login(account_number,pin="1234"):
         res = client.post("/auth/login",json={
@@ -48,5 +64,5 @@ def login_user(client):
 @pytest.fixture
 def auth_headers(create_user,login_user):
     acc = create_user()
-    auth_token= login_user(acc)
+    auth_token= login_user(acc)["access_token"]
     return {"Authorization":f"Bearer {auth_token}"}

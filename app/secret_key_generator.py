@@ -1,2 +1,3 @@
 import secrets
-print(secrets.token_hex(32))
+def generate_secret_key():
+    return secrets.token_hex(32)

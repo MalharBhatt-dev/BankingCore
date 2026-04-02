@@ -1,7 +1,9 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 def test_login_success(client,create_user,login_user):
     acc = create_user()
     res = login_user(acc)
-
     assert "access_token" in res
 
 def test_login_fail(client):
@@ -9,17 +11,18 @@ def test_login_fail(client):
         "account_number":1003,
         "pin":"2345"
     })
-
     assert res.status_code == 401
 
 def test_login_invalid_pin(client,create_user):
     acc = create_user()
-
     res = client.post("/auth/login",json={
         "account_number":acc,
         "pin":"wrong"
     })
+    assert res.status_code == 401
 
+def test_login_missing_fields(client):
+    res=client.post("/auth/login",json={})
     assert res.status_code == 401
 
 def test_refresh_token(client,create_user):
@@ -28,21 +31,23 @@ def test_refresh_token(client,create_user):
         "account_number":acc,
         "pin":"1234"
     })
-
     data = res.get_json()
     refresh = data["refresh_token"]
-
     res2 = client.post("/auth/refresh",headers={
         "Authorization":f"Bearer {refresh}"
     })
-
     assert res2.status_code == 200
 
 def test_refresh_invalid_token(client):
     res = client.post("/auth/refresh",headers={
         "Authorization":f"Bearer invalidtoken"
     })
+    assert res.status_code == 401
 
+def test_refresh_invalid_header_format(client):
+    res = client.post("/auth/refresh", headers={
+        "Authorization": "InvalidHeader"
+    })
     assert res.status_code == 401
 
 def test_login_rate_limiter(client):
@@ -51,3 +56,21 @@ def test_login_rate_limiter(client):
             "account_number":9999,
             "pin":"wrong"
         })
+
+def test_logout_invalid_format(client):
+    res = client.post("/auth/logout", headers={
+        "Authorization": "Wrong format"
+    })
+    assert res.status_code == 401
+
+def test_logout_with_access_token(client, create_user, login_user):
+    acc = create_user()
+    token = login_user(acc)["access_token"]
+    res = client.post("/auth/logout", headers={
+        "Authorization": f"Bearer {token}"
+    })
+    assert res.status_code == 401
+
+def test_protected_route_no_token(client):
+    res=client.get("/admin/stats")
+    assert res.status_code==400

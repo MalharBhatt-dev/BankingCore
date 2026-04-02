@@ -21,7 +21,7 @@ def register_error_handlers(app):
     def handle_invalid_token(error):
         app.looger.warning("Invalid token used.")
         return {"error":str(error)},401
-
+    
     @app.errorhandler(Exception)
     def handle_system_exceptions(error):
         app.logger.error(f"System error: {str(error)}")
