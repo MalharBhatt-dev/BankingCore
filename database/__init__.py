@@ -56,15 +56,14 @@ CREATE TABLE IF NOT EXISTS service_requests (
 """)
     
     c.execute("""
-    CREATE TABLE IF NOT EXISTS request_submissions (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        request_id INTEGER,
-        account_number INTEGER,
-        data TEXT,
-        status TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-    """)
+CREATE TABLE IF NOT EXISTS request_submissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    request_id INTEGER NOT NULL,
+    account_number INTEGER NOT NULL,
+    submission_data TEXT NOT NULL,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+""")
 
     c.execute("PRAGMA table_info(accounts)")
     columns = [row[1] for row in c.fetchall()]
