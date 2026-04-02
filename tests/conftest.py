@@ -48,5 +48,5 @@ def login_user(client):
 @pytest.fixture
 def auth_headers(create_user,login_user):
     acc = create_user()
-    tokens= login_user(acc)
-    return {"Authorization":f"Bearer {tokens["access_token"]}"}
+    auth_token= login_user(acc)
+    return {"Authorization":f"Bearer {auth_token}"}
