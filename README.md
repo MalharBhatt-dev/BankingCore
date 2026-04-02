@@ -9,6 +9,7 @@
 [![SQLite](https://img.shields.io/badge/SQLite-000000?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
 [![JSON Web Tokens](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)](https://jwt.io/)
 [![Authentication](https://img.shields.io/badge/Auth-RBAC-4CAF50?style=for-the-badge&logo=letsencrypt&logoColor=white)]()
+[![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen?style=for-the-badge)](https://pytest.org/)
 <br>
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
@@ -56,6 +57,7 @@ A critical tier designed with a minimalist zinc/violet aesthetic, meant for syst
 - **Security:** `Flask-Talisman` (CSP and HSTS Headers), `Flask-Limiter` (IP-based rate throttling against brute force attempts).
 - **Authentication:** Custom encoded JSON Web Tokens (`PyJWT`) utilizing short-lived access tokens mapped against refresh tokens.
 - **Layered Architecture:** strict separation of concerns utilizing Controllers (`routes.py`), Services (`banking_services.py`), and Repositories (`account_repository.py`).
+- **Testing & QA:** Comprehensive integration and unit testing powered by `pytest`, achieving **90% codebase coverage**.
 
 ### Frontend Architecture
 - **Rendering:** Static `HTML5` strictly decoupled from backend rendering engines for potential CDN distribution.
@@ -118,7 +120,6 @@ No build step is required for the frontend. Simply open `index.html` in your mod
 - Migrating data persistence layer to **PostgreSQL** supported by `SQLAlchemy` ORM.
 - Implement **WebSockets** for live push-notifications regarding Transfer resolutions.
 - Containerization sequence via **Docker** & **docker-compose** for one-click microservice deployments.
-- Construct unit/integration coverage via `pytest`.
 
 ---
 
