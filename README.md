@@ -19,6 +19,11 @@
 
 ---
 
+## 🚀 Live Demo
+**Experience the platform live:** [👉 https://bankingcore.onrender.com](https://bankingcore.onrender.com)
+
+---
+
 ## 📖 Overview
 
 **BankingCore** is a comprehensive, tier-based financial management platform developed to simulate real-world enterprise banking workflows. Built using a robust **Python/Flask** backend REST API and a lightning-fast static frontend powered by **Tailwind CSS v4** and native JavaScript. 
@@ -27,7 +32,27 @@ This project aims to showcase production-ready engineering patterns, featuring *
 
 ---
 
-## ✨ System Architecture & Core Features
+## ✨ Features
+
+- **Account & Auth:** Secure account creation and JWT-based authentication.
+- **Financial Operations:** Real-time Deposit, Withdraw, and P2P Transfers.
+- **Transaction Ledgers:** Comprehensive, immutable transaction history tracking.
+- **Role-Based Dashboards:** Specialized views tailored for User, Employee, and Admin access levels.
+- **Service Workflow:** Asynchronous service request pipeline managed by Bank Operations.
+- **Admin Controls:** High-level system oversight including manual account lock/unlock capabilities.
+- **Security-First:** Multi-layer rate limiting, sandboxing, and strict HTTP security headers.
+
+## 🏗️ Architecture
+
+- **Backend:** Flask (REST API)
+- **Frontend:** HTML, TailwindCSS, Vanilla JS
+- **Auth:** JWT-based stateless authentication
+- **Roles:** User / Employee / Admin
+- **Deployment:** Render (Monolithic Full-Stack)
+
+---
+
+## 🏦 Role-Based Workflows
 
 BankingCore supports three distinct hierarchical roles, each with specialized interfaces and API restrictions.
 
