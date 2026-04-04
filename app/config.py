@@ -17,11 +17,14 @@ class Config:
     if not ADMIN_KEY:
         raise ValueError("ADMIN_KEY environment variable is not set")
     
-    uri= os.getenv("DATABASE_URL")
-    if uri and uri.startswith("postgres://"):
-        uri=uri.replace("postgres://","postgresql://",1)
+    uri = os.getenv("DATABASE_URL")
+    if not uri:
+        raise RuntimeError("❌ DATABASE_URL is missing")
 
-    SQLALCHEMY_DATABASE_URI = uri or "sqlite:///local.db"
+    if uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+
+    SQLALCHEMY_DATABASE_URI = uri
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     DEBUG = os.getenv("FLASK_DEBUG","0") == "1"
