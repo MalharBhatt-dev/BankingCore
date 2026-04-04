@@ -11,7 +11,7 @@ def register_routes(app):
     
     @app.route("/health")
     def health():
-        return {"status": "healthy"}, 200
+        return "healthy", 200
 
     @app.route("/accounts", methods=["POST"])
     def create_account():

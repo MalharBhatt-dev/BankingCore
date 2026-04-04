@@ -11,4 +11,4 @@ ENV PORT=8080
 
 EXPOSE 8080
 
-CMD gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0
+CMD gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120

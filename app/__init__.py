@@ -18,7 +18,7 @@ def create_app(config_class=Config):
         print("Flask created")
     
         CORS(app)
-        limiter.init_app(app)
+        # limiter.init_app(app)
         app.config.from_object(config_class)
         print("config loaded")
         db.init_app(app)
