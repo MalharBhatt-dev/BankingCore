@@ -12,7 +12,7 @@ def init_db():
 
     c.execute("""
 CREATE TABLE IF NOT EXISTS accounts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     account_number INTEGER NOT NULL UNIQUE,
     account_holder_name TEXT NOT NULL,
     pin_hash TEXT NOT NULL,
@@ -20,8 +20,10 @@ CREATE TABLE IF NOT EXISTS accounts (
     created_at TEXT NOT NULL,
     failed_attempts INTEGER DEFAULT 0,
     is_locked INTEGER DEFAULT 0,
-    role TEXT DEFAULT 'user'   -- ✅ ADD HERE
-)
+    role TEXT DEFAULT 'user',
+    account_type TEXT DEFAULT 'savings',
+    employee_id TEXT
+);
 """)
     c.execute("""
 

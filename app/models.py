@@ -4,15 +4,17 @@ from datetime import datetime
 class Account(db.Model):
     __tablename__ = "accounts"
 
-    account_number = db.Column(db.Integer, primary_key=True)
-    account_holder_name = db.Column(db.String(100))
-    pin_hash = db.Column(db.String(255))
-    balance = db.Column(db.Float)
+    id = db.Column(db.Integer, primary_key=True)
+    account_number = db.Column(db.Integer, unique=True, nullable=False)
+    account_holder_name = db.Column(db.String(100), nullable=False)
+    pin_hash = db.Column(db.String(255), nullable=False)
+    balance = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     failed_attempts = db.Column(db.Integer, default=0)
     is_locked = db.Column(db.Boolean, default=False)
-    role = db.Column(db.String(20))
-
+    role = db.Column(db.String(20), default="user")
+    account_type = db.Column(db.String(20), default="savings")
+    employee_id = db.Column(db.String(50))
 
 class Transaction(db.Model):
     __tablename__ = "transactions"
