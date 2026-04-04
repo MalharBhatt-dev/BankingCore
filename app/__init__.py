@@ -56,14 +56,16 @@ def create_app(config_class=Config):
             "script-src":["'self'","'unsafe-inline'"],
             "style-src":["'self'","'unsafe-inline'"]
             }
-
-        Talisman(app,content_security_policy=csp,force_https=False)
+        
+        #temporary commenting the talisman.
+        # Talisman(app,content_security_policy=csp,force_https=False)
         #register routes and errors
         from app.routes import register_routes
         from app.errors import register_error_handlers
 
         register_routes(app)
         register_error_handlers(app)
+        print("Routes are registered.")
 
         return app
     
