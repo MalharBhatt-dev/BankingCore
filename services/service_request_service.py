@@ -65,9 +65,9 @@ class ServiceRequestService:
         return result
 
 
-    def get_pending_requests(self,account_number):
+    def get_pending_requests(self,employee_id):
 
-        rows = self.repo.get_pending_requests(account_number)
+        rows = self.repo.get_pending_requests(employee_id)
 
         result = []
 
