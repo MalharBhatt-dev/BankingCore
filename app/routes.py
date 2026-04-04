@@ -320,7 +320,7 @@ def register_routes(app):
     @app.route("/")
     def home():
         try:
-            return render_template("index.html")
+            return render_template("/index.html")
         except Exception as e:
             return f"ERROR: {str(e)}", 500
 

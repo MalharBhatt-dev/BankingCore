@@ -8,7 +8,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     account = getAccountNumber();
     if (!account) {
-        window.location.href = "index.html";
+        window.location.href = "/pages/index.html";
         return;
     }
     document.getElementById("sender_account_display").innerText = account;
