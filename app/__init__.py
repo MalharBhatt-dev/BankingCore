@@ -23,8 +23,8 @@ def create_app(config_class=Config):
         print("config loaded")
         db.init_app(app)
         print("db inititaled.")
-        migrate.init_app(app,db)
-        print("migration completed.")
+        # migrate.init_app(app,db)
+        # print("migration completed.")
         #dependency injection
         repo = AccountRepository()
         service = BankingServices(repo,app.config["ADMIN_KEY"],app.logger)
