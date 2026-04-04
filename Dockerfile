@@ -1,18 +1,14 @@
-# Use official python image
 FROM python:3.11-slim
 
-# set working directory
 WORKDIR /app
 
-# copy project files
 COPY . .
 
-# install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# DO NOT hardcode port
-# (optional but safe)
+# 🔥 VERY IMPORTANT
+ENV PORT=8080
+
 EXPOSE 8080
 
-# run with dynamic Railway port
-CMD ["sh", "-c", "gunicorn wsgi:app --bind 0.0.0.0:$PORT"]
+CMD gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0
