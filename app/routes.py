@@ -1,5 +1,9 @@
 from flask import request,jsonify,g,render_template
 from app.extensions import limiter
+from repository.account_repository import AccountRepository
+from repository.service_request_repository import ServiceRequestRepository
+from services.banking_services import BankingServices
+from services.service_request_service import ServiceRequestService
 from app.auth import generate_access_token,generate_refresh_token,login_required,role_required,verify_token
 def register_routes(app):
     service = app.config["service"]
@@ -338,3 +342,13 @@ def register_routes(app):
     #         return render_template(path)
     #     except Exception as e:
     #         return str(e), 500
+
+def get_service(app):
+    if not app.config["service"]:
+        repo = AccountRepository()
+        app.config["service"] = BankingServices(
+            repo,app.config["ADMIN_KEY"],app.logger
+        )
+    return app.config["service"]
+
+service = get_service()
