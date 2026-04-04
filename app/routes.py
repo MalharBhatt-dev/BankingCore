@@ -7,7 +7,11 @@ def register_routes(app):
     
     @app.route("/")
     def home():
-        return "🚀 BankingCore API is LIVE"
+        return "OK", 200
+    
+    @app.route("/health")
+    def health():
+        return {"status": "healthy"}, 200
 
     @app.route("/accounts", methods=["POST"])
     def create_account():
@@ -328,9 +332,9 @@ def register_routes(app):
     #     except Exception as e:
     #         return f"ERROR: {str(e)}", 500
 
-    @app.route("/pages/<path:path>")
-    def serve_page(path):
-        try:
-            return render_template(path)
-        except Exception as e:
-            return str(e), 500
+    # @app.route("/pages/<path:path>")
+    # def serve_page(path):
+    #     try:
+    #         return render_template(path)
+    #     except Exception as e:
+    #         return str(e), 500
