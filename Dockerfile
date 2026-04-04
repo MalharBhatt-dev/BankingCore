@@ -10,8 +10,9 @@ COPY . .
 # install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# expose correct port (IMPORTANT)
-EXPOSE 8000
+# DO NOT hardcode port
+# (optional but safe)
+EXPOSE 8080
 
-# run with gunicorn using Railway PORT
-CMD ["sh", "-c", "gunicorn wsgi:app --bind 0.0.0.0:${PORT:-8000}"]
+# run with dynamic Railway port
+CMD ["sh", "-c", "gunicorn wsgi:app --bind 0.0.0.0:$PORT"]
