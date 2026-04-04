@@ -1,7 +1,7 @@
-from app import create_app
-from app.config import Config
+from flask import Flask
 
-app = create_app(Config)
+app = Flask(__name__)
 
-# if __name__ == "__main__":
-#     app.run(debug=app.config["DEBUG"])
+@app.route("/")
+def home():
+    return "🔥 WORKING FROM RAILWAY"
