@@ -1,4 +1,4 @@
-const API_BASE = "bankingcore.up.railway.app";
+const API_BASE = "";
 
 function getAccountNumber(){
     return localStorage.getItem("account_number");
