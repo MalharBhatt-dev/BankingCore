@@ -322,7 +322,7 @@ def register_routes(app):
         try:
             return render_template("index.html")
         except Exception as e:
-            return str(e), 500
+            return f"ERROR: {str(e)}", 500
 
     @app.route("/pages/<path:path>")
     def serve_page(path):
