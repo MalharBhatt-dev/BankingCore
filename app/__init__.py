@@ -12,7 +12,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 def create_app(config_class=Config):
-    app = Flask(__name__,static_folder="static",template_folder="template")
+    app = Flask(__name__,static_folder="static",template_folder="templates")
    
     CORS(app)
     limiter.init_app(app)

@@ -319,8 +319,14 @@ def register_routes(app):
 
     @app.route("/")
     def home():
-        return render_template("index.html")
+        try:
+            return render_template("index.html")
+        except Exception as e:
+            return str(e), 500
 
     @app.route("/pages/<path:path>")
     def serve_page(path):
-        return render_template(path)
+        try:
+            return render_template(path)
+        except Exception as e:
+            return str(e), 500
