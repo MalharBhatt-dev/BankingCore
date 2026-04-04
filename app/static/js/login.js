@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded",function(){
         `;
         setTimeout(()=>{
         if(role === "admin"){
-            window.location.href = "/pages/admin_dashboard.html";
+            window.location.href = "admin_dashboard.html";
         } else if(role === "employee"){
-            window.location.href = "/pages/employee_dashboard.html";
+            window.location.href = "employee_dashboard.html";
         } else {
-            window.location.href = "/pages/dashboard.html";
+            window.location.href = "dashboard.html";
         }
     },500); 
     }
@@ -126,11 +126,11 @@ async function login(event) {
                     `;
                     setTimeout(()=>{
                         if(role === "admin"){
-                            window.location.href = "/pages/admin_dashboard.html";
+                            window.location.href = "admin_dashboard.html";
                         } else if(role === "employee"){
-                            window.location.href = "/pages/employee_dashboard.html";
+                            window.location.href = "employee_dashboard.html";
                         } else {
-                            window.location.href = "/pages/dashboard.html";
+                            window.location.href = "dashboard.html";
                         }
                     },500); 
                 }
@@ -215,11 +215,11 @@ async function demoLogin(role){
                     `;
                     setTimeout(()=>{
                         if(role === "admin"){
-                            window.location.href = "/pages/admin_dashboard.html";
+                            window.location.href = "admin_dashboard.html";
                         } else if(role === "employee"){
-                            window.location.href = "/pages/employee_dashboard.html";
+                            window.location.href = "employee_dashboard.html";
                         } else {
-                            window.location.href = "/pages/dashboard.html";
+                            window.location.href = "dashboard.html";
                         }
                     },500); 
                 }

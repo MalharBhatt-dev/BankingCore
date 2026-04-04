@@ -8,11 +8,11 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
     if (!getRefreshToken()) {
-        window.location.href = "/pages/index.html";
+        window.location.href = "index.html";
         return;
     }
     if (!getAccountNumber()) {
-        window.location.href = "/pages/index.html";
+        window.location.href = "index.html";
         return;
     }
     await loadLastTransaction();
