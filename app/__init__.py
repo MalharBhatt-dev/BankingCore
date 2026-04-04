@@ -10,6 +10,7 @@ from app.config import Config
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+
 def create_app(config_class=Config):
     app = Flask(__name__,static_folder="static",template_folder="template")
    
