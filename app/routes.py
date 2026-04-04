@@ -1,10 +1,14 @@
-from flask import request,jsonify,g
+from flask import request,jsonify,g,render_template
 from app.extensions import limiter
 from app.auth import generate_access_token,generate_refresh_token,login_required,role_required,verify_token
 def register_routes(app):
     service = app.config["service"]
     request_service = app.config["request_service"]
     
+    @app.route("/")
+    def home():
+        return "🚀 BankingCore API is LIVE"
+
     @app.route("/accounts", methods=["POST"])
     def create_account():
         data = request.get_json(silent=True) or {}
@@ -315,14 +319,14 @@ def register_routes(app):
     #     service.account_close(g.account_number)
     #     return{"message":"Account is closed successdfully"}
     
-    from flask import render_template
+    
 
-    @app.route("/")
-    def home():
-        try:
-            return render_template("/index.html")
-        except Exception as e:
-            return f"ERROR: {str(e)}", 500
+    # @app.route("/")
+    # def home():
+    #     try:
+    #         return render_template("/index.html")
+    #     except Exception as e:
+    #         return f"ERROR: {str(e)}", 500
 
     @app.route("/pages/<path:path>")
     def serve_page(path):
