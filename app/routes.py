@@ -9,9 +9,9 @@ def register_routes(app):
     service = app.config["service"]
     request_service = app.config["request_service"]
     
-    @app.route("/")
-    def home():
-        return "OK", 200
+    # @app.route("/")
+    # def home():
+    #     return "OK", 200
     
     @app.route("/health")
     def health():
@@ -329,26 +329,26 @@ def register_routes(app):
     
     
 
-    # @app.route("/")
-    # def home():
-    #     try:
-    #         return render_template("/index.html")
-    #     except Exception as e:
-    #         return f"ERROR: {str(e)}", 500
+    @app.route("/")
+    def home():
+        try:
+            return render_template("/index.html")
+        except Exception as e:
+            return f"ERROR: {str(e)}", 500
 
-    # @app.route("/pages/<path:path>")
-    # def serve_page(path):
-    #     try:
-    #         return render_template(path)
-    #     except Exception as e:
-    #         return str(e), 500
+    @app.route("/pages/<path:path>")
+    def serve_page(path):
+        try:
+            return render_template(path)
+        except Exception as e:
+            return str(e), 500
 
-    def get_service(app):
-        if not app.config["service"]:
-            repo = AccountRepository()
-            app.config["service"] = BankingServices(
-                repo,app.config["ADMIN_KEY"],app.logger
-            )
-        return app.config["service"]
+    # def get_service(app):
+    #     if not app.config["service"]:
+    #         repo = AccountRepository()
+    #         app.config["service"] = BankingServices(
+    #             repo,app.config["ADMIN_KEY"],app.logger
+    #         )
+    #     return app.config["service"]
     
-    service = get_service(app)
+    # service = get_service(app)

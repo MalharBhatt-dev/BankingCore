@@ -27,18 +27,18 @@ def create_app(config_class=Config):
         # print("migration completed.")
         
         #dependency injection
-        # repo = AccountRepository()
-        # service = BankingServices(repo,app.config["ADMIN_KEY"],app.logger)
-        # app.config["service"] = service
+        repo = AccountRepository()
+        service = BankingServices(repo,app.config["ADMIN_KEY"],app.logger)
+        app.config["service"] = service
 
         #dependecy injection for service_request
-        # request_repo = ServiceRequestRepository()
-        # request_service = ServiceRequestService(request_repo,app.logger)
-        # app.config["request_service"] = request_service
+        request_repo = ServiceRequestRepository()
+        request_service = ServiceRequestService(request_repo,app.logger)
+        app.config["request_service"] = request_service
 
-        app.config["service"] = None
-        app.config["request_service"] = None
-        
+        # app.config["service"] = None
+        # app.config["request_service"] = None
+
         #loggin setup
         formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
 
