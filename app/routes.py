@@ -343,12 +343,12 @@ def register_routes(app):
     #     except Exception as e:
     #         return str(e), 500
 
-def get_service(app):
-    if not app.config["service"]:
-        repo = AccountRepository()
-        app.config["service"] = BankingServices(
-            repo,app.config["ADMIN_KEY"],app.logger
-        )
-    return app.config["service"]
-
-service = get_service()
+    def get_service(app):
+        if not app.config["service"]:
+            repo = AccountRepository()
+            app.config["service"] = BankingServices(
+                repo,app.config["ADMIN_KEY"],app.logger
+            )
+        return app.config["service"]
+    
+    service = get_service(app)
