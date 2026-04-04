@@ -18,7 +18,6 @@ def create_app(config_class=Config):
         print("Flask created")
     
         CORS(app)
-        # limiter.init_app(app)
         app.config.from_object(config_class)
         print("config loaded")
         db.init_app(app)
@@ -35,9 +34,6 @@ def create_app(config_class=Config):
         request_repo = ServiceRequestRepository()
         request_service = ServiceRequestService(request_repo,app.logger)
         app.config["request_service"] = request_service
-
-        # app.config["service"] = None
-        # app.config["request_service"] = None
 
         #loggin setup
         formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
@@ -61,8 +57,9 @@ def create_app(config_class=Config):
             "style-src":["'self'","'unsafe-inline'"]
             }
         
-        #temporary commenting the talisman.
-        # Talisman(app,content_security_policy=csp,force_https=False)
+        limiter.init_app(app)
+        Talisman(app,content_security_policy=csp,force_https=False)
+
         #register routes and errors
         from app.routes import register_routes
         from app.errors import register_error_handlers
