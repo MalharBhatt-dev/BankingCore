@@ -224,9 +224,9 @@ case "CHANGE_ACCOUNT_NAME":
 }
 
 async function submitRequest(query_type){
-    document.getElementById("dynamic_submit_button").disabled = true;
-    document.getElementById("btnText").textContent = "Logging in...";
-    document.getElementById("spinner").classList.remove("hidden");
+    // document.getElementById("dynamic_submit_button").disabled = true;
+    // document.getElementById("btnText").textContent = "Logging in...";
+    // document.getElementById("spinner").classList.remove("hidden");
 const fields = document.querySelectorAll("#dynamic_form_fields input, #dynamic_form_fields textarea");
 
 const payload = {};
