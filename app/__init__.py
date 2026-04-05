@@ -12,16 +12,15 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 def create_app(config_class=Config):
-    print("starting app...")
     try:
         app = Flask(__name__,static_folder="static",template_folder="templates")
-        print("Flask created")
     
         CORS(app)
         app.config.from_object(config_class)
-        print("config loaded")
+            
+        limiter.init_app(app)
         db.init_app(app)
-        print("db inititaled.")
+
         # migrate.init_app(app,db)
         # print("migration completed.")
         
@@ -37,7 +36,6 @@ def create_app(config_class=Config):
 
         #loggin setup
         formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
-
         if not app.config.get("TESTING"):
             log_dir = os.path.dirname(app.config["LOG_FILE"])
             if log_dir :
@@ -54,8 +52,6 @@ def create_app(config_class=Config):
             "script-src":["'self'","'unsafe-inline'"],
             "style-src":["'self'","'unsafe-inline'"]
             }
-        
-        limiter.init_app(app)
         Talisman(app,content_security_policy=csp,force_https=False)
 
         #register routes and errors
@@ -64,7 +60,6 @@ def create_app(config_class=Config):
 
         register_routes(app)
         register_error_handlers(app)
-        print("Routes are registered.")
 
         return app
     
