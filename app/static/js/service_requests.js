@@ -225,8 +225,7 @@ break;
 
 async function submitRequest(query_type){
 
-const fields = document
-.querySelectorAll("#dynamic_form_fields input, #dynamic_form_fields textarea");
+const fields = document.querySelectorAll("#dynamic_form_fields input, #dynamic_form_fields textarea");
 
 const payload = {};
 
