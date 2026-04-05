@@ -277,19 +277,21 @@
                             </table>
                         </div>
                     </div>
-                    <!-- Dynamic Request Form -->
-                    <div id="request_form_container" class="hidden fixed inset-0 bg-gray-900/60 dark:bg-gray-950/80 backdrop-blur-xl items-center justify-center z-50 transition-opacity p-4">
-                        <div class="bg-white dark:bg-gray-900 p-8 rounded-[2rem] shadow-2xl w-full max-w-md relative border border-gray-200 dark:border-gray-700 animate-[fadeIn_0.3s_ease-out] dark:shadow-black/50">
-                            <button onclick="closeLoginModal()" class="close-modal absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors">
-                                ✕
-                            </button>
-                            <div class="mb-8">
-                                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Complete Request</h2>
-                                <p class="text-gray-500 dark:text-gray-400 text-sm">Sign in to your dashboard</p>
-                            </div>
-                            <form class="flex flex-col gap-5">
-                                <div id="dynamic_form_fields" class="relative group"></div>
-                                <button id="dynamic_submit_button" class="btn-glow w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-2">
+                </div>
+            </div>
+            <!-- Dynamic Request Form -->
+            <div id="request_form_container" class="hidden fixed inset-0 bg-gray-900/60 dark:bg-gray-950/80 backdrop-blur-xl items-center justify-center z-50 transition-opacity p-4">
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-[2rem] shadow-2xl w-full max-w-md relative border border-gray-200 dark:border-gray-700 animate-[fadeIn_0.3s_ease-out] dark:shadow-black/50">
+                    <button onclick="closeLoginModal()" class="close-modal absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors">
+                        ✕
+                    </button>
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Complete Request</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">Sign in to your dashboard</p>
+                    </div>
+                    <form class="flex flex-col gap-5">
+                        <div id="dynamic_form_fields" class="relative group"></div>
+                        <button id="dynamic_submit_button" class="btn-glow w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-2">
                                     <span id="btnText">Submit →</span>
                                     <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
@@ -298,19 +300,11 @@
                                     </svg>
                                 </button>
                                 <button onclick="location.reload()" class="btn-glow w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-2">
-                                    <span id="btnText">Cancel →</span>
-                                    <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-
-                                        </circle>
-                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
-                                    </svg>
+                                    Cancel →
                                 </button>
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
         </div>
     </main>
 
