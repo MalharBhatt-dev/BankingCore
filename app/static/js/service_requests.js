@@ -121,6 +121,7 @@ currentRequestId = requestId;
 const table = document.getElementById("dynamic_table");
 const container = document.getElementById("request_form_container");
 const fields = document.getElementById("dynamic_form_fields");
+const button = document.getElementById("dynamic_submit_button");
 
 table.classList.add("hidden");
 container.classList.remove("hidden");
@@ -135,11 +136,9 @@ fields.innerHTML = `
 <input type="password" id="new_pin" placeholder=" " class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all font-medium">
 <label class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-cyan-500">New PIN</label>
 <button type="button" id="toggleIcon" onclick="togglePin()" class="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl">👁️</button>
-<button
-onclick="submitRequest('CHANGE_PIN')" class="mt-2 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700">
-Submit
-</button>
 `;
+
+button.onclick("submitRequest('CHANGE_PIN')");
 
 break;
 
@@ -148,11 +147,8 @@ case "CHANGE_ACCOUNT_NAME":
 fields.innerHTML = `
 <input type="text" id="new_name" class="peer w-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-2xl px-5 pt-7 pb-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all font-medium">
 <label class="absolute left-5 top-2.5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-cyan-500">New Account Name</label>
-<button
-onclick="submitRequest('CHANGE_ACCOUNT_NAME')" class="mt-2 bg-blue-900 text-white px-4 py-2 rounded-lg  hover:bg-blue-700">
-Submit
-</button>
 `;
+button.onclick("submitRequest('CHANGE_ACCOUNT_NAME')");
 
 break;
 

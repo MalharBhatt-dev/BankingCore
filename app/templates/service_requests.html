@@ -289,6 +289,14 @@
                             </div>
                             <form class="flex flex-col gap-5">
                                 <div id="dynamic_form_fields" class="relative group"></div>
+                                <button id="dynamic_submit_button" class="btn-glow w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-2">
+                                    <span id="btnText">Submit →</span>
+                                    <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                                        </circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 00-4 4H4z"></path>
+                                    </svg>
+                                </button>
                                 <button onclick="location.reload()" class="btn-glow w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-cyan-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-2">
                                     <span id="btnText">Cancel →</span>
                                     <svg id="spinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24">
