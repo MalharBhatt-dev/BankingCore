@@ -276,9 +276,19 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!-- Dynamic Request Form -->
+                        <div id="request_form_container" class="hidden p-6">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl">
+                                <h3 class="text-lg font-bold mb-4">Complete Request</h3>
+                                <div id="dynamic_form_fields"></div>
+                                <button onclick="location.reload()"
+                                    class="mt-4 bg-gray-500 text-white px-4 py-2 rounded">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
