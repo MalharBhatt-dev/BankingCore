@@ -1,11 +1,27 @@
-document.addEventListener("DOMContentLoaded"
-    ,() => {
+document.addEventListener("DOMContentLoaded",() => {
         const theme = localStorage.getItem("theme");
         if (theme === "dark") {
             document.documentElement.classList.add("dark");document.getElementById("themeBtn").textContent = "☀️";
         }
-     loadRequests();
+        loadRequests();
     });
+
+window.onclick = function(e){
+    const modal = document.getElementById("request_form_container");
+    if(e.target === modal){
+        closeLoginModal();
+    }
+}
+
+function openRequestSubmitModal(){
+    document.getElementById("request_form_container").classList.remove("hidden");
+    document.getElementById("request_form_container").classList.add("flex");
+}
+
+function closeRequestSubmitModal(){
+    document.getElementById("request_form_container").classList.add("hidden");
+    document.getElementById("request_form_container").classList.remove("flex");
+}
 
 async function createRequest(){
 
@@ -118,13 +134,10 @@ function openRequestForm(requestId, queryType){
 
 currentRequestId = requestId;
 
-const table = document.getElementById("dynamic_table");
-const container = document.getElementById("request_form_container");
+openRequestSubmitModal();
+
 const fields = document.getElementById("dynamic_form_fields");
 const button = document.getElementById("dynamic_submit_button");
-
-table.classList.add("hidden");
-container.classList.remove("hidden");
 
 fields.innerHTML = "";
 
@@ -270,3 +283,5 @@ async function updateAccount(query_type, payload){
         return null;
     }
 }
+
+
