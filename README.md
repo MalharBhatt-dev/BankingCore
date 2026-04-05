@@ -20,7 +20,7 @@
 ---
 
 ## 🚀 Live Demo
-**Experience the platform live:** [👉 https://bankingcore.onrender.com](https://bankingcore.onrender.com)
+**Experience the platform live:** [👉 https://bankingcore-production.up.railway.app](https://bankingcore-production.up.railway.app)
 
 ---
 
