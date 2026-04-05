@@ -83,10 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Simulated dynamic data in mockup
     setTimeout(() => {
+        const accountShimmers = document.querySelectorAll('.dynamic-account-stat')
+        accountShimmers.forEach(acc => {
+            acc.classList.remove('shimmer');
+            acc.innerHTML = `<span class="text-sm font-bold text-gray-900 dark:text-white">•••• •••• 4562</span>`;
+        })
+
         const balanceShimmers = document.querySelectorAll('.dynamic-balance');
         balanceShimmers.forEach(el => {
             el.classList.remove('shimmer');
-            el.innerHTML = '<span class="text-3xl font-bold text-gray-900 dark:text-white">$24,562.00</span>';
+            el.innerHTML = '<span class="text-3xl font-bold text-gray-900 dark:text-white">₹24,562.00</span>';
         });
     }, 2000); // 2 second mock load
 });
