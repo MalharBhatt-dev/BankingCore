@@ -38,18 +38,16 @@ def create_app(config_class=Config):
         #loggin setup
         formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
 
-        if not app.logger.handlers:
-            if not app.config.get("TESTING"):
-                log_dir = os.path.dirname(app.config["LOG_FILE"])
-                if log_dir :
-                    os.makedirs(log_dir,exist_ok=True)
-                handler = RotatingFileHandler(app.config.get("LOG_FILE","banking_core.log"),maxBytes=10240,backupCount=5)
-            else : 
-                handler = logging.StreamHandler()
-
-            handler.setFormatter(formatter)
-            app.logger.addHandler(handler)
-            app.logger.setLevel(app.config["LOG_LEVEL"])
+        if not app.config.get("TESTING"):
+            log_dir = os.path.dirname(app.config["LOG_FILE"])
+            if log_dir :
+                os.makedirs(log_dir,exist_ok=True)
+            handler = RotatingFileHandler(app.config.get("LOG_FILE","banking_core.log"),maxBytes=10240,backupCount=5)
+        else : 
+            handler = logging.StreamHandler()
+        handler.setFormatter(formatter)
+        app.logger.addHandler(handler)
+        app.logger.setLevel(app.config["LOG_LEVEL"])
 
         csp={
             "default-src":["'self'"],
